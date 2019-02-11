@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.android.homepharmacy">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".MainActivity"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.LoginActivity"
+            android:label="@string/account_login" />
+        <activity
+            android:name=".Activity.RegistrationActivity"
+            android:label="@string/register_user" />
+        <activity
+            android:name=".Activity.StartActivity"
+            android:label="@string/welcome" />
+        <activity android:name=".Activity.HomeActivity"
+            android:label="@string/welcome">
+
+        </activity>
+        <activity android:name=".Activity.DrugsActivity"
+            android:label="@string/home_drugs"></activity>
+        <activity android:name=".Activity.DrugActivity"></activity>
+        <provider
+            android:authorities="com.example.android.homepharmacy"
+            android:name="com.example.android.homepharmacy.Database.HPContentProvider"
+            android:exported="false" />
+    </application>
+
+
+</manifest>

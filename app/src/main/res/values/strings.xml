@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Home Pharmacy</string>
+    <string name="account_login">Account Login</string>
+    <string name="login">Login</string>
+    <string name="user_name">Username</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="register_user">Register User</string>
+    <string name="register">Register</string>
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="by_programer"> © Ameera Hamam \n Noujod Al-Shaaer</string>
+    <string name="welcome">WELCOME</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="reminder_question">Select a Reminder Question:</string>
+    <string name="reminder_answer">your Reminder Answer</string>
+    <string name="drug_c_name">commercial name</string>
+    <string name="drug_s_name">scientific name</string>
+    <string name="concentration">concentration</string>
+    <string name="home_drugs">Home Drugs</string>
+    <string name="drugs">Drugs</string>
+    <string name="members">Members</string>
+    <string name="search">Search</string>
+    <string name="first_aid">First Aid</string>
+
+    <string-array name="array_question">
+
+        <item>What primary school did you attend?</item>
+        <item>In what town or city was your first full time job?</item>
+        <item>Your Mother Family Name?</item>
+        <item>What is the middle name of your oldest child?</item>
+    </string-array>
+
+</resources>

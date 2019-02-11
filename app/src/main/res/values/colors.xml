@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#049F87</color>
+    <color name="colorPrimaryDark">#0B3B4F</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="photo_placeholder">#ccc</color>
+    <color name="material_grey">#450c41</color>
+    <color name="theme_primary">#61275d</color>
+    <color name="theme_primary_dark">#2e2536</color>
+    <color name="theme_accent">#b25c5c</color>
+    <color name="theme_accent_alternate">#ecd690</color>
+    <color name="white">@android:color/white</color>
+    <color name="text_color">#000000</color>
+</resources>
