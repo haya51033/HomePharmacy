@@ -8,8 +8,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:scrollbarAlwaysDrawVerticalTrack="true"
-        android:background="@color/photo_placeholder"
-        >
+        android:background="@color/photo_placeholder">
         <ImageButton
             android:id="@+id/user_profile_photo"
             android:layout_width="100dp"

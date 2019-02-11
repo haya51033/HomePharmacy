@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <drug_data>
     <record commercial_name="Sytamol" commercial_name_arabic="سيتامول" scientific_name="Sytamossd" scientific_name_arabic="باراسيتامول" indication="any" indication_arabic="any" expiry_date="hh" concentration="500" type="kk" type_arabic="nn" warnings="mm" warnings_arabic="nn" side_effects="ii" side_effects_arabic="ii" pregnant_allowed="TRUE" drug_description="vv" drug_description_arabic="cc" drug_barcode="1111"/>
-    <record commercial_name="Aspiren" commercial_name_arabic="اسبيرين" scientific_name="Adsspiren" scientific_name_arabic="جاسبيرين" indication="rr" indication_arabic="gg" expiry_date="kk" concentration="100" type="pp" type_arabic="pp" warnings="mm" warnings_arabic="po" side_effects="oo" side_effects_arabic="kk" pregnant_allowed="FALSE" drug_description="kk" drug_description_arabic="jj" drug_barcode="2222"/>
+    <record commercial_name="Aspiren" commercial_name_arabic="اسبيرين" scientific_name="Jspiren" scientific_name_arabic="جاسبيرين" indication="- Pain treatment.
+- Reduce fever or inflammation.
+- Sometimes used to treat or prevent heart attacks, strokes, and angina under doctor's supervision." indication_arabic="- علاج الألم.
+- الحد من الحمى أو الالتهاب.
+- يستخدم أحيانا لعلاج أو منع النوبات القلبية، والسكتات الدماغية، والذبحة الصدرية تحت إشراف الطبيب." expiry_date="01/01/2026" concentration="81" type="capsule" type_arabic="كبسول" warnings="- Not used for patients with hemophilia.
+- as well as patients with gastritis or intestinal bleeding.
+- and also people who are allergic to aspirin.
+- and pregnant women in recent months as it may cause bleeding in childbirth or child during childbirth.
+- Nor lactating because aspirin passes into breast milk and harms the health of the baby." warnings_arabic="- لا يستخدم لمرضى الهيموفيليا.
+- وكذلك مرضى التهاب المعدة أو نزيف الأمعاء.
+- و ايضا الأشخاص الذين يعانون من الحساسية للأسبرين.
+- و الحوامل فى الأشهر الأخيرة حيث إنه قد يسبب نزيفا في الولادة أو للطفل أثناء الولادة.
+- ولا المرضعات لأن الأسبرين يمر إلى حليب الثدي ويضر بصحة الطفل الرضيع." side_effects="An allergic reaction to aspirin such as difficulty breathing, swelling of the face, lips, tongue, or throat." side_effects_arabic="رد فعل تحسسي للأسبرين مثل صعوبة في التنفس وتورم الوجه والشفتين واللسان، أو الحلق." pregnant_allowed="FALSE" drug_description="Aspirin or colic is one of the most popular and popular drugs. It is used to treat the symptoms of fever and rheumatic pains during the last century and is still a distinct treatment for its alternatives. It is also used to avoid the formation of strokes causing heart attacks. Aspirin has become the most widely produced and sold drug in the world for more than a century when German pharmacists at Bayer chemical plants launched the name on the safflower acetate" drug_description_arabic="الأَسْبِرِين أو حَمْضُ خَلِّيِّ الصَّفْصَافِيِّ هو أحد أشهر الأدوية وأكثرها شعبية. يستخدم لعلاج أعراض الحمى والآلام الرثوية خلال القرن الماضي وما زال حتى الآن علاجاً متميزاً على بدائله. كما يستخدم لتجنب تكون الجلطات المسببة للنوبات القلبية. بات الأسبرين أكثر الأدوية إنتاجا ومبيعا في العالم منذ أكثر من قرن عندما أطلق الصيادلة الألمان في مصانع (باير) للكيماويات هذا الاسم على خلات الصفصافيك" drug_barcode="2222"/>
     <record commercial_name="Profen" commercial_name_arabic="بروفن" scientific_name="Prossfen" scientific_name_arabic="ديكلوفيناك" indication="gg" indication_arabic="jj" expiry_date="uu" concentration="70" type="tt" type_arabic="rr" warnings="rr" warnings_arabic="ee" side_effects="ee" side_effects_arabic="ww" pregnant_allowed="TRUE" drug_description="aa" drug_description_arabic="xx" drug_barcode="3333"/>
     <record commercial_name="Antihistameen" commercial_name_arabic="هيستامين" scientific_name="Assntihistameen" scientific_name_arabic="انتي هيستامين" indication="yy" indication_arabic="yy" expiry_date="uu" concentration="5" type="ii" type_arabic="ii" warnings="oo" warnings_arabic="oo" side_effects="oo" side_effects_arabic="ee" pregnant_allowed="TRUE" drug_description="ww" drug_description_arabic="ww" drug_barcode="4444"/>
 

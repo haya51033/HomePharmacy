@@ -1,6 +1,7 @@
 package com.example.android.homepharmacy.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,17 +9,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.android.homepharmacy.Activity.DrugActivity;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 
-import java.util.ArrayList;
 
 public class DrugsAdapter extends RecyclerView.Adapter<DrugsAdapter.DrugsViewHolder> {
 
     // Class variables for the Cursor that holds task data and the Context
     private Cursor mCursor;
     private Context mContext;
+    private DrugsnOnClickHandler mDrugsOnClichkHandler;
 
+
+   /*Intent intent=new Intent(getApplicationContext(), MyHotelReservationActivity.class)
+                .putExtra(Intent.EXTRA_TEXT,reservationId);
+        startActivity(intent);*/
 
     /**
      * Constructor for the CustomCursorAdapter that initializes the Context.
@@ -29,11 +35,6 @@ public class DrugsAdapter extends RecyclerView.Adapter<DrugsAdapter.DrugsViewHol
         this.mContext = mContext;
     }
 
-
-    public void setDrugData(Cursor cursor) {
-        mCursor = cursor;
-        notifyDataSetChanged();
-    }
 
     /**
      * Called when ViewHolders are created to fill a RecyclerView.
@@ -60,11 +61,17 @@ public class DrugsAdapter extends RecyclerView.Adapter<DrugsAdapter.DrugsViewHol
     @Override
     public void onBindViewHolder(DrugsViewHolder holder, int position) {
 
+        int drug_c_name, drug_s_name;
+
         // Indices for the _id, drug_c_name, drug_s_name and drug_concentration columns
       int idIndex = mCursor.getColumnIndex(DataContract.DrugsEntry._ID);
-      int drug_c_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
-      int drug_s_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME);
+          drug_c_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
+          drug_s_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME);
       int concentration = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_CONCENTRATION);
+      /** **** ARABIC *****
+       * drug_c_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME_ARABIC);
+       * drug_s_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME_ARABIC);
+       * */
 
         mCursor.moveToPosition(position); // get to the right location in the cursor
 
@@ -117,7 +124,7 @@ public class DrugsAdapter extends RecyclerView.Adapter<DrugsAdapter.DrugsViewHol
 
 
     // Inner class for creating ViewHolders
-    class DrugsViewHolder extends RecyclerView.ViewHolder {
+    class DrugsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView tv_drug_c_name;
         TextView tv_drug_s_name;
@@ -134,6 +141,26 @@ public class DrugsAdapter extends RecyclerView.Adapter<DrugsAdapter.DrugsViewHol
             tv_drug_c_name = (TextView) itemView.findViewById(R.id.tvDrugCName);
             tv_drug_s_name = (TextView) itemView.findViewById(R.id.tvDrugSName);
             tv_concentration = (TextView) itemView.findViewById(R.id.tvDrugC);
+
+            itemView.setOnClickListener(this);
+
         }
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+           mCursor.moveToPosition(position);
+
+            int drugId = mCursor.getInt(mCursor.getColumnIndex(
+                    DataContract.DrugsEntry._ID));
+
+            Intent intent=new Intent(mContext, DrugActivity.class)
+                    .putExtra(Intent.EXTRA_TEXT, drugId);
+            mContext.startActivity(intent);
+
+        }
+    }
+
+    public interface DrugsnOnClickHandler {
+        void onClickDrug(Cursor cursor);
     }
 }

@@ -21,7 +21,8 @@ import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 
 public class DrugsActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor>{
+        LoaderManager.LoaderCallbacks<Cursor>,
+        DrugsAdapter.DrugsnOnClickHandler {
     // Constants for logging and referring to a unique loader
     private static final String TAG = "ANY";
     private static final int TASK_LOADER_ID = 0;
@@ -29,30 +30,6 @@ public class DrugsActivity extends AppCompatActivity implements
     // Member variables for the adapter and RecyclerView
     private DrugsAdapter mAdapter;
     RecyclerView mRecyclerView;
-    Cursor cur;
-    Cursor cursor;
-
-    private static final String[] DRUG_COLUMNS = {
-                    DataContract.DrugsEntry._ID,
-                    DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME,
-                    DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME_ARABIC,
-                    DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME,
-                    DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME_ARABIC,
-                    DataContract.DrugsEntry.COLUMN_DRUG_INDICATION,
-                    DataContract.DrugsEntry.COLUMN_DRUG_INDICATION_ARABIC,
-                    DataContract.DrugsEntry.COLUMN_EXPIRY_DATE,
-                    DataContract.DrugsEntry.COLUMN_DRUG_CONCENTRATION,
-                    DataContract.DrugsEntry.COLUMN_DRUG_TYPE,
-                    DataContract.DrugsEntry.COLUMN_DRUG_TYPE_ARABIC,
-                    DataContract.DrugsEntry.COLUMN_DRUG_WARNINGS,
-                    DataContract.DrugsEntry.COLUMN_DRUG_WARNINGS_ARABIC,
-                    DataContract.DrugsEntry.COLUMN_SIDE_EFFECTS,
-                    DataContract.DrugsEntry.COLUMN_SIDE_EFFECTS_ARABIC,
-                    DataContract.DrugsEntry.COLUMN_PREGNENT_ALLOWED,
-                    DataContract.DrugsEntry.COLUMN_DRUG_DESCRIPTION,
-                    DataContract.DrugsEntry.COLUMN_DRUG_DESCRIPTION_ARABIC,
-                    DataContract.DrugsEntry.COLUMN_DRUG_BARCODE
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +45,6 @@ public class DrugsActivity extends AppCompatActivity implements
 
         // Initialize the adapter and attach it to the RecyclerView
         mAdapter = new DrugsAdapter(this);
-    //    mAdapter.setDrugData(cursor);
         mRecyclerView.setAdapter(mAdapter);
 
 
@@ -86,23 +62,23 @@ public class DrugsActivity extends AppCompatActivity implements
             // Called when a user swipes left or right on a ViewHolder
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                // Here is where you'll implement swipe to delete
+                /**
+                 * // Here is where you'll implement swipe to delete
+                 *
+                   // Construct the URI for the item to delete
+                   // Use getTag (from the adapter code) to get the id of the swiped item
+                   // Retrieve the id of the drug to delete
+                      int id = (int) viewHolder.itemView.getTag();
 
-                // COMPLETED (1) Construct the URI for the item to delete
-                //[Hint] Use getTag (from the adapter code) to get the id of the swiped item
-                // Retrieve the id of the task to delete
-                int id = (int) viewHolder.itemView.getTag();
-
-                // Build appropriate uri with String row id appended
-                String stringId = Integer.toString(id);
-                Uri uri = DataContract.DrugsEntry.CONTENT_URI;
-                uri = uri.buildUpon().appendPath(stringId).build();
-
-                // COMPLETED (2) Delete a single row of data using a ContentResolver
-               // getContentResolver().delete(uri, null, null);
-
-                // COMPLETED (3) Restart the loader to re-query for all tasks after a deletion
-                getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, DrugsActivity.this);
+                 * // Build appropriate uri with String row id appended
+                    String stringId = Integer.toString(id);
+                    Uri uri = DataContract.DrugsEntry.CONTENT_URI;
+                    uri = uri.buildUpon().appendPath(stringId).build();
+                    //Delete a single row of data using a ContentResolver
+                 *  getContentResolver().delete(uri, null, null);
+                 *   // Restart the loader to re-query for all drugs after a deletion
+                 * **/
+                 getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, DrugsActivity.this);
 
             }
         }).attachToRecyclerView(mRecyclerView);
@@ -131,12 +107,18 @@ public class DrugsActivity extends AppCompatActivity implements
 
     }
 
-    public Cursor getDrugs() {
-        cur =   getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI, DRUG_COLUMNS, null, null, null);
 
 
-        return cur;
+    @Override
+    public void onClickDrug(Cursor cursor) {
+        int drugId = cursor.getInt(0);
+        int x=0;
+        Intent intent=new Intent(getApplicationContext(), DrugActivity.class)
+                .putExtra(Intent.EXTRA_TEXT,drugId);
+        startActivity(intent);
+
     }
+
     /**
      * This method is called after this activity has been paused or restarted.
      * Often, this is after new data has been inserted through an AddTaskActivity,
@@ -146,7 +128,7 @@ public class DrugsActivity extends AppCompatActivity implements
     protected void onResume() {
         super.onResume();
 
-        // re-queries for all tasks
+        // re-queries for all drugs
         getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, this);
     }
 
@@ -154,7 +136,7 @@ public class DrugsActivity extends AppCompatActivity implements
 
     /**
      * Instantiates and returns a new AsyncTaskLoader with the given ID.
-     * This loader will return task data as a Cursor or null if an error occurs.
+     * This loader will return drugs data as a Cursor or null if an error occurs.
      *
      * Implements the required callbacks to take care of loading data at all stages of loading.
      */
@@ -163,7 +145,7 @@ public class DrugsActivity extends AppCompatActivity implements
 
         return new AsyncTaskLoader<Cursor>(this) {
 
-            // Initialize a Cursor, this will hold all the task data
+            // Initialize a Cursor, this will hold all the drugs data
             Cursor mTaskData = null;
 
             // onStartLoading() is called when a loader first starts loading data
@@ -183,8 +165,8 @@ public class DrugsActivity extends AppCompatActivity implements
             public Cursor loadInBackground() {
                 // Will implement to load data
 
-                // Query and load all task data in the background; sort by priority
-                // [Hint] use a try/catch block to catch any errors in loading data
+                // Query and load all drug data in the background; sort by priority
+                // use a try/catch block to catch any errors in loading data
 
                 try {
                     return getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
@@ -233,9 +215,6 @@ public class DrugsActivity extends AppCompatActivity implements
     public void onLoaderReset(Loader<Cursor> loader) {
         mAdapter.swapCursor(null);
     }
-
-
-
 
 
 

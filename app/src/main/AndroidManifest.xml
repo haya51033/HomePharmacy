@@ -33,6 +33,7 @@
         <activity android:name=".Activity.DrugsActivity"
             android:label="@string/home_drugs"></activity>
         <activity android:name=".Activity.DrugActivity"></activity>
+
         <provider
             android:authorities="com.example.android.homepharmacy"
             android:name="com.example.android.homepharmacy.Database.HPContentProvider"

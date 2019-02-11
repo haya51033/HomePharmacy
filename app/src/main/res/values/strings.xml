@@ -28,6 +28,15 @@
     <string name="members">Members</string>
     <string name="search">Search</string>
     <string name="first_aid">First Aid</string>
+    <string name="info">Information</string>
+    <string name="type">Type: </string>
+    <string name="indication">Indication: </string>
+    <string name="side_effects">Side Effects: </string>
+    <string name="pregnant_allowed">Allowed for pregnant? </string>
+    <string name="drug_description">Description: </string>
+    <string name="expiry_date">Expiry Date: </string>
+    <string name="warnings">Warnings</string>
+
 
     <string-array name="array_question">
 
