@@ -1,6 +1,5 @@
 package com.example.android.homepharmacy.Activity;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -54,8 +53,6 @@ public class DrugActivity extends AppCompatActivity {
 
         intent = this.getIntent();
         drugId = intent.getIntExtra(Intent.EXTRA_TEXT,0);
-        Toast.makeText(getApplicationContext(),"Hello "+ drugId , Toast.LENGTH_LONG).show();
-
         cursor = getSingleDrug();
 
         if (cursor.moveToFirst()){// data?
@@ -112,8 +109,6 @@ public class DrugActivity extends AppCompatActivity {
             tv9 = (TextView) findViewById(R.id.tv_drug_warnings);
             tv9.setText(_DRUG_WARNINGS);
 
-
-
             /** ARABIC
              *  tv.setText(_DRUG_COMMERCIAL_NAME_ARABIC);
              *  tv1.setText(_DRUG_SCIENTIFIC_NAME_ARABIC);
@@ -122,15 +117,10 @@ public class DrugActivity extends AppCompatActivity {
              *  tv4.setText(_SIDE_EFFECTS_ARABIC);
              *  tv6.setText(_DRUG_DESCRIPTION_ARABIC);
              *  tv9.setText(_DRUG_WARNINGS_ARABIC);*/
-
-
         }
-
-
     }
 
     public Cursor getSingleDrug(){
-
         cur = getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI, DRUG_COLUMNS,"_id='"+drugId+"'",null,null,null);
         return cur;
     }

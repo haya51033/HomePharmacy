@@ -83,6 +83,10 @@ public class HomeActivity extends AppCompatActivity
                     Intent intent = new Intent(getApplicationContext(), DrugsActivity.class);
                     startActivity(intent);
                 }
+                if(i==1){
+                    Intent intent = new Intent(getApplicationContext(), MembersActivity.class);
+                    startActivity(intent);
+                }
 
             }
         });

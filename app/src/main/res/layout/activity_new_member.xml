@@ -15,10 +15,9 @@
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
-            android:background="@drawable/user_icon_symbol_vector"
+            android:background="@drawable/register_icon"
             android:elevation="4dp"
             android:contentDescription="@string/user_name"/>
-
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -47,13 +46,84 @@
                     android:hint="@string/full_name"
                     android:id="@+id/etRFN"
                     android:background="@drawable/stroke"
-                    android:drawableStart="@drawable/ic_person_black_24dp"
-                    android:drawableLeft="@drawable/ic_person_black_24dp"
-                    android:drawablePadding="8dp"
                     android:padding="8dp"
                     android:layout_marginTop="10dp"
-                    android:drawableTint="@color/colorPrimary"
                     />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/etRAge"
+                    android:background="@drawable/stroke"
+                    android:padding="8dp"
+                    android:hint="@string/age" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gender"
+                        android:id="@+id/tvGender"
+                        android:layout_marginTop="10dp"
+                        android:padding="8dp"
+                        android:layout_weight="0.5"/>
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:drawSelectorOnTop="true"
+                        android:entries="@array/array_gender"
+                        android:layout_marginTop="10dp"
+                        android:padding="8dp"
+                        android:background="@color/photo_placeholder"
+                        android:layout_weight="0.5"
+                        android:textAlignment="center"/>
+                </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pregnant_q"
+                    android:id="@+id/tvPregnant"
+                    android:layout_marginTop="10dp"
+                    android:padding="8dp"
+                    android:visibility="gone"
+                    android:layout_weight="0.5"/>
+                <Spinner
+                    android:id="@+id/spinner1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:drawSelectorOnTop="true"
+                    android:entries="@array/array_yes_no"
+                    android:layout_marginTop="10dp"
+                    android:padding="8dp"
+                    android:background="@color/photo_placeholder"
+                    android:visibility="gone"
+                    android:layout_weight="0.5"
+                    android:textAlignment="center"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/line_shape"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="1dp"
+                    android:padding="8dp">
+                </LinearLayout>
                 <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -64,90 +134,14 @@
                     android:background="@drawable/stroke"
                     android:padding="8dp"
                     android:id="@+id/etREmail"
-                    android:hint="@string/email"
-                    android:drawableStart="@drawable/ic_email_black_24dp"
-                    android:drawableLeft="@drawable/ic_email_black_24dp"
-                    android:drawablePadding="8dp"
-                    android:drawableTint="@color/colorPrimary" />
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:inputType="textPersonName"
-                    android:ems="10"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/etRUsername"
-                    android:background="@drawable/stroke"
-                    android:padding="8dp"
-                    android:hint="@string/user_name"
-                    android:drawableTint="@color/colorPrimary"
-                    android:drawableStart="@drawable/ic_perm_identity_black_24dp"
-                    android:drawableLeft="@drawable/ic_perm_identity_black_24dp"
-                    android:drawablePadding="8dp"/>
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:inputType="textPassword"
-                    android:ems="10"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/etRPassword"
-                    android:hint="@string/password"
-                    android:padding="8dp"
-                    android:background="@drawable/stroke"
-                    android:drawableStart="@drawable/ic_fingerprint_black_24dp"
-                    android:drawableLeft="@drawable/ic_fingerprint_black_24dp"
-                    android:drawableTint="@color/colorPrimary"
-                    android:drawablePadding="8dp"/>
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/line_shape"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="1dp"
-                    android:padding="8dp">
-                </LinearLayout>
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/reminder_question"
-                        android:id="@+id/tvAdultNum"
-                        android:layout_marginTop="10dp"
-                        android:padding="8dp"/>
-                    <Spinner
-                        android:id="@+id/spinner"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:drawSelectorOnTop="true"
-                        android:entries="@array/array_question"
-                        android:layout_marginTop="10dp"
-                        android:padding="8dp"
-                        android:background="@color/photo_placeholder"
-                        />
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:inputType="text"
-                    android:ems="10"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/etRAnswer"
-                    android:hint="@string/reminder_answer"
-                    android:padding="8dp"
-                    android:background="@drawable/stroke"
-                    android:drawableStart="@drawable/ic_question_answer_black_24dp"
-                    android:drawableLeft="@drawable/ic_question_answer_black_24dp"
-                    android:drawableTint="@color/colorPrimary"
-                    android:drawablePadding="8dp"/>
+                    android:hint="@string/email" />
                 <Button
-                    android:id="@+id/btnRegister"
+                    android:id="@+id/btnAdd"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="22dp"
                     android:background="@color/colorPrimary"
-                    android:text="@string/register"
+                    android:text="@string/add"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="18sp"
