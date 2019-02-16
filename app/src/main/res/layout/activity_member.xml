@@ -15,10 +15,9 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/stroke"
     android:id="@+id/layout_member_item"
-    android:layout_margin="10dp"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:background="@drawable/stroke1">
 
     <android.support.v7.widget.CardView
         android:layout_width="80dp"
@@ -62,7 +61,7 @@
             android:text="@string/members"
             android:padding="8dp"
             android:textSize="20sp"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/white"
             android:id="@+id/tvMemberName"
             android:textStyle="bold" />
         <TextView
@@ -72,7 +71,7 @@
             android:padding="8dp"
             android:textSize="10sp"
             android:layout_gravity="center"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/white"
             android:id="@+id/tvEmail"
             android:textStyle="italic" />
 
@@ -83,7 +82,7 @@
             android:padding="8dp"
             android:textSize="10sp"
             android:layout_gravity="center"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/white"
             android:id="@+id/tvAge"
             android:textStyle="italic" />
     </LinearLayout>
@@ -94,13 +93,14 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listMemberDrugs"/>
+        android:id="@+id/listMemberDrugs"
+        android:layout_marginTop="10dp"/>
 
 
 
 </LinearLayout>
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabMembers"
+        android:id="@+id/fabNewCourse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

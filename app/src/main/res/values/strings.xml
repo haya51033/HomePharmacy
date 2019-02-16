@@ -41,6 +41,13 @@
     <string name="gender">Gender</string>
     <string name="pregnant_q">Is She Pregnant?</string>
     <string name="add">Add</string>
+    <string name="drug_for">drug for: </string>
+    <string name="start_date">Start Date: </string>
+    <string name="end_date">End Date: </string>
+    <string name="dose">Dose: </string>
+    <string name="description">Description: </string>
+    <string name="course_information">Course Information</string>
+
 
 
     <string-array name="array_question">

@@ -41,6 +41,9 @@
             android:label="@string/members"></activity>
         <activity android:name=".Activity.NewMemberActivity"
             android:label="@string/members"></activity>
+        <activity android:name=".Activity.NewCourseActivity"
+            ></activity>
+        <activity android:name=".Activity.CourseActivity"></activity>
         <provider
             android:authorities="com.example.android.homepharmacy"
             android:name="com.example.android.homepharmacy.Database.HPContentProvider"

@@ -3,13 +3,17 @@ package com.example.android.homepharmacy.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.android.homepharmacy.Activity.CourseActivity;
 import com.example.android.homepharmacy.Activity.DrugActivity;
+import com.example.android.homepharmacy.Database.DB;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 
@@ -20,6 +24,34 @@ public class MemberDrugsAdapter extends RecyclerView.Adapter<MemberDrugsAdapter.
     private Context mContext;
     private MemberDrugsAdapter.DrugsnOnClickHandler mDrugsOnClichkHandler;
 
+    SQLiteDatabase mDb;
+    DB dbHelper;
+    Cursor cur;
+
+    int drug_ID;
+    Cursor cursor;
+
+    private static final String[] DRUG_COLUMNS = {
+            DataContract.DrugsEntry._ID,
+            DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME,
+            DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME_ARABIC,
+            DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME,
+            DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME_ARABIC,
+            DataContract.DrugsEntry.COLUMN_DRUG_INDICATION,
+            DataContract.DrugsEntry.COLUMN_DRUG_INDICATION_ARABIC,
+            DataContract.DrugsEntry.COLUMN_EXPIRY_DATE,
+            DataContract.DrugsEntry.COLUMN_DRUG_CONCENTRATION,
+            DataContract.DrugsEntry.COLUMN_DRUG_TYPE,
+            DataContract.DrugsEntry.COLUMN_DRUG_TYPE_ARABIC,
+            DataContract.DrugsEntry.COLUMN_DRUG_WARNINGS,
+            DataContract.DrugsEntry.COLUMN_DRUG_WARNINGS_ARABIC,
+            DataContract.DrugsEntry.COLUMN_SIDE_EFFECTS,
+            DataContract.DrugsEntry.COLUMN_SIDE_EFFECTS_ARABIC,
+            DataContract.DrugsEntry.COLUMN_PREGNENT_ALLOWED,
+            DataContract.DrugsEntry.COLUMN_DRUG_DESCRIPTION,
+            DataContract.DrugsEntry.COLUMN_DRUG_DESCRIPTION_ARABIC,
+            DataContract.DrugsEntry.COLUMN_DRUG_BARCODE
+    };
 
    /*Intent intent=new Intent(getApplicationContext(), MyHotelReservationActivity.class)
                 .putExtra(Intent.EXTRA_TEXT,reservationId);
@@ -50,37 +82,50 @@ public class MemberDrugsAdapter extends RecyclerView.Adapter<MemberDrugsAdapter.
         return new DrugsViewHolder(view);
     }
 
-
+    public Cursor getSingleDrug(){
+        cur = mContext.getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI, DRUG_COLUMNS,"_id='"+drug_ID+"'",null,null,null);
+        return cur;
+    }
     /**
      * Called by the RecyclerView to display data at a specified position in the Cursor.
      *
      * @param holder   The ViewHolder to bind Cursor data to
      * @param position The position of the data in the Cursor
      */
+
     @Override
     public void onBindViewHolder(MemberDrugsAdapter.DrugsViewHolder holder, int position) {
 
+        mCursor.moveToPosition(position); // get to the right location in the cursor
+
+        drug_ID = mCursor.getInt(mCursor.getColumnIndex(DataContract.DrugListEntry.COLUMN_DRUG_L_ID));
+
+         //drug_ID = mCursor.getColumnIndex(DataContract.DrugListEntry.COLUMN_DRUG_L_ID);
+
+        cursor = getSingleDrug();
 
         int drug_c_name, drug_s_name;
 
+        cursor.moveToFirst();
+
+
         // Indices for the _id, drug_c_name, drug_s_name and drug_concentration columns
-        int idIndex = mCursor.getColumnIndex(DataContract.DrugsEntry._ID);
-        drug_c_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
-        drug_s_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME);
-        int concentration = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_CONCENTRATION);
+        int idIndex = cursor.getColumnIndex(DataContract.DrugsEntry._ID);
+        drug_c_name = cursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
+        drug_s_name = cursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME);
+        int concentration = cursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_CONCENTRATION);
         /** **** ARABIC *****
          * drug_c_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME_ARABIC);
          * drug_s_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME_ARABIC);
          * */
 
-        mCursor.moveToPosition(position); // get to the right location in the cursor
 
 
         // Determine the values of the wanted data
-        final int id = mCursor.getInt(idIndex);
-        String _CName = mCursor.getString(drug_c_name);
-        String _SName = mCursor.getString(drug_s_name);
-        String _DC = mCursor.getString(concentration);
+        final int id = cursor.getInt(idIndex);
+        String _CName = cursor.getString(drug_c_name);
+        String _SName = cursor.getString(drug_s_name);
+        String _DC = cursor.getString(concentration);
 
         //Set values
         holder.itemView.setTag(id);
@@ -152,11 +197,11 @@ public class MemberDrugsAdapter extends RecyclerView.Adapter<MemberDrugsAdapter.
             int position = getAdapterPosition();
             mCursor.moveToPosition(position);
 
-            int drugId = mCursor.getInt(mCursor.getColumnIndex(
-                    DataContract.DrugsEntry._ID));
+            int courseId = mCursor.getInt(mCursor.getColumnIndex(
+                    DataContract.DrugListEntry.COLUMN_DRUG_L_ID));
 
-            Intent intent = new Intent(mContext, DrugActivity.class)
-                    .putExtra(Intent.EXTRA_TEXT, drugId);
+            Intent intent = new Intent(mContext, CourseActivity.class)
+                    .putExtra(Intent.EXTRA_TEXT, courseId);
             mContext.startActivity(intent);
 
         }
