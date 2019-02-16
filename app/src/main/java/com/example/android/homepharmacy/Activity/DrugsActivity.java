@@ -20,6 +20,8 @@ import com.example.android.homepharmacy.Adapter.DrugsAdapter;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 
+import java.util.ArrayList;
+
 public class DrugsActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor>,
         DrugsAdapter.DrugsnOnClickHandler {
@@ -27,14 +29,35 @@ public class DrugsActivity extends AppCompatActivity implements
     private static final String TAG = "ANY";
     private static final int TASK_LOADER_ID = 0;
 
+
     // Member variables for the adapter and RecyclerView
     private DrugsAdapter mAdapter;
     RecyclerView mRecyclerView;
+
+    ArrayList<String> drugsSearchResult;
+    String[] selectionArgs1;
+    String[] selectionArgs;
+    String selection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drugs);
+      //  drugsSearchResult = getIntent().getExtras("my_array");
+        Intent intent1 = getIntent();
+        Bundle args = intent1.getBundleExtra("BUNDLE");
+        drugsSearchResult =  (ArrayList) args.getSerializable("my_array");
+
+        if(drugsSearchResult != null && !drugsSearchResult.isEmpty()){
+            selectionArgs1 = drugsSearchResult.toArray(new String[drugsSearchResult.size()]);
+            selection = DataContract.DrugsEntry._ID + " IN (" + makePlaceholders(selectionArgs1.length) + ")";
+            selectionArgs = new String[selectionArgs1.length];
+            for (int i = 0; i < selectionArgs1.length; i++) {
+                selectionArgs[i] = selectionArgs1[i];
+            }
+        }
+
+
         // Set the RecyclerView to its corresponding view
         mRecyclerView = (RecyclerView) findViewById(R.id.listDrugs);
 
@@ -105,6 +128,10 @@ public class DrugsActivity extends AppCompatActivity implements
          */
         getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, this);
 
+
+
+
+
     }
 
 
@@ -112,7 +139,6 @@ public class DrugsActivity extends AppCompatActivity implements
     @Override
     public void onClickDrug(Cursor cursor) {
         int drugId = cursor.getInt(0);
-        int x=0;
         Intent intent=new Intent(getApplicationContext(), DrugActivity.class)
                 .putExtra(Intent.EXTRA_TEXT,drugId);
         startActivity(intent);
@@ -167,19 +193,38 @@ public class DrugsActivity extends AppCompatActivity implements
 
                 // Query and load all drug data in the background; sort by priority
                 // use a try/catch block to catch any errors in loading data
+                if(drugsSearchResult.isEmpty()){
+                    try {
+                        return getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
+                                null,
+                                null,
+                                null,
+                                DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
 
-                try {
-                    return getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
-                            null,
-                            null,
-                            null,
-                            DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
-
-                } catch (Exception e) {
-                    Log.e(TAG, "Failed to asynchronously load data.");
-                    e.printStackTrace();
-                    return null;
+                    } catch (Exception e) {
+                        Log.e(TAG, "Failed to asynchronously load data.");
+                        e.printStackTrace();
+                        return null;
+                    }
                 }
+                else {
+                    try {
+
+                        return getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
+                                null,
+                                selection,
+                                selectionArgs,
+                                DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
+
+                    } catch (Exception e) {
+                        Log.e(TAG, "Failed to asynchronously load data 1111111111.");
+                        e.printStackTrace();
+                        return null;
+                    }
+
+                }
+
+
             }
 
             // deliverResult sends the result of the load, a Cursor, to the registered listener
@@ -189,6 +234,14 @@ public class DrugsActivity extends AppCompatActivity implements
             }
         };
 
+
+    }
+    String makePlaceholders(int len) {
+        StringBuilder sb = new StringBuilder(len * 2 - 1);
+        sb.append("?");
+        for (int i = 1; i < len; i++)
+            sb.append(",?");
+        return sb.toString();
     }
 
     /**

@@ -23,6 +23,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -66,7 +67,8 @@ public class MemberActivity extends AppCompatActivity  implements
     String memName, memEmail, memGender;
     int memAge;
     String[] selectionArgs;
-    String memId;
+
+    Button button;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,6 +86,8 @@ public class MemberActivity extends AppCompatActivity  implements
         tv =(TextView) findViewById(R.id.tvMemberName);
         tv1 =(TextView) findViewById(R.id.tvEmail);
         tv2 =(TextView) findViewById(R.id.tvAge);
+
+        button = (Button) findViewById(R.id.btnDeleteMem);
 
 
         if (cursor.moveToFirst()){// data?
@@ -163,6 +167,28 @@ public class MemberActivity extends AppCompatActivity  implements
             }
         }).attachToRecyclerView(mRecyclerView);
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                  // Here is where you'll implement swipe to delete
+                // Construct the URI for the item to delete
+                // Use getTag (from the adapter code) to get the id of the swiped item
+                // Retrieve the id of the drug to delete
+
+                // Build appropriate uri with String row id appended
+                String stringId = Integer.toString(memberId);
+                Uri uri = DataContract.MemberEntry.CONTENT_URI;
+                uri = uri.buildUpon().appendPath(stringId).build();
+                //Delete a single row of data using a ContentResolver
+                getContentResolver().delete(uri, null, null);
+
+                Intent intent = new Intent(getApplicationContext(), MembersActivity.class);
+                startActivity(intent);
+
+
+            }
+        });
+
         /*
          Set the Floating Action Button (FAB) to its corresponding View.
          Attach an OnClickListener to it, so that when it's clicked, a new intent will be created
@@ -173,8 +199,6 @@ public class MemberActivity extends AppCompatActivity  implements
             @Override
             public void onClick(View view) {
 
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
                 Intent intent = new Intent(getApplicationContext(), NewCourseActivity.class)
                         .putExtra(Intent.EXTRA_TEXT,memberId);
                 startActivity(intent);

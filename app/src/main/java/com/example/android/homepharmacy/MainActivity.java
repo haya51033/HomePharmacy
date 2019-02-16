@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import com.example.android.homepharmacy.Activity.HomeActivity;
 import com.example.android.homepharmacy.Activity.LoginActivity;
 import com.example.android.homepharmacy.Activity.RegistrationActivity;
+import com.example.android.homepharmacy.Activity.SearchDrugViaName;
 import com.example.android.homepharmacy.Activity.StartActivity;
 import com.example.android.homepharmacy.Database.DB;
 import com.example.android.homepharmacy.Database.DataContract;
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity
 
         /////////////////
 
-        Intent intent = new Intent(this, StartActivity.class);
+        Intent intent = new Intent(this, SearchDrugViaName.class);
         startActivity(intent);
 
 
