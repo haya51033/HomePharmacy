@@ -47,6 +47,9 @@
     <string name="dose">Dose: </string>
     <string name="description">Description: </string>
     <string name="course_information">Course Information</string>
+    <string name="slash">/</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 
 
 

@@ -65,6 +65,8 @@ public class MemberActivity extends AppCompatActivity  implements
 
     String memName, memEmail, memGender;
     int memAge;
+    String[] selectionArgs;
+    String memId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,7 +76,8 @@ public class MemberActivity extends AppCompatActivity  implements
         intent = this.getIntent();
         memberId = intent.getIntExtra(Intent.EXTRA_TEXT,0);
         cursor = getSingleMember();
-
+    //    memId = String.valueOf(memberId);
+        selectionArgs = new String[]{ String.valueOf(memberId) };
         iv = (ImageView) findViewById(R.id.imageViewMember1);
         iv2 = (ImageView) findViewById(R.id.imageViewMember);
 
@@ -252,8 +255,8 @@ public class MemberActivity extends AppCompatActivity  implements
                 try {
                     return getContentResolver().query(DataContract.DrugListEntry.CONTENT_URI,
                             null,
-                            null,
-                            null,
+                            DataContract.DrugListEntry.COLUMN_MEMBER_L_ID + "=?",
+                            selectionArgs,
                             DataContract.DrugListEntry.COLUMN_DRUG_L_ID);
 
                 } catch (Exception e) {

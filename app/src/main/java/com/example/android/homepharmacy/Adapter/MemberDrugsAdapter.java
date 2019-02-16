@@ -29,7 +29,9 @@ public class MemberDrugsAdapter extends RecyclerView.Adapter<MemberDrugsAdapter.
     Cursor cur;
 
     int drug_ID;
+    int member_ID;
     Cursor cursor;
+    Cursor cursor1;
 
     private static final String[] DRUG_COLUMNS = {
             DataContract.DrugsEntry._ID,
@@ -53,6 +55,14 @@ public class MemberDrugsAdapter extends RecyclerView.Adapter<MemberDrugsAdapter.
             DataContract.DrugsEntry.COLUMN_DRUG_BARCODE
     };
 
+    private static final String[] MEMBER_COLUMNS = {
+            DataContract.MemberEntry._ID,
+            DataContract.MemberEntry.COLUMN_MEMBER_NAME,
+            DataContract.MemberEntry.COLUMN_AGE,
+            DataContract.MemberEntry.COLUMN_EMAIL,
+            DataContract.MemberEntry.COLUMN_GENDER,
+            DataContract.MemberEntry.COLUMN_PREGNANT
+    };
    /*Intent intent=new Intent(getApplicationContext(), MyHotelReservationActivity.class)
                 .putExtra(Intent.EXTRA_TEXT,reservationId);
         startActivity(intent);*/
@@ -86,6 +96,10 @@ public class MemberDrugsAdapter extends RecyclerView.Adapter<MemberDrugsAdapter.
         cur = mContext.getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI, DRUG_COLUMNS,"_id='"+drug_ID+"'",null,null,null);
         return cur;
     }
+    public Cursor getSingleMember(){
+        cur = mContext.getContentResolver().query(DataContract.MemberEntry.CONTENT_URI, MEMBER_COLUMNS,"_id='"+member_ID+"'",null,null,null);
+        return cur;
+    }
     /**
      * Called by the RecyclerView to display data at a specified position in the Cursor.
      *
@@ -99,15 +113,14 @@ public class MemberDrugsAdapter extends RecyclerView.Adapter<MemberDrugsAdapter.
         mCursor.moveToPosition(position); // get to the right location in the cursor
 
         drug_ID = mCursor.getInt(mCursor.getColumnIndex(DataContract.DrugListEntry.COLUMN_DRUG_L_ID));
-
-         //drug_ID = mCursor.getColumnIndex(DataContract.DrugListEntry.COLUMN_DRUG_L_ID);
+        member_ID = mCursor.getInt(mCursor.getColumnIndex(DataContract.DrugListEntry.COLUMN_MEMBER_L_ID));
 
         cursor = getSingleDrug();
-
+        cursor1 = getSingleMember();
         int drug_c_name, drug_s_name;
 
         cursor.moveToFirst();
-
+        cursor1.moveToFirst();
 
         // Indices for the _id, drug_c_name, drug_s_name and drug_concentration columns
         int idIndex = cursor.getColumnIndex(DataContract.DrugsEntry._ID);
