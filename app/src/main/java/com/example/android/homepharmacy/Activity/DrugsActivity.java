@@ -2,9 +2,7 @@ package com.example.android.homepharmacy.Activity;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -13,9 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
-
 import com.example.android.homepharmacy.Adapter.DrugsAdapter;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
@@ -28,7 +23,6 @@ public class DrugsActivity extends AppCompatActivity implements
     // Constants for logging and referring to a unique loader
     private static final String TAG = "ANY";
     private static final int TASK_LOADER_ID = 0;
-
 
     // Member variables for the adapter and RecyclerView
     private DrugsAdapter mAdapter;
@@ -43,7 +37,7 @@ public class DrugsActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drugs);
-      //  drugsSearchResult = getIntent().getExtras("my_array");
+
         Intent intent1 = getIntent();
         Bundle args = intent1.getBundleExtra("BUNDLE");
         drugsSearchResult =  (ArrayList) args.getSerializable("my_array");
@@ -57,7 +51,6 @@ public class DrugsActivity extends AppCompatActivity implements
             }
         }
 
-
         // Set the RecyclerView to its corresponding view
         mRecyclerView = (RecyclerView) findViewById(R.id.listDrugs);
 
@@ -65,17 +58,13 @@ public class DrugsActivity extends AppCompatActivity implements
         // positions items within a RecyclerView into a linear list
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
         // Initialize the adapter and attach it to the RecyclerView
         mAdapter = new DrugsAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
 
-
-        /*
-         Add a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
+      /* Add a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
          An ItemTouchHelper enables touch behavior (like swipe and move) on each ViewHolder,
-         and uses callbacks to signal when a user is performing these actions.
-         */
+         and uses callbacks to signal when a user is performing these actions.*/
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -85,56 +74,14 @@ public class DrugsActivity extends AppCompatActivity implements
             // Called when a user swipes left or right on a ViewHolder
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                /**
-                 * // Here is where you'll implement swipe to delete
-                 *
-                   // Construct the URI for the item to delete
-                   // Use getTag (from the adapter code) to get the id of the swiped item
-                   // Retrieve the id of the drug to delete
-                      int id = (int) viewHolder.itemView.getTag();
-
-                 * // Build appropriate uri with String row id appended
-                    String stringId = Integer.toString(id);
-                    Uri uri = DataContract.DrugsEntry.CONTENT_URI;
-                    uri = uri.buildUpon().appendPath(stringId).build();
-                    //Delete a single row of data using a ContentResolver
-                 *  getContentResolver().delete(uri, null, null);
-                 *   // Restart the loader to re-query for all drugs after a deletion
-                 * **/
                  getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, DrugsActivity.this);
-
             }
         }).attachToRecyclerView(mRecyclerView);
 
-        /*
-         Set the Floating Action Button (FAB) to its corresponding View.
-         Attach an OnClickListener to it, so that when it's clicked, a new intent will be created
-         to launch the AddTaskActivity.
-         */
-        FloatingActionButton fabButton = (FloatingActionButton) findViewById(R.id.fab);
-
-     /*   fabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Create a new intent to start an AddTaskActivity
-                Intent addTaskIntent = new Intent(getApplicationContext(), DrugActivity.class);
-                startActivity(addTaskIntent);
-            }
-        });*/
-
-        /*
-         Ensure a loader is initialized and active. If the loader doesn't already exist, one is
-         created, otherwise the last created loader is re-used.
-         */
+        /*Ensure a loader is initialized and active. If the loader doesn't already exist, one is
+         created, otherwise the last created loader is re-used.*/
         getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, this);
-
-
-
-
-
     }
-
-
 
     @Override
     public void onClickDrug(Cursor cursor) {
@@ -158,8 +105,6 @@ public class DrugsActivity extends AppCompatActivity implements
         getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, this);
     }
 
-
-
     /**
      * Instantiates and returns a new AsyncTaskLoader with the given ID.
      * This loader will return drugs data as a Cursor or null if an error occurs.
@@ -168,12 +113,9 @@ public class DrugsActivity extends AppCompatActivity implements
      */
     @Override
     public Loader<Cursor> onCreateLoader(int id, final Bundle loaderArgs) {
-
         return new AsyncTaskLoader<Cursor>(this) {
-
             // Initialize a Cursor, this will hold all the drugs data
             Cursor mTaskData = null;
-
             // onStartLoading() is called when a loader first starts loading data
             @Override
             protected void onStartLoading() {
@@ -185,12 +127,10 @@ public class DrugsActivity extends AppCompatActivity implements
                     forceLoad();
                 }
             }
-
             // loadInBackground() performs asynchronous loading of data
             @Override
             public Cursor loadInBackground() {
                 // Will implement to load data
-
                 // Query and load all drug data in the background; sort by priority
                 // use a try/catch block to catch any errors in loading data
                 if(drugsSearchResult.isEmpty()){
@@ -200,7 +140,6 @@ public class DrugsActivity extends AppCompatActivity implements
                                 null,
                                 null,
                                 DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
-
                     } catch (Exception e) {
                         Log.e(TAG, "Failed to asynchronously load data.");
                         e.printStackTrace();
@@ -209,24 +148,18 @@ public class DrugsActivity extends AppCompatActivity implements
                 }
                 else {
                     try {
-
-                        return getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
-                                null,
-                                selection,
-                                selectionArgs,
-                                DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
-
+                           return getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
+                                   null,
+                                   selection,
+                                   selectionArgs,
+                                   DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
                     } catch (Exception e) {
                         Log.e(TAG, "Failed to asynchronously load data 1111111111.");
                         e.printStackTrace();
                         return null;
                     }
-
                 }
-
-
             }
-
             // deliverResult sends the result of the load, a Cursor, to the registered listener
             public void deliverResult(Cursor data) {
                 mTaskData = data;

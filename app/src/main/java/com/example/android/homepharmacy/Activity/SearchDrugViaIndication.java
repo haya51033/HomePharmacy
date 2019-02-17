@@ -17,7 +17,7 @@ import com.example.android.homepharmacy.R;
 
 import java.util.ArrayList;
 
-public class SearchDrugViaName extends AppCompatActivity {
+public class SearchDrugViaIndication extends AppCompatActivity {
 
     EditText et;
     SQLiteDatabase mDb;
@@ -72,7 +72,7 @@ public class SearchDrugViaName extends AppCompatActivity {
 
         return getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
                 null,
-                DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME + " LIKE ? ",
+                DataContract.DrugsEntry.COLUMN_DRUG_INDICATION + " LIKE ? ",
                 selectionArgs,
                 DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
     }
@@ -85,8 +85,8 @@ public class SearchDrugViaName extends AppCompatActivity {
 
         return getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
                 null,
-                DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME_ARABIC + " LIKE ? ",
+                DataContract.DrugsEntry.COLUMN_DRUG_INDICATION_ARABIC + " LIKE ? ",
                 selectionArgs,
-                DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME_ARABIC);
+                DataContract.DrugsEntry.COLUMN_DRUG_INDICATION_ARABIC);
     }
 }

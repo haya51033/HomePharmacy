@@ -45,6 +45,7 @@
             ></activity>
         <activity android:name=".Activity.CourseActivity"></activity>
         <activity android:name=".Activity.SearchDrugViaName"></activity>
+        <activity android:name=".Activity.SearchDrugViaIndication"></activity>
         <provider
             android:authorities="com.example.android.homepharmacy"
             android:name="com.example.android.homepharmacy.Database.HPContentProvider"
