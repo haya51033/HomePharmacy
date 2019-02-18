@@ -44,6 +44,8 @@
     <string name="start_date">Start Date: </string>
     <string name="end_date">End Date: </string>
     <string name="dose">Dose: </string>
+    <string name="dose_quantity">Dose Quantity</string>
+    <string name="dose_repeat">Dose Repeat</string>
     <string name="description">Description: </string>
     <string name="course_information">Course Information</string>
     <string name="slash">/</string>
@@ -51,7 +53,20 @@
     <string name="delete">Delete</string>
     <string name="delete_mem">Delete Member</string>
     <string name="_search">Search</string>
+    <string name="by_name">Search by drug name</string>
+    <string name="by_indication">Search by drug indication</string>
+    <string name="add_to_my_list">Add to list</string>
+    <string name="delete_to_my_list">Delete from List</string>
+    <string name="first_time">First Time</string>
 
+
+    <string name="_type">Type..</string>
+    <string-array name="array_search_options">
+        <item>Select Search Option..</item>
+        <item>Search by drug name</item>
+        <item>Search by drug indication</item>
+        <item>Search by Barcode Scanning</item>
+    </string-array>
 
     <string-array name="array_question">
         <item>What primary school did you attend?</item>

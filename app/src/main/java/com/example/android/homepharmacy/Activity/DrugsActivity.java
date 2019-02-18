@@ -32,6 +32,8 @@ public class DrugsActivity extends AppCompatActivity implements
     String[] selectionArgs1;
     String[] selectionArgs;
     String selection;
+    int memberId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,9 @@ public class DrugsActivity extends AppCompatActivity implements
         Intent intent1 = getIntent();
         Bundle args = intent1.getBundleExtra("BUNDLE");
         drugsSearchResult =  (ArrayList) args.getSerializable("my_array");
+
+        Intent intent = this.getIntent();
+        memberId = intent.getIntExtra(Intent.EXTRA_TEXT, 0);
 
         if(drugsSearchResult != null && !drugsSearchResult.isEmpty()){
             selectionArgs1 = drugsSearchResult.toArray(new String[drugsSearchResult.size()]);
@@ -87,7 +92,8 @@ public class DrugsActivity extends AppCompatActivity implements
     public void onClickDrug(Cursor cursor) {
         int drugId = cursor.getInt(0);
         Intent intent=new Intent(getApplicationContext(), DrugActivity.class)
-                .putExtra(Intent.EXTRA_TEXT,drugId);
+                .putExtra(Intent.EXTRA_TEXT,drugId)
+                .putExtra("memberId",memberId);
         startActivity(intent);
 
     }

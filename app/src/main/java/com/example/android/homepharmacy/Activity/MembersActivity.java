@@ -131,7 +131,7 @@ public class MembersActivity extends AppCompatActivity  implements
     public void onClickMember(Cursor cursor) {
         int memberId = cursor.getInt(0);
         Intent intent=new Intent(getApplicationContext(), MemberActivity.class)
-                .putExtra(Intent.EXTRA_TEXT,memberId);
+                .putExtra("memberId", memberId);
         startActivity(intent);
     }
 

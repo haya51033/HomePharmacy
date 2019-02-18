@@ -211,7 +211,7 @@ public class MemberDrugsAdapter extends RecyclerView.Adapter<MemberDrugsAdapter.
             mCursor.moveToPosition(position);
 
             int courseId = mCursor.getInt(mCursor.getColumnIndex(
-                    DataContract.DrugListEntry.COLUMN_DRUG_L_ID));
+                    DataContract.DrugListEntry._ID));
 
             Intent intent = new Intent(mContext, CourseActivity.class)
                     .putExtra(Intent.EXTRA_TEXT, courseId);

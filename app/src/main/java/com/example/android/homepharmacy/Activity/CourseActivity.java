@@ -74,7 +74,7 @@ public class CourseActivity extends AppCompatActivity {
 
     TextView tv, tv1, tv2, tv3, tv4, tv5, tv6, tv7;
 
-    Button button, button1;
+    Button button1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -150,7 +150,7 @@ public class CourseActivity extends AppCompatActivity {
                 getContentResolver().delete(uri, null, null);
 
                 Intent intent = new Intent(getApplicationContext(), MemberActivity.class)
-                        .putExtra(Intent.EXTRA_TEXT,memberId);
+                        .putExtra("memberId" ,memberId);
                 startActivity(intent);
 
             }

@@ -76,7 +76,9 @@ public class MemberActivity extends AppCompatActivity  implements
         setContentView(R.layout.activity_member);
 
         intent = this.getIntent();
-        memberId = intent.getIntExtra(Intent.EXTRA_TEXT,0);
+        memberId = intent.getIntExtra("memberId",0);
+
+
         cursor = getSingleMember();
     //    memId = String.valueOf(memberId);
         selectionArgs = new String[]{ String.valueOf(memberId) };
@@ -199,7 +201,7 @@ public class MemberActivity extends AppCompatActivity  implements
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(), NewCourseActivity.class)
+                Intent intent = new Intent(getApplicationContext(), SearchOptions.class)
                         .putExtra(Intent.EXTRA_TEXT,memberId);
                 startActivity(intent);
 
@@ -218,7 +220,7 @@ public class MemberActivity extends AppCompatActivity  implements
     public void onClickDrug(Cursor cursor) {
         int drugListId = cursor.getInt(0);
         Intent intent=new Intent(getApplicationContext(), CourseActivity.class)
-                .putExtra(Intent.EXTRA_TEXT,drugListId);
+                .putExtra(Intent.EXTRA_TEXT, drugListId);
         startActivity(intent);
     }
 

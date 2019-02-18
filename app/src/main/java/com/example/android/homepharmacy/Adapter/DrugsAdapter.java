@@ -22,17 +22,10 @@ public class DrugsAdapter extends RecyclerView.Adapter<DrugsAdapter.DrugsViewHol
     private DrugsnOnClickHandler mDrugsOnClichkHandler;
 
 
-   /*Intent intent=new Intent(getApplicationContext(), MyHotelReservationActivity.class)
-                .putExtra(Intent.EXTRA_TEXT,reservationId);
-        startActivity(intent);*/
 
-    /**
-     * Constructor for the CustomCursorAdapter that initializes the Context.
-     *
-     * @param mContext the current Context
-     */
-    public DrugsAdapter(Context mContext) {
-        this.mContext = mContext;
+
+    public DrugsAdapter(DrugsnOnClickHandler drugsnOnClickHandler) {
+        mDrugsOnClichkHandler = drugsnOnClickHandler;
     }
 
 
@@ -43,6 +36,7 @@ public class DrugsAdapter extends RecyclerView.Adapter<DrugsAdapter.DrugsViewHol
      */
     @Override
     public DrugsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        mContext = parent.getContext();
 
         // Inflate the task_layout to a view
         View view = LayoutInflater.from(mContext)
@@ -124,7 +118,7 @@ public class DrugsAdapter extends RecyclerView.Adapter<DrugsAdapter.DrugsViewHol
 
 
     // Inner class for creating ViewHolders
-    class DrugsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class DrugsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tv_drug_c_name;
         TextView tv_drug_s_name;
@@ -145,19 +139,22 @@ public class DrugsAdapter extends RecyclerView.Adapter<DrugsAdapter.DrugsViewHol
             itemView.setOnClickListener(this);
 
         }
-        @Override
+       @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
            mCursor.moveToPosition(position);
 
-            int drugId = mCursor.getInt(mCursor.getColumnIndex(
+         //  mCityOnClickHandler.onClickCity(selectedCity);
+           mDrugsOnClichkHandler.onClickDrug(mCursor);
+           /* int drugId = mCursor.getInt(mCursor.getColumnIndex(
                     DataContract.DrugsEntry._ID));
 
             Intent intent=new Intent(mContext, DrugActivity.class)
                     .putExtra(Intent.EXTRA_TEXT, drugId);
-            mContext.startActivity(intent);
+            mContext.startActivity(intent);*/
 
         }
+
     }
 
     public interface DrugsnOnClickHandler {

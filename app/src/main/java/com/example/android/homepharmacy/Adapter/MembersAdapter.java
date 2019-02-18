@@ -154,7 +154,7 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersV
                     DataContract.MemberEntry._ID));
 
             Intent intent=new Intent(mContext, MemberActivity.class)
-                    .putExtra(Intent.EXTRA_TEXT, memberId);
+                    .putExtra("memberId", memberId);
             mContext.startActivity(intent);
 
         }

@@ -24,25 +24,33 @@ public class NewCourseActivity extends AppCompatActivity {
     Intent intent;
     int memberId;
 
-    EditText et, et1, et2, et3, et4, et5, et6;
+    EditText  et1, et2, et3, et4, et5, et6;
     Button button;
 
     SQLiteDatabase mDb;
     DB dbHelper;
 
+    int drugId;
+    Intent intent1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_course);
 
+
+
         intent = this.getIntent();
-        memberId = intent.getIntExtra(Intent.EXTRA_TEXT,0);
+        drugId = intent.getIntExtra(Intent.EXTRA_TEXT,0);
+
+        intent1 = this.getIntent();
+        memberId = intent1.getIntExtra("memberId",0);
+
 
         dbHelper = new DB(this);
         mDb = dbHelper.getWritableDatabase();
 
-        et = (EditText) findViewById(R.id.etDrugID);
+     //   et = (EditText) findViewById(R.id.etDrugID);
         et1 = (EditText) findViewById(R.id.etStartDate);
         et2 = (EditText) findViewById(R.id.etEndDate);
         et3 = (EditText) findViewById(R.id.etFirstTime);
@@ -55,23 +63,24 @@ public class NewCourseActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(et.getText().toString().trim().length() != 0 && et1.getText().toString().trim().length() != 0
+                if(drugId != 0 && et1.getText().toString().trim().length() != 0
                         && et2.getText().toString().trim().length() != 0 && et3.getText().toString().trim().length() != 0
                         && et4.getText().toString().trim().length() != 0 && et5.getText().toString().trim().length() != 0
                         && et6.getText().toString().trim().length() != 0  ) {
 
-                    addCourse(Integer.parseInt(et.getText().toString())
-                            ,memberId, et1.getText().toString(),
+                    addCourse(drugId ,memberId, et1.getText().toString(),
                             et2.getText().toString(), et4.getText().toString(),
                             et5.getText().toString(), et6.getText().toString());
 
                     Toast.makeText(getApplicationContext(),"Course Added Successfully! "  ,Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getApplicationContext(), MembersActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), MemberActivity.class)
+                            .putExtra("memberId",memberId);
+
                     startActivity(intent);
 
                 }
                 else {
-                    // please fill all field
+                    Toast.makeText(getApplicationContext(),"Please fill in all fields ! ",Toast.LENGTH_LONG).show();
                 }
             }
         });

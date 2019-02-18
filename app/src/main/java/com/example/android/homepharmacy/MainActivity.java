@@ -1,16 +1,10 @@
 package com.example.android.homepharmacy;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.content.res.XmlResourceParser;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,21 +15,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.android.homepharmacy.Activity.HomeActivity;
-import com.example.android.homepharmacy.Activity.LoginActivity;
-import com.example.android.homepharmacy.Activity.RegistrationActivity;
-import com.example.android.homepharmacy.Activity.SearchDrugViaIndication;
-import com.example.android.homepharmacy.Activity.SearchDrugViaName;
+import com.example.android.homepharmacy.Activity.SearchOptions;
 import com.example.android.homepharmacy.Activity.StartActivity;
 import com.example.android.homepharmacy.Database.DB;
-import com.example.android.homepharmacy.Database.DataContract;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
-import java.io.IOException;
-
-import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -79,7 +68,15 @@ public class MainActivity extends AppCompatActivity
 
         /////////////////
 
-        Intent intent = new Intent(this, SearchDrugViaIndication.class);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        String ss = dateFormat.format(date);
+
+        java.util.Date date1 = new java.util.Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        String sss = sdf.format(date1);
+
+        Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
 
 
