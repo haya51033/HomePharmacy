@@ -117,7 +117,6 @@ public class MemberActivity extends AppCompatActivity  implements
                 iv.setVisibility(View.GONE);
                 Picasso.with(getApplicationContext()).load(R.drawable.man_icon).resize(300,300).into(iv2);
             }
-
         }
 
         // Set the RecyclerView to its corresponding view
@@ -159,9 +158,10 @@ public class MemberActivity extends AppCompatActivity  implements
                  String stringId = Integer.toString(id);
                  Uri uri = DataContract.DrugsEntry.CONTENT_URI;
                  uri = uri.buildUpon().appendPath(stringId).build();
-                 //Delete a single row of data using a ContentResolver
+                 // Delete a single row of data using a ContentResolver
                  *  getContentResolver().delete(uri, null, null);
                  *   // Restart the loader to re-query for all drugs after a deletion
+                 *
                  * **/
 
                 getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, MemberActivity.this);

@@ -80,13 +80,15 @@ public class HomeActivity extends AppCompatActivity
              //   Toast.makeText( HomeActivity.this, "GridView Item: " + gridViewString[+i], Toast.LENGTH_LONG).show();
 
                 if(i==0){
-                    Intent intent = new Intent(getApplicationContext(), DrugsActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), SearchOptions.class);
                     startActivity(intent);
                 }
                 if(i==1){
                     Intent intent = new Intent(getApplicationContext(), MembersActivity.class);
                     startActivity(intent);
                 }
+
+
 
             }
         });

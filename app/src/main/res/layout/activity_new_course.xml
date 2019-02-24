@@ -31,7 +31,7 @@
                 android:gravity="center"
                 android:textSize="40sp"
                 android:textStyle="bold"
-                android:text="@string/drugs"
+                android:text="@string/new_course"
                 android:textColor="@color/white" />
         </RelativeLayout>
         <LinearLayout android:layout_width="match_parent"
@@ -40,57 +40,171 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:padding="16dp">
 
-
-
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:hint="@string/start_date"
-                android:id="@+id/etStartDate"
-                android:background="@drawable/stroke"
-                android:padding="8dp"
-                android:layout_marginTop="8dp"/>
+                android:orientation="horizontal"
+                android:weightSum="1">
 
-            <EditText
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:hint="@string/start_date"
+                    android:padding="8dp"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:layout_margin="4dp"
+                    android:onClick="setDate"
+                    android:layout_weight="0.5"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:hint="@string/end_date"
+                    android:padding="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_margin="4dp"
+                    android:clickable="true"
+                    android:onClick="setDate2"
+                    android:layout_weight="0.5"
+                    android:textColor="@color/colorPrimaryDark"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:hint="@string/end_date"
-                android:id="@+id/etEndDate"
-                android:background="@drawable/stroke"
-                android:padding="8dp"
-                android:layout_marginTop="8dp"/>
+                android:orientation="horizontal"
+                android:weightSum="1">
 
-            <EditText
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:hint="@string/start_date"
+                    android:id="@+id/etStartDate"
+                    android:background="@drawable/stroke"
+                    android:padding="8dp"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:layout_margin="4dp"
+                    android:onClick="setDate"
+                    android:layout_weight="0.5"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:hint="@string/end_date"
+                    android:id="@+id/etEndDate"
+                    android:background="@drawable/stroke"
+                    android:padding="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_margin="4dp"
+                    android:clickable="true"
+                    android:onClick="setDate2"
+                    android:layout_weight="0.5"/>
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:id="@+id/etFirstTime"
-                android:hint="@string/first_time"
-                android:background="@drawable/stroke"
-                android:padding="8dp"
-                android:layout_marginTop="8dp"/>
+                android:orientation="horizontal"
+                android:weightSum="1">
 
-            <EditText
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:hint="@string/first_time"
+                    android:padding="8dp"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:layout_margin="4dp"
+                    android:layout_weight="0.5"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+                <Spinner
+                    android:id="@+id/etFirstTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawSelectorOnTop="true"
+                    android:entries="@array/array_time"
+                    android:layout_marginTop="10dp"
+                    android:padding="8dp"
+                    android:layout_margin="8dp"
+                    android:background="@color/photo_placeholder"
+                    android:layout_weight="0.5"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:id="@+id/etDoseQ"
-                android:hint="@string/dose_quantity"
-                android:background="@drawable/stroke"
-                android:padding="8dp"
-                android:layout_marginTop="8dp"/>
+                android:orientation="horizontal"
+                android:weightSum="1">
 
-            <EditText
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:hint="@string/dose_quantity"
+                    android:padding="8dp"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:layout_margin="4dp"
+                    android:layout_weight="0.5"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:id="@+id/etDoseQ"
+                    android:background="@drawable/stroke"
+                    android:padding="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="0.5"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:id="@+id/etDoseR"
-                android:hint="@string/dose_repeat"
-                android:background="@drawable/stroke"
-                android:padding="8dp"
-                android:layout_marginTop="8dp"/>
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:hint="@string/dose_repeat"
+                    android:padding="8dp"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:layout_margin="4dp"
+                    android:layout_weight="0.5"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:id="@+id/etDoseR"
+                    android:background="@drawable/stroke"
+                    android:padding="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="number"
+                    android:layout_weight="0.5"/>
+
+            </LinearLayout>
+
+
 
             <EditText
                 android:layout_width="match_parent"
@@ -111,7 +225,8 @@
                 android:text="@string/add"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                />
 
         </LinearLayout>
 

@@ -42,10 +42,13 @@ public class DrugsActivity extends AppCompatActivity implements
 
         Intent intent1 = getIntent();
         Bundle args = intent1.getBundleExtra("BUNDLE");
-        drugsSearchResult =  (ArrayList) args.getSerializable("my_array");
+            drugsSearchResult =  (ArrayList) args.getSerializable("my_array");
+
 
         Intent intent = this.getIntent();
-        memberId = intent.getIntExtra(Intent.EXTRA_TEXT, 0);
+        if((intent.getIntExtra(Intent.EXTRA_TEXT, 0)) != 0){
+            memberId = intent.getIntExtra(Intent.EXTRA_TEXT, 0);
+        }
 
         if(drugsSearchResult != null && !drugsSearchResult.isEmpty()){
             selectionArgs1 = drugsSearchResult.toArray(new String[drugsSearchResult.size()]);
@@ -139,7 +142,7 @@ public class DrugsActivity extends AppCompatActivity implements
                 // Will implement to load data
                 // Query and load all drug data in the background; sort by priority
                 // use a try/catch block to catch any errors in loading data
-                if(drugsSearchResult.isEmpty()){
+                if(drugsSearchResult == null){
                     try {
                         return getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
                                 null,

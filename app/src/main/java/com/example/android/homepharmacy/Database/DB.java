@@ -69,7 +69,7 @@ public class DB extends SQLiteOpenHelper {
                 DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME_ARABIC+ " TEXT NOT NULL, " +
                 DataContract.DrugsEntry.COLUMN_DRUG_INDICATION+ " TEXT NOT NULL, " +
                 DataContract.DrugsEntry.COLUMN_DRUG_INDICATION_ARABIC+ " TEXT NOT NULL, " +
-                DataContract.DrugsEntry.COLUMN_EXPIRY_DATE+ " TEXT NOT NULL, " +
+                DataContract.DrugsEntry.COLUMN_EXPIRY_DATE+ " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
                 DataContract.DrugsEntry.COLUMN_DRUG_CONCENTRATION+ " TEXT NOT NULL, " +
                 DataContract.DrugsEntry.COLUMN_DRUG_TYPE+ " TEXT NOT NULL, " +
                 DataContract.DrugsEntry.COLUMN_DRUG_TYPE_ARABIC+ " TEXT NOT NULL, " +
@@ -89,12 +89,12 @@ public class DB extends SQLiteOpenHelper {
                 DataContract.DrugListEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 DataContract.DrugListEntry.COLUMN_DRUG_L_ID+ " INTEGER NOT NULL, " +
                 DataContract.DrugListEntry.COLUMN_MEMBER_L_ID+ " INTEGER NOT NULL, " +
-                DataContract.DrugListEntry.COLUMN_DRUG_START_DATE+ " TEXT NOT NULL, " +
-                DataContract.DrugListEntry.COLUMN_DRUG_END_DATE+ " TEXT NOT NULL, " +
+                DataContract.DrugListEntry.COLUMN_DRUG_START_DATE+ " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
+                DataContract.DrugListEntry.COLUMN_DRUG_END_DATE+ " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
                 DataContract.DrugListEntry.COLUMN_DRUG_DOSE_QUANTITY+ " TEXT NOT NULL, " +
                 DataContract.DrugListEntry.COLUMN_DRUG_DOSE_REPEAT+ " TEXT NOT NULL, " +
                 DataContract.DrugListEntry.COLUMN_DRUG_DOSE_DESCRIPTION+ " TEXT NOT NULL, " +
-                DataContract.DrugListEntry.COLUMN_DRUG_FIRST_TIME + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
+                DataContract.DrugListEntry.COLUMN_DRUG_FIRST_TIME + " DATETIME DEFAULT CURRENT_TIMESTAMP" +
 
 
                 " );";

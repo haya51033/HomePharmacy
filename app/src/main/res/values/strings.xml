@@ -58,6 +58,11 @@
     <string name="add_to_my_list">Add to list</string>
     <string name="delete_to_my_list">Delete from List</string>
     <string name="first_time">First Time</string>
+    <string name="date_label_set">Press the button to set the date</string>
+    <string name="date_button_set">Set Date</string>
+    <string name="date_view_set">The Date is: </string>
+    <string name="date_selected"></string>
+    <string name="new_course">New Course</string>
 
 
     <string name="_type">Type..</string>
@@ -83,6 +88,33 @@
     <string-array name="array_yes_no">
         <item>Yes</item>
         <item>No</item>
+    </string-array>
+
+    <string-array name="array_time">
+        <item>12 AM</item><!--00:00:00-->
+        <item>1 AM</item><!--01:00:00-->
+        <item>2 AM</item><!--02:00:00-->
+        <item>3 AM</item><!--03:00:00-->
+        <item>4 AM</item><!--04:00:00-->
+        <item>5 AM</item><!--05:00:00-->
+        <item>6 AM</item><!--06:00:00-->
+        <item>7 AM</item><!--07:00:00-->
+        <item>8 AM</item><!--08:00:00-->
+        <item>9 AM</item><!--09:00:00-->
+        <item>10 AM</item><!--10:00:00-->
+        <item>11 AM</item><!--11:00:00-->
+        <item>12 PM</item><!--12:00:00-->
+        <item>1 PM</item><!--13:00:00-->
+        <item>2 PM</item><!--14:00:00-->
+        <item>3 PM</item><!--15:00:00-->
+        <item>4 PM</item><!--16:00:00-->
+        <item>5 PM</item><!--17:00:00-->
+        <item>6 PM</item><!--18:00:00-->
+        <item>7 PM</item><!--19:00:00-->
+        <item>8 PM</item><!--20:00:00-->
+        <item>9 PM</item><!--21:00:00-->
+        <item>10 PM</item><!--22:00:00-->
+        <item>11 PM</item><!--23:00:00-->
     </string-array>
 
 </resources>
