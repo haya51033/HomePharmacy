@@ -1,6 +1,7 @@
 package com.example.android.homepharmacy;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,14 +16,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.android.homepharmacy.Activity.SearchOptions;
 import com.example.android.homepharmacy.Activity.StartActivity;
+import com.example.android.homepharmacy.DataModel.DrugAlert;
 import com.example.android.homepharmacy.Database.DB;
+import com.example.android.homepharmacy.Database.DataContract;
+import com.example.android.homepharmacy.broadcast_receivers.NotificationEventReceiver;
+import com.example.android.homepharmacy.broadcast_receivers.NotificationEventReceiver2;
 
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -31,6 +34,8 @@ public class MainActivity extends AppCompatActivity
 
     SQLiteDatabase mDb;
     DB dbHelper;
+
+    Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,25 +67,66 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //////CREATE DATABASE
-       // DB dbHelper = new DB(this);
-       // mDb = dbHelper.getWritableDatabase();
 
-        /////////////////
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        String ss = dateFormat.format(date);
-
-        java.util.Date date1 = new java.util.Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        String sss = sdf.format(date1);
+            if(setTimeAlarm()){
+                NotificationEventReceiver.setupAlarm(getApplicationContext());
+            }
+        if(setTimeAlarm2()){
+            NotificationEventReceiver2.setupAlarm2(getApplicationContext());
+        }
 
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
 
 
 
+    }
+
+    public boolean setTimeAlarm(){
+       cursor =  getContentResolver().query(DataContract.DrugListEntry.CONTENT_URI,
+                null,
+                null,
+                null,
+                DataContract.DrugListEntry._ID);
+        if(cursor != null){
+            if (cursor.moveToFirst()){// data?
+               return true;
+                }
+            }
+            return false;
+        }
+
+    public boolean setTimeAlarm2(){
+        cursor =  getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
+                null,
+                null,
+                null,
+                DataContract.DrugsEntry._ID);
+        if(cursor != null){
+            if (cursor.moveToFirst()){// data?
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+
+
+    // To prevent crash on resuming activity  : interaction with fragments allowed only after Fragments Resumed or in OnCreate
+    // http://www.androiddesignpatterns.com/2013/08/fragment-transaction-commit-state-loss.html
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        // handleIntent();
     }
 
     @Override
