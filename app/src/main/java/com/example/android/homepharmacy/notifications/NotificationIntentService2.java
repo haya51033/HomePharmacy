@@ -32,8 +32,6 @@ public class NotificationIntentService2 extends JobIntentService {
     private static String TAG = NotificationIntentService2.class.getName();
 
     ArrayList<DrugAlert2> arrayList2 = new ArrayList<>();
-   // DrugAlert2 drugAlert2;
-
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     ArrayList<DrugAlert2> drugsExList = new ArrayList<>();
@@ -57,10 +55,6 @@ public class NotificationIntentService2 extends JobIntentService {
         Date date = new Date();
         toda = dateFormat.format(date);
         today = dateFormat.parse(toda, new ParsePosition(0));
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        java.util.Date date1 = new java.util.Date();
-        String current = sdf.format(date1);
-
 
             arrayList2 = setTimeAlarm2();
             if(arrayList2 != null){

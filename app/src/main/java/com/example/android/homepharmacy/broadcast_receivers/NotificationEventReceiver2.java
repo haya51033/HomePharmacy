@@ -24,10 +24,6 @@ public class NotificationEventReceiver2 extends WakefulBroadcastReceiver {
     private static final String ACTION_START_NOTIFICATION_SERVICE = "ACTION_START_NOTIFICATION_SERVICE2";
     private static final String ACTION_DELETE_NOTIFICATION = "ACTION_DELETE_NOTIFICATION2";
 
-    private static final int NOTIFICATIONS_INTERVAL_IN_HOURS = 1;
-    private static String TAG;
-
-
     public static void setupAlarm2(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent alarmIntent = getStartPendingIntent(context);
@@ -43,7 +39,7 @@ public class NotificationEventReceiver2 extends WakefulBroadcastReceiver {
         long currentTime = currentCal.getTimeInMillis();
         if(intendedTime >= currentTime)
         {
-            //this will set the alarm for current day if time is below 11 am
+            //this will set the alarm for current day if time is below 12 am
             alarmManager.setRepeating(AlarmManager.RTC, intendedTime , AlarmManager.INTERVAL_DAY, alarmIntent);
         }
         else {
@@ -53,10 +49,6 @@ public class NotificationEventReceiver2 extends WakefulBroadcastReceiver {
             alarmManager.setRepeating(AlarmManager.RTC, intendedTime ,
                     AlarmManager.INTERVAL_DAY, alarmIntent);
         }
-       /* alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                getTriggerAt(new Date()),
-                NOTIFICATIONS_INTERVAL_IN_HOURS * AlarmManager.INTERVAL_HOUR ,
-                alarmIntent);*/
     }
 
 
