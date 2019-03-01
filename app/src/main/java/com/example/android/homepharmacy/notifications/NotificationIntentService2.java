@@ -25,19 +25,17 @@ import java.util.Date;
 
 public class NotificationIntentService2 extends JobIntentService {
 
-    private static final int NOTIFICATION_ID = 2;
+    private  int NOTIFICATION_ID = 2;
     private static final String ACTION_START = "ACTION_START2";
     private static final String ACTION_DELETE = "ACTION_DELETE2";
 
     private static String TAG = NotificationIntentService2.class.getName();
 
     ArrayList<DrugAlert2> arrayList2 = new ArrayList<>();
-    DrugAlert2 drugAlert2;
+   // DrugAlert2 drugAlert2;
 
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
-    int courseId;
     ArrayList<DrugAlert2> drugsExList = new ArrayList<>();
 
     String drugEpiryName;
@@ -59,23 +57,29 @@ public class NotificationIntentService2 extends JobIntentService {
         Date date = new Date();
         toda = dateFormat.format(date);
         today = dateFormat.parse(toda, new ParsePosition(0));
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        java.util.Date date1 = new java.util.Date();
+        String current = sdf.format(date1);
 
-        arrayList2 = setTimeAlarm2();
-        if(arrayList2 != null){
-            if(arrayList2.size() > 0){
-                for(DrugAlert2 d2 : arrayList2){
-                    exNotDrugName = d2.getDrug_name();
-                    exNotDrugDate = d2.getDrug_ex_date();
-                    exNotDrugId = d2.getIdEx();
-                    try {
-                        processStartNotification2();
-                        String action = intent.getAction();
-                        if (ACTION_START.equals(action)) {
+
+            arrayList2 = setTimeAlarm2();
+            if(arrayList2 != null){
+                if(arrayList2.size() > 0){
+                    for(DrugAlert2 d2 : arrayList2){
+                        exNotDrugName = d2.getDrug_name();
+                        exNotDrugDate = d2.getDrug_ex_date();
+                        exNotDrugId = d2.getIdEx();
+                        try {
                             processStartNotification2();
+                            NOTIFICATION_ID = NOTIFICATION_ID +1;
+                            String action = intent.getAction();
+                            if (ACTION_START.equals(action)) {
+                                processStartNotification2();
+                            }
+                        } finally {
+                            WakefulBroadcastReceiver.completeWakefulIntent(intent);
                         }
-                    } finally {
-                        WakefulBroadcastReceiver.completeWakefulIntent(intent);
-                    }
+
                 }
             }
         }
@@ -122,6 +126,7 @@ public class NotificationIntentService2 extends JobIntentService {
         builder.setDeleteIntent(NotificationEventReceiver2.getDeleteIntent(this));
 
         NotificationManagerCompat manager = NotificationManagerCompat.from(this);
+     //   manager.notify(NOTIFICATION_ID, builder.build());
         manager.notify(NOTIFICATION_ID, builder.build());
 
     }
@@ -129,27 +134,31 @@ public class NotificationIntentService2 extends JobIntentService {
 
         Calendar cal = Calendar.getInstance(); // creates calendar
         cal.setTime(today); // sets calendar time/date
-        cal.add(Calendar.DATE, -30);
+        cal.add(Calendar.DATE, + 30);
         Date dateBefore30Days = cal.getTime();
-        String beforeMonthe = sdf.format(dateBefore30Days);
+        String beforeMonthe = dateFormat.format(dateBefore30Days);
         /////
         Calendar ca2 = Calendar.getInstance(); // creates calendar
         ca2.setTime(today); // sets calendar time/date
-        ca2.add(Calendar.DATE, -2);
+        ca2.add(Calendar.DATE, +2 );
         Date dateBefore2Days = ca2.getTime();
-        String before2Days = sdf.format(dateBefore2Days);
+        String before2Days = dateFormat.format(dateBefore2Days);
 
-        Cursor c = getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI, DRUG_COLUMNS,
-                "expiry_date='"+beforeMonthe+"'" + " OR expiry_date='"+before2Days+"'",
+        Cursor c122 = getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI, DRUG_COLUMNS,
+                "expiry_date='"+beforeMonthe+"'",
                 null,null,null);
+        Cursor c = getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI, DRUG_COLUMNS,
+                "expiry_date IN(?,?)",
+                new String[]{before2Days , beforeMonthe}, null);
 
         if(c != null){
+            int d = c.getCount();
             if(c.moveToFirst()) {
                 while (!c.isAfterLast()) {
                     drugEpiryName = c.getString(c.getColumnIndex("commercial_name"));
                     drugEpityId = c.getInt(c.getColumnIndex("_id"));
                     drugExpiryDate = c.getString(c.getColumnIndex("expiry_date"));
-                    drugAlert2 = new DrugAlert2(drugEpityId, drugEpiryName, drugExpiryDate);
+                    DrugAlert2 drugAlert2 = new DrugAlert2(drugEpityId, drugEpiryName, drugExpiryDate);
                     drugsExList.add(drugAlert2);
                     c.moveToNext();
                 }

@@ -71,6 +71,9 @@ public class SearchOptions  extends AppCompatActivity {
                     drugsResult = new ArrayList();
 
                     switch (spinnerValue){
+                        case 0:
+                            Toast.makeText(getApplicationContext(),"Please select search option!", Toast.LENGTH_LONG).show();
+                            break;
                         case 1:
                             c = getDrugNameMatches(query, null);
                             break;
@@ -110,11 +113,7 @@ public class SearchOptions  extends AppCompatActivity {
                     }
                 }
             });
-
-
-
     }
-
 
 
     public Cursor getDrugNameMatches(String query, String[] columns) {

@@ -26,7 +26,7 @@ import java.util.Date;
 
 public class NotificationIntentService extends JobIntentService {
 
-    private static final int NOTIFICATION_ID = 1;
+    private int NOTIFICATION_ID = 1;
     private static final String ACTION_START = "ACTION_START";
     private static final String ACTION_DELETE = "ACTION_DELETE";
 
@@ -69,7 +69,6 @@ public class NotificationIntentService extends JobIntentService {
         today = dateFormat.parse(toda, new ParsePosition(0));
 
         java.util.Date date1 = new java.util.Date();
-
         String current = sdf.format(date1);
 
         Date now1 = sdf.parse(current, new ParsePosition(0));
@@ -107,6 +106,7 @@ public class NotificationIntentService extends JobIntentService {
                             Log.d(getClass().getSimpleName(), "onHandleIntent, started handling a notification event");
                             try {
                                 processStartNotification();
+                                NOTIFICATION_ID = NOTIFICATION_ID +1;
                                 String action = intent.getAction();
                                 if (ACTION_START.equals(action)) {
                                     processStartNotification();
@@ -148,9 +148,10 @@ public class NotificationIntentService extends JobIntentService {
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setContentTitle("Drug Reminder for: " + memName)
                 .setAutoCancel(true)
+                .setSmallIcon(R.drawable.drug_icon)
                 .setColor(getResources().getColor(R.color.colorAccent))
                 .setContentText("Now its time for " + memName +
-                        " to get " + drugName + " - Drug dose: " + dose)
+                        " to get " + drugName)
                 .setSmallIcon(R.drawable.logo);
 
         Intent mainIntent = new Intent(this, CourseActivity.class);

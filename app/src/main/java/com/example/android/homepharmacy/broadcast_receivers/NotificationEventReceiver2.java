@@ -2,24 +2,15 @@ package com.example.android.homepharmacy.broadcast_receivers;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
+
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
-import com.example.android.homepharmacy.DataModel.DrugAlert;
-import com.example.android.homepharmacy.Database.DB;
-import com.example.android.homepharmacy.Database.DataContract;
-import com.example.android.homepharmacy.notifications.NotificationIntentService;
+
 import com.example.android.homepharmacy.notifications.NotificationIntentService2;
 
-import java.text.DateFormat;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -33,7 +24,7 @@ public class NotificationEventReceiver2 extends WakefulBroadcastReceiver {
     private static final String ACTION_START_NOTIFICATION_SERVICE = "ACTION_START_NOTIFICATION_SERVICE2";
     private static final String ACTION_DELETE_NOTIFICATION = "ACTION_DELETE_NOTIFICATION2";
 
-    private static final int NOTIFICATIONS_INTERVAL_IN_HOURS = 24;
+    private static final int NOTIFICATIONS_INTERVAL_IN_HOURS = 1;
     private static String TAG;
 
 
@@ -41,10 +32,31 @@ public class NotificationEventReceiver2 extends WakefulBroadcastReceiver {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent alarmIntent = getStartPendingIntent(context);
 
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+        Calendar firingCal = Calendar.getInstance();
+        Calendar currentCal = Calendar.getInstance();
+
+        firingCal.set(Calendar.HOUR_OF_DAY, 12); //24-hour format
+        firingCal.set(Calendar.MINUTE, 00);
+        firingCal.set(Calendar.SECOND, 00);
+
+        long intendedTime = firingCal.getTimeInMillis();
+        long currentTime = currentCal.getTimeInMillis();
+        if(intendedTime >= currentTime)
+        {
+            //this will set the alarm for current day if time is below 11 am
+            alarmManager.setRepeating(AlarmManager.RTC, intendedTime , AlarmManager.INTERVAL_DAY, alarmIntent);
+        }
+        else {
+            //this will set the alarm for the next day
+            firingCal.add(Calendar.DAY_OF_MONTH, 1);
+            intendedTime = firingCal.getTimeInMillis();
+            alarmManager.setRepeating(AlarmManager.RTC, intendedTime ,
+                    AlarmManager.INTERVAL_DAY, alarmIntent);
+        }
+       /* alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
                 getTriggerAt(new Date()),
                 NOTIFICATIONS_INTERVAL_IN_HOURS * AlarmManager.INTERVAL_HOUR ,
-                alarmIntent);
+                alarmIntent);*/
     }
 
 

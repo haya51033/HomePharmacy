@@ -68,9 +68,9 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-            if(setTimeAlarm()){
+           // if(setTimeAlarm()){
                 NotificationEventReceiver.setupAlarm(getApplicationContext());
-            }
+
         if(setTimeAlarm2()){
             NotificationEventReceiver2.setupAlarm2(getApplicationContext());
         }
