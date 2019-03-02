@@ -23,14 +23,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
-        <Button
-            android:id="@+id/sendNotifications"
-            android:onClick="onSendNotificationsButtonClick"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="100dp"
-            android:text="Start Sending Notifications Every 2 Hours!" />
+
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView
