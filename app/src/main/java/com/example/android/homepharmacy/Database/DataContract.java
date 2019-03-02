@@ -97,6 +97,8 @@ public class DataContract {
         public static final String COLUMN_FIRST_AID_IMAGE  = "first_aid_image";
         public static final String COLUMN_FIRST_AID_LINK  = "first_aid_link";
         public static final String COLUMN_FIRST_AID_DRUG  = "first_aid_drug";
+        public static final String COLUMN_FIRST_AID_TITLE_ARABIC  = "first_aid_title_arabic";
+        public static final String COLUMN_FIRST_AID_DESCRIPTION_ARABIC  = "first_aid_description_arabic";
 
     }
 

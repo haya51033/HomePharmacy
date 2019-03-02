@@ -1,18 +1,23 @@
 package com.example.android.homepharmacy.notifications;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.support.v4.app.JobIntentService;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
+import com.example.android.homepharmacy.Activity.CourseActivity;
 import com.example.android.homepharmacy.Activity.DrugActivity;
 import com.example.android.homepharmacy.DataModel.DrugAlert2;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
+import com.example.android.homepharmacy.broadcast_receivers.NotificationEventReceiver;
 import com.example.android.homepharmacy.broadcast_receivers.NotificationEventReceiver2;
 
 import java.text.DateFormat;
@@ -28,7 +33,9 @@ public class NotificationIntentService2 extends JobIntentService {
     private  int NOTIFICATION_ID = 2;
     private static final String ACTION_START = "ACTION_START2";
     private static final String ACTION_DELETE = "ACTION_DELETE2";
-
+    String CHANNEL_ID = "my_channel_02";// The id of the channel.
+    CharSequence name = "my_channel_02";
+    int importance = NotificationManager.IMPORTANCE_HIGH;
     private static String TAG = NotificationIntentService2.class.getName();
 
     ArrayList<DrugAlert2> arrayList2 = new ArrayList<>();
@@ -45,6 +52,8 @@ public class NotificationIntentService2 extends JobIntentService {
     String exNotDrugName;
     String exNotDrugDate;
     int exNotDrugId;
+    Context context = this;
+
 
     public static void startService2(Context context) {
         enqueueWork(context, NotificationIntentService2.class, 1002, new Intent());
@@ -103,25 +112,62 @@ public class NotificationIntentService2 extends JobIntentService {
     private void processStartNotification2() {
         // Do something. For example, fetch fresh data from backend to create a rich notification?
 
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setContentTitle("Drug Expiry soon!! ")
-                .setAutoCancel(true)
-                .setColor(getResources().getColor(R.color.colorAccent))
-                .setContentText("The " + exNotDrugName + " Will Expiry in: " + exNotDrugDate )
-                .setSmallIcon(R.drawable.logo);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+            final NotificationCompat.Builder builder = new NotificationCompat.Builder(context , CHANNEL_ID);
+            builder.setContentTitle("Drug Expiry soon!! ")
+                    .setAutoCancel(true)
+                    .setColor(getResources().getColor(R.color.colorAccent))
+                    .setContentText("The " + exNotDrugName + " Will Expiry in: " + exNotDrugDate )
+                    .setSmallIcon(R.drawable.logo)
+                    .setChannelId(CHANNEL_ID);
 
-        Intent mainIntent = new Intent(this, DrugActivity.class);
-        mainIntent.putExtra(Intent.EXTRA_TEXT, exNotDrugId);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                NOTIFICATION_ID,
-                mainIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(pendingIntent);
-        builder.setDeleteIntent(NotificationEventReceiver2.getDeleteIntent(this));
 
-        NotificationManagerCompat manager = NotificationManagerCompat.from(this);
-     //   manager.notify(NOTIFICATION_ID, builder.build());
-        manager.notify(NOTIFICATION_ID, builder.build());
+            Intent mainIntent = new Intent(this, DrugActivity.class);
+            mainIntent.putExtra(Intent.EXTRA_TEXT, exNotDrugId);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this,
+                    NOTIFICATION_ID,
+                    mainIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.setContentIntent(pendingIntent);
+            builder.setDeleteIntent(NotificationEventReceiver.getDeleteIntent(this));
+
+
+            NotificationManager mNotificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            /* Create or update. */
+            NotificationChannel channel = new NotificationChannel("my_channel_01",
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            // mNotificationManager.createNotificationChannel(channel);
+            mNotificationManager.createNotificationChannel(mChannel);
+            mNotificationManager.notify(NOTIFICATION_ID, builder.build());
+
+
+
+        }
+        else {
+            final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+            builder.setContentTitle("Drug Expiry soon!! ")
+                    .setAutoCancel(true)
+                    .setColor(getResources().getColor(R.color.colorAccent))
+                    .setContentText("The " + exNotDrugName + " Will Expiry in: " + exNotDrugDate )
+                    .setSmallIcon(R.drawable.logo);
+
+            Intent mainIntent = new Intent(this, DrugActivity.class);
+            mainIntent.putExtra(Intent.EXTRA_TEXT, exNotDrugId);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this,
+                    NOTIFICATION_ID,
+                    mainIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.setContentIntent(pendingIntent);
+            builder.setDeleteIntent(NotificationEventReceiver2.getDeleteIntent(this));
+
+            NotificationManagerCompat manager = NotificationManagerCompat.from(this);
+            //   manager.notify(NOTIFICATION_ID, builder.build());
+            manager.notify(NOTIFICATION_ID, builder.build());
+        }
+
 
     }
     public ArrayList<DrugAlert2> setTimeAlarm2(){
@@ -138,9 +184,7 @@ public class NotificationIntentService2 extends JobIntentService {
         Date dateBefore2Days = ca2.getTime();
         String before2Days = dateFormat.format(dateBefore2Days);
 
-        Cursor c122 = getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI, DRUG_COLUMNS,
-                "expiry_date='"+beforeMonthe+"'",
-                null,null,null);
+
         Cursor c = getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI, DRUG_COLUMNS,
                 "expiry_date IN(?,?)",
                 new String[]{before2Days , beforeMonthe}, null);

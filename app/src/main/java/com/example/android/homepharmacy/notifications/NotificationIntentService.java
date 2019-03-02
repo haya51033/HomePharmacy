@@ -1,9 +1,12 @@
 package com.example.android.homepharmacy.notifications;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.support.v4.app.JobIntentService;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -29,6 +32,10 @@ public class NotificationIntentService extends JobIntentService {
     private int NOTIFICATION_ID = 1;
     private static final String ACTION_START = "ACTION_START";
     private static final String ACTION_DELETE = "ACTION_DELETE";
+    String CHANNEL_ID = "my_channel_01";// The id of the channel.
+    CharSequence name = "my_channel_01";
+    int importance = NotificationManager.IMPORTANCE_HIGH;
+
 
     private static String TAG = NotificationIntentService.class.getName();
 
@@ -56,6 +63,7 @@ public class NotificationIntentService extends JobIntentService {
     int courseId;
     String toda;
     Date today;
+    Context context = this;
 
     public static void startService(Context context) {
         enqueueWork(context, NotificationIntentService.class, 1001, new Intent());
@@ -145,26 +153,66 @@ public class NotificationIntentService extends JobIntentService {
     private void processStartNotification() {
         // Do something. For example, fetch fresh data from backend to create a rich notification?
 
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setContentTitle("Drug Reminder for: " + memName)
-                .setAutoCancel(true)
-                .setSmallIcon(R.drawable.drug_icon)
-                .setColor(getResources().getColor(R.color.colorAccent))
-                .setContentText("Now its time for " + memName +
-                        " to get " + drugName)
-                .setSmallIcon(R.drawable.logo);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+            final NotificationCompat.Builder builder = new NotificationCompat.Builder(context , CHANNEL_ID);
+            builder.setContentTitle("Drug Reminder for: " + memName)
+                    .setAutoCancel(true)
+                    .setSmallIcon(R.drawable.drug_icon)
+                    .setColor(getResources().getColor(R.color.colorAccent))
+                    .setContentText("Now its time for " + memName +
+                            " to get " + drugName)
+                    .setSmallIcon(R.drawable.logo)
+                    .setChannelId(CHANNEL_ID);
 
-        Intent mainIntent = new Intent(this, CourseActivity.class);
-        mainIntent.putExtra(Intent.EXTRA_TEXT, courseId);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                NOTIFICATION_ID,
-                mainIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(pendingIntent);
-        builder.setDeleteIntent(NotificationEventReceiver.getDeleteIntent(this));
+            Intent mainIntent = new Intent(this, CourseActivity.class);
+            mainIntent.putExtra(Intent.EXTRA_TEXT, courseId);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this,
+                    NOTIFICATION_ID,
+                    mainIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.setContentIntent(pendingIntent);
+            builder.setDeleteIntent(NotificationEventReceiver.getDeleteIntent(this));
 
-        NotificationManagerCompat manager = NotificationManagerCompat.from(this);
-        manager.notify(NOTIFICATION_ID, builder.build());
+
+            NotificationManager mNotificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            /* Create or update. */
+            NotificationChannel channel = new NotificationChannel("my_channel_01",
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+           // mNotificationManager.createNotificationChannel(channel);
+            mNotificationManager.createNotificationChannel(mChannel);
+            mNotificationManager.notify(NOTIFICATION_ID, builder.build());
+
+
+
+        }
+        else {
+            final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+            builder.setContentTitle("Drug Reminder for: " + memName)
+                    .setAutoCancel(true)
+                    .setSmallIcon(R.drawable.drug_icon)
+                    .setColor(getResources().getColor(R.color.colorAccent))
+                    .setContentText("Now its time for " + memName +
+                            " to get " + drugName)
+                    .setSmallIcon(R.drawable.logo);
+
+            Intent mainIntent = new Intent(this, CourseActivity.class);
+            mainIntent.putExtra(Intent.EXTRA_TEXT, courseId);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this,
+                    NOTIFICATION_ID,
+                    mainIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.setContentIntent(pendingIntent);
+            builder.setDeleteIntent(NotificationEventReceiver.getDeleteIntent(this));
+
+
+            NotificationManagerCompat manager = NotificationManagerCompat.from(this);
+            manager.notify(NOTIFICATION_ID, builder.build());
+
+        }
+
 
     }
 

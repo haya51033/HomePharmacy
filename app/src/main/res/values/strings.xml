@@ -64,7 +64,8 @@
     <string name="date_selected"></string>
     <string name="new_course">New Course</string>
     <string name="title_activity_notification">NotificationActivity</string>
-    <string name="channel_name">C</string>
+    <string name="channel_name">"my_channel_01</string>
+
 
 
     <string name="_type">Type..</string>
