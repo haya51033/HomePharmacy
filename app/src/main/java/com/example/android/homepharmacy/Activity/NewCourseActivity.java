@@ -125,7 +125,11 @@ public class NewCourseActivity extends BaseActivity {
 
     }
 
-
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MemberActivity.class)
+                .putExtra("memberId", memberId);
+        startActivity(intent);
+    }
 
 
     @SuppressWarnings("deprecation")

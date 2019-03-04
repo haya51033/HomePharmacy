@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 
+import java.util.Locale;
+
 public class DrugActivity extends BaseActivity {
     Intent intent;
     int drugId;
@@ -69,6 +71,7 @@ public class DrugActivity extends BaseActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setupSharedPreferences();
 
         setContentView(R.layout.activity_drug);
@@ -104,27 +107,23 @@ public class DrugActivity extends BaseActivity {
             _DRUG_BARCODE =  cursor.getString(cursor.getColumnIndex("drug_barcode"));
 
             cursor.close();
+            boolean isEnglish = Locale.getDefault().getLanguage().equals("en");
+
 
             tv = (TextView) findViewById(R.id.tvDrugCName);
-            tv.setText(_DRUG_COMMERCIAL_NAME);
-
             tv1 = (TextView) findViewById(R.id.tvDrugSName);
-            tv1.setText(_DRUG_SCIENTIFIC_NAME);
 
             tv2 = (TextView) findViewById(R.id.tv_drug_type);
             tv2.setText(_DRUG_TYPE);
 
             tv3 = (TextView) findViewById(R.id.tv_drug_indication);
-            tv3.setText(_DRUG_INDICATION);
 
             tv4 = (TextView) findViewById(R.id.tv_drug_side_effects);
-            tv4.setText(_SIDE_EFFECTS);
 
             tv5 = (TextView) findViewById(R.id.tv_pregnant_allowed);
             tv5.setText(_PREGNENT_ALLOWED);
 
             tv6 = (TextView) findViewById(R.id.tv_drug_description);
-            tv6.setText(_DRUG_DESCRIPTION);
 
             tv7 = (TextView) findViewById(R.id.tv_expiry_date);
             tv7.setText(_EXPIRY_DATE);
@@ -133,16 +132,24 @@ public class DrugActivity extends BaseActivity {
             tv8.setText(_DRUG_CONCENTRATION);
 
             tv9 = (TextView) findViewById(R.id.tv_drug_warnings);
-            tv9.setText(_DRUG_WARNINGS);
 
-            /** ARABIC
-             *  tv.setText(_DRUG_COMMERCIAL_NAME_ARABIC);
-             *  tv1.setText(_DRUG_SCIENTIFIC_NAME_ARABIC);
-             *  tv2.setText(_DRUG_TYPE_ARABIC);
-             *  tv3.setText(_DRUG_INDICATION_ARABIC);
-             *  tv4.setText(_SIDE_EFFECTS_ARABIC);
-             *  tv6.setText(_DRUG_DESCRIPTION_ARABIC);
-             *  tv9.setText(_DRUG_WARNINGS_ARABIC);*/
+            if(isEnglish){
+                tv.setText(_DRUG_COMMERCIAL_NAME);
+                tv1.setText(_DRUG_SCIENTIFIC_NAME);
+                tv3.setText(_DRUG_INDICATION);
+                tv4.setText(_SIDE_EFFECTS);
+                tv6.setText(_DRUG_DESCRIPTION);
+                tv9.setText(_DRUG_WARNINGS);
+
+            }
+            else {      /** ARABIC*/
+                tv.setText(_DRUG_COMMERCIAL_NAME_ARABIC);
+                tv1.setText(_DRUG_SCIENTIFIC_NAME_ARABIC);
+                tv3.setText(_DRUG_INDICATION_ARABIC);
+                tv4.setText(_SIDE_EFFECTS_ARABIC);
+                tv6.setText(_DRUG_DESCRIPTION_ARABIC);
+                tv9.setText(_DRUG_WARNINGS_ARABIC);
+            }
             button = (Button) findViewById(R.id.btnAddToMyList);
             button1 = (Button) findViewById(R.id.btnDeleteToMyList);
 
@@ -194,6 +201,10 @@ public class DrugActivity extends BaseActivity {
 
 
         }
+    }
+    public void onBackPressed() {
+        Intent intent = new Intent(this, DrugsActivity.class);
+        startActivity(intent);
     }
 
     public Cursor getSingleDrug(){

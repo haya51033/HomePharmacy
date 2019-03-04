@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.android.homepharmacy.Activity.BaseActivity;
+import com.example.android.homepharmacy.Activity.HomeActivity;
 import com.example.android.homepharmacy.Activity.StartActivity;
 import com.example.android.homepharmacy.R;
 
@@ -51,7 +52,7 @@ public class SettingsActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, StartActivity.class));
+        startActivity(new Intent(this, HomeActivity.class));
     }
     @Override
     public void onResume() {

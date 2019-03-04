@@ -21,6 +21,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class SearchOptions  extends BaseActivity {
 
@@ -71,17 +72,25 @@ public class SearchOptions  extends BaseActivity {
                 public void onClick(View view) {
                     query = et.getText().toString();
                     drugsResult = new ArrayList();
+                    boolean isEnglish = Locale.getDefault().getLanguage().equals("en");
 
                     switch (spinnerValue){
                         case 0:
                             Toast.makeText(getApplicationContext(),"Please select search option!", Toast.LENGTH_LONG).show();
                             break;
                         case 1:
-                            c = getDrugNameMatches(query, null);
+                            if(isEnglish) {
+                                c = getDrugNameMatches(query, null);
+                            }
+                            else {
+                                c = getDrugNameMatchesArabic(query, null);
+                            }
                             break;
-
                         case 2:
-                            c = getDrugIndicationMatches(query,null);
+                            if(isEnglish)
+                                c = getDrugIndicationMatches(query,null);
+                            else
+                                c = getDrugIndicationMatchesArabic(query, null);
                             break;
                         case 3:
                             startScan();
@@ -97,7 +106,8 @@ public class SearchOptions  extends BaseActivity {
                         if(c.moveToFirst()){
                             while (!c.isAfterLast()) {
                                 String id = String.valueOf(c.getInt(c.getColumnIndex("_id")));
-                                drugsResult.add(id);
+                                    drugsResult.add(id);
+
                                 c.moveToNext();
                             }
 
@@ -117,6 +127,10 @@ public class SearchOptions  extends BaseActivity {
             });
     }
 
+    public void onBackPressed() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
 
     public Cursor getDrugNameMatches(String query, String[] columns) {
         String[] selectionArgs = new String[] {"%"+query+"%"};
@@ -128,9 +142,6 @@ public class SearchOptions  extends BaseActivity {
                 DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
     }
 
-    /**
-     *  ARABIC
-     *  **/
     public Cursor getDrugNameMatchesArabic(String query, String[] columns) {
         String[] selectionArgs = new String[] {"%"+query+"%"};
 
@@ -151,9 +162,6 @@ public class SearchOptions  extends BaseActivity {
                 DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
     }
 
-    /**
-     *  ARABIC
-     *  **/
     public Cursor getDrugIndicationMatchesArabic(String query, String[] columns) {
         String[] selectionArgs = new String[] {"%"+query+"%"};
 
@@ -161,7 +169,7 @@ public class SearchOptions  extends BaseActivity {
                 null,
                 DataContract.DrugsEntry.COLUMN_DRUG_INDICATION_ARABIC + " LIKE ? ",
                 selectionArgs,
-                DataContract.DrugsEntry.COLUMN_DRUG_INDICATION_ARABIC);
+                DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME_ARABIC);
     }
 
     public void startScan(){
@@ -176,6 +184,7 @@ public class SearchOptions  extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       // setupSharedPreferences();
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null){
             if(result.getContents()==null){
@@ -219,6 +228,6 @@ public class SearchOptions  extends BaseActivity {
                 null,
                 DataContract.DrugsEntry.COLUMN_DRUG_BARCODE + " LIKE ? ",
                 selectionArgs,
-                DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
+                null);
     }
 }

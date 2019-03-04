@@ -1,11 +1,11 @@
 package com.example.android.homepharmacy.Activity;
 
+import android.content.ContentValues;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +15,6 @@ import com.example.android.homepharmacy.Database.DB;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 
-import java.util.Locale;
 
 public class LoginActivity extends BaseActivity {
 
@@ -27,6 +26,7 @@ public class LoginActivity extends BaseActivity {
 
     String _Username;
     String _Password;
+    int userId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,15 +63,21 @@ public class LoginActivity extends BaseActivity {
     }
 
     public boolean checkLoginData(String user_name, String pass_word) {
-        String query = "SELECT " + DataContract.UserEntry.COLUMN_USER_NAME + " FROM " + DataContract.UserEntry.TABLE_NAME
+        String query = "SELECT *"  + " FROM " + DataContract.UserEntry.TABLE_NAME
                 +" WHERE "+ DataContract.UserEntry.COLUMN_USER_NAME + " =? AND "+ DataContract.UserEntry.COLUMN_PASSWORD+ " =?";
 
         Cursor cursor = mDb.rawQuery(query, new String[]{user_name,pass_word});
 
         if (cursor.getCount() > 0)
         {
-            Toast.makeText(getApplicationContext(),"Welcome " + user_name ,Toast.LENGTH_LONG).show();
-                return true;
+            if (cursor.moveToFirst()) {
+                userId = cursor.getInt(cursor.getColumnIndex(DataContract.UserEntry._ID));
+                boolean userUpdated = UpdateUser(userId);
+                if(userUpdated) {
+                    Toast.makeText(getApplicationContext(), "Welcome " + user_name, Toast.LENGTH_LONG).show();
+                    return true;
+                }
+            }
         }
         else {
             String query1 = "SELECT " + DataContract.UserEntry.COLUMN_USER_NAME + " FROM " + DataContract.UserEntry.TABLE_NAME
@@ -88,6 +94,28 @@ public class LoginActivity extends BaseActivity {
                 return false;
             }
         }
+        return false;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+    }
+
+
+
+    private boolean UpdateUser(int _id) {
+        ContentValues cv = new ContentValues();
+        cv.put(DataContract.UserEntry.COLUMN_IS_LOGGED, 1);
+        int x = getContentResolver().update(DataContract.UserEntry.CONTENT_URI,cv, "_id=" + _id, null);
+        finish();
+        if(x > 0){
+            return true;
+        }
+        return false;
+    }
 }

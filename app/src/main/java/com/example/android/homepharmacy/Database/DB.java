@@ -45,6 +45,8 @@ public class DB extends SQLiteOpenHelper {
                 DataContract.UserEntry.COLUMN_USER_NAME + " TEXT NOT NULL, " +
                 DataContract.UserEntry.COLUMN_EMAIL + " TEXT NOT NULL, " +
                 DataContract.UserEntry.COLUMN_PASSWORD + " TEXT NOT NULL, " +
+                DataContract.UserEntry.COLUMN_REMINDER_QUESTION_NUM+ " INTEGER NOT NULL, " +
+                DataContract.UserEntry.COLUMN_IS_LOGGED+ " BOOLEAN DEFAULT (0), "+
                 DataContract.UserEntry.COLUMN_REMINDER_QUESTION + " TEXT NOT NULL " +
 
                 " );";
@@ -52,6 +54,7 @@ public class DB extends SQLiteOpenHelper {
 
         final String SQL_CREATE_MEMBERS_TABLE = "CREATE TABLE " + DataContract.MemberEntry.TABLE_NAME + " (" +
                 DataContract.MemberEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                DataContract.MemberEntry.COLUMN_USER_ID +" INTEGER NOT NULL, " +
                 DataContract.MemberEntry.COLUMN_MEMBER_NAME +" TEXT NOT NULL, " +
                 DataContract.MemberEntry.COLUMN_AGE +" INTEGER NOT NULL, " +
                 DataContract.MemberEntry.COLUMN_GENDER + " TEXT NOT NULL, " +
@@ -80,7 +83,7 @@ public class DB extends SQLiteOpenHelper {
                 DataContract.DrugsEntry.COLUMN_PREGNENT_ALLOWED+ " BOOLEAN NOT NULL, " +
                 DataContract.DrugsEntry.COLUMN_DRUG_DESCRIPTION+ " TEXT NOT NULL, " +
                 DataContract.DrugsEntry.COLUMN_DRUG_DESCRIPTION_ARABIC+ " TEXT NOT NULL, " +
-                DataContract.DrugsEntry.COLUMN_DRUG_BARCODE+ " TEXT NOT NULL" +
+                DataContract.DrugsEntry.COLUMN_DRUG_BARCODE+ " TEXT NOT NULL " +
 
                 " );";
 
@@ -103,7 +106,9 @@ public class DB extends SQLiteOpenHelper {
         final String SQL_CREATE_FIRST_AID_TABLE = "CREATE TABLE " + DataContract.FirstAidEntry.TABLE_NAME + " (" +
                 DataContract.FirstAidEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 DataContract.FirstAidEntry.COLUMN_FIRST_AID_TITLE+ " TEXT NOT NULL, " +
+                DataContract.FirstAidEntry.COLUMN_FIRST_AID_TITLE_ARABIC+ " TEXT NOT NULL, " +
                 DataContract.FirstAidEntry.COLUMN_FIRST_AID_DESCRIPTION+ " TEXT NOT NULL, " +
+                DataContract.FirstAidEntry.COLUMN_FIRST_AID_DESCRIPTION_ARABIC+ " TEXT NOT NULL, " +
                 DataContract.FirstAidEntry.COLUMN_FIRST_AID_LINK+ " TEXT NOT NULL, " +
                 DataContract.FirstAidEntry.COLUMN_FIRST_AID_IMAGE+ " TEXT NOT NULL, " +
                 DataContract.FirstAidEntry.COLUMN_FIRST_AID_DRUG+ " INTEGER NOT NULL " +
@@ -191,7 +196,6 @@ public class DB extends SQLiteOpenHelper {
 
                     db.insert(DataContract.DrugsEntry.TABLE_NAME, null, _Values);
 
-                   // Uri uri = _context.getContentResolver().insert(DataContract.DrugsEntry.CONTENT_URI, _Values);
 
 
                 }
@@ -217,9 +221,69 @@ public class DB extends SQLiteOpenHelper {
         }
 
 
+        //////////////////////////
 
 
+        ////////////// FIRST AID TABLE DATA FROM ML FILE ///////
+        ContentValues _Values1 = new ContentValues();
+        //Get xml resource file
+        Resources res1 = _context.getResources();
 
+        //Open xml file
+        XmlResourceParser _xml1 = res1.getXml(R.xml.first_aid_data);
+        try
+        {
+            //Check for end of document
+            int eventType1 = _xml1.getEventType();
+            while (eventType1 != XmlPullParser.END_DOCUMENT) {
+                //Search for record tags
+                if ((eventType1 == XmlPullParser.START_TAG) &&(_xml1.getName().equals("record"))){
+                    //Record tag found, now get values and insert record
+                    String _FA_TITLE =
+                            _xml1.getAttributeValue(null, DataContract.FirstAidEntry.COLUMN_FIRST_AID_TITLE);
+                    String _FA_TITLE_ARABIC =
+                            _xml1.getAttributeValue(null, DataContract.FirstAidEntry.COLUMN_FIRST_AID_TITLE_ARABIC);
+                    String _FA_DESCRIPTION =
+                            _xml1.getAttributeValue(null,DataContract.FirstAidEntry.COLUMN_FIRST_AID_DESCRIPTION);
+                    String _FA_DESCRIPTION_ARABIC =
+                            _xml1.getAttributeValue(null,DataContract.FirstAidEntry.COLUMN_FIRST_AID_DESCRIPTION_ARABIC);
+                    String _FA_IMAGE =
+                            _xml1.getAttributeValue(null,DataContract.FirstAidEntry.COLUMN_FIRST_AID_IMAGE);
+                    String _FA_LINK =
+                            _xml1.getAttributeValue(null,DataContract.FirstAidEntry.COLUMN_FIRST_AID_LINK);
+                    String _FA_DRUG =
+                            _xml1.getAttributeValue(null,DataContract.FirstAidEntry.COLUMN_FIRST_AID_DRUG);
+
+
+                    _Values1.put(DataContract.FirstAidEntry.COLUMN_FIRST_AID_TITLE, _FA_TITLE);
+                    _Values1.put(DataContract.FirstAidEntry.COLUMN_FIRST_AID_TITLE_ARABIC, _FA_TITLE_ARABIC);
+                    _Values1.put(DataContract.FirstAidEntry.COLUMN_FIRST_AID_DESCRIPTION, _FA_DESCRIPTION);
+                    _Values1.put(DataContract.FirstAidEntry.COLUMN_FIRST_AID_DESCRIPTION_ARABIC, _FA_DESCRIPTION_ARABIC);
+                    _Values1.put(DataContract.FirstAidEntry.COLUMN_FIRST_AID_IMAGE, _FA_IMAGE);
+                    _Values1.put(DataContract.FirstAidEntry.COLUMN_FIRST_AID_LINK, _FA_LINK);
+                    _Values1.put(DataContract.FirstAidEntry.COLUMN_FIRST_AID_DRUG, _FA_DRUG);
+
+                    db.insert(DataContract.FirstAidEntry.TABLE_NAME, null, _Values1);
+
+                }
+                eventType1 = _xml1.next();
+            }
+        }
+        //Catch errors
+        catch (XmlPullParserException e)
+        {
+            Log.e(TAG, e.getMessage(), e);
+        }
+        catch (IOException e)
+        {
+            Log.e(TAG, e.getMessage(), e);
+
+        }
+        finally
+        {
+            //Close the xml file
+            _xml1.close();
+        }
     }
 
     @Override

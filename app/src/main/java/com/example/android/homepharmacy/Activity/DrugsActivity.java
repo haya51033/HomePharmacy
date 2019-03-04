@@ -1,6 +1,8 @@
 package com.example.android.homepharmacy.Activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
@@ -10,16 +12,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import com.example.android.homepharmacy.Adapter.DrugsAdapter;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class DrugsActivity extends BaseActivity implements
         LoaderManager.LoaderCallbacks<Cursor>,
-        DrugsAdapter.DrugsnOnClickHandler {
+        DrugsAdapter.DrugsnOnClickHandler{
     // Constants for logging and referring to a unique loader
     private static final String TAG = "ANY";
     private static final int TASK_LOADER_ID = 0;
@@ -33,14 +37,17 @@ public class DrugsActivity extends BaseActivity implements
     String[] selectionArgs;
     String selection;
     int memberId;
-
+    boolean isEnglish;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupSharedPreferences();
+        isEnglish = Locale.getDefault().getLanguage().equals("en");
+
 
         setContentView(R.layout.activity_drugs);
+
 
         Intent intent1 = getIntent();
         Bundle args = intent1.getBundleExtra("BUNDLE");
@@ -61,6 +68,8 @@ public class DrugsActivity extends BaseActivity implements
             }
         }
 
+
+
         // Set the RecyclerView to its corresponding view
         mRecyclerView = (RecyclerView) findViewById(R.id.listDrugs);
 
@@ -70,6 +79,7 @@ public class DrugsActivity extends BaseActivity implements
 
         // Initialize the adapter and attach it to the RecyclerView
         mAdapter = new DrugsAdapter(this);
+
         mRecyclerView.setAdapter(mAdapter);
 
       /* Add a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
@@ -93,6 +103,10 @@ public class DrugsActivity extends BaseActivity implements
         getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, this);
     }
 
+    public void onBackPressed() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
     @Override
     public void onClickDrug(Cursor cursor) {
         int drugId = cursor.getInt(0);
@@ -124,6 +138,7 @@ public class DrugsActivity extends BaseActivity implements
      */
     @Override
     public Loader<Cursor> onCreateLoader(int id, final Bundle loaderArgs) {
+        setupSharedPreferences();
         return new AsyncTaskLoader<Cursor>(this) {
             // Initialize a Cursor, this will hold all the drugs data
             Cursor mTaskData = null;
@@ -144,13 +159,21 @@ public class DrugsActivity extends BaseActivity implements
                 // Will implement to load data
                 // Query and load all drug data in the background; sort by priority
                 // use a try/catch block to catch any errors in loading data
+
                 if(drugsSearchResult == null){
                     try {
+                        if(isEnglish)
                         return getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
                                 null,
                                 null,
                                 null,
                                 DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
+                        else
+                            return getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
+                                    null,
+                                    null,
+                                    null,
+                                    DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME_ARABIC);
                     } catch (Exception e) {
                         Log.e(TAG, "Failed to asynchronously load data.");
                         e.printStackTrace();
@@ -159,11 +182,18 @@ public class DrugsActivity extends BaseActivity implements
                 }
                 else {
                     try {
+                        if(isEnglish)
                            return getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
                                    null,
                                    selection,
                                    selectionArgs,
                                    DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
+
+                        else return getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
+                                null,
+                                selection,
+                                selectionArgs,
+                                DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME_ARABIC);
                     } catch (Exception e) {
                         Log.e(TAG, "Failed to asynchronously load data 1111111111.");
                         e.printStackTrace();

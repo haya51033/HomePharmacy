@@ -29,7 +29,8 @@
             android:name=".Activity.StartActivity"
           />
         <activity android:name=".Activity.HomeActivity"
-            android:label="@string/welcome">
+            android:label="@string/welcome"
+            android:noHistory="true">
 
         </activity>
         <activity android:name=".Activity.DrugsActivity"

@@ -159,7 +159,12 @@ public class CourseActivity extends BaseActivity {
         });
 
     }
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MemberActivity.class)
+                .putExtra("memberId", memberId);
+        startActivity(intent);
+    }
 
     public Cursor getSingleCourse(){
         cur = getContentResolver().query(DataContract.DrugListEntry.CONTENT_URI, DRUG_LIST_COLUMNS,"_id='"+courseId+"'",null,null,null);

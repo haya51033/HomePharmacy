@@ -23,7 +23,7 @@ public class RegistrationActivity extends BaseActivity {
     EditText et, et1, et2, et3, et4;
     Spinner spinner;
     Button button;
-    String spinnerValue;
+    int spinnerValue;
 
     SQLiteDatabase mDb;
     DB dbHelper;
@@ -35,7 +35,8 @@ public class RegistrationActivity extends BaseActivity {
             DataContract.UserEntry.COLUMN_USER_NAME,
             DataContract.UserEntry.COLUMN_EMAIL,
             DataContract.UserEntry.COLUMN_PASSWORD,
-            DataContract.UserEntry.COLUMN_REMINDER_QUESTION
+            DataContract.UserEntry.COLUMN_REMINDER_QUESTION,
+            DataContract.UserEntry.COLUMN_REMINDER_QUESTION_NUM
     };
 
     String _email;
@@ -43,8 +44,13 @@ public class RegistrationActivity extends BaseActivity {
     String _full_Name;
     String _password;
     String _reminder_question;
+    int _reminder_question_num;
 
 
+    public void onBackPressed() {
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +62,7 @@ public class RegistrationActivity extends BaseActivity {
         mDb = dbHelper.getWritableDatabase();
 
 
-        et = (EditText) findViewById(R.id.etRFN);
+        et  = (EditText) findViewById(R.id.etRFN);
         et1 = (EditText) findViewById(R.id.etREmail);
         et2 = (EditText) findViewById(R.id.etRUsername);
         et3 = (EditText) findViewById(R.id.etRPassword);
@@ -67,7 +73,7 @@ public class RegistrationActivity extends BaseActivity {
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                spinnerValue =adapterView.getItemAtPosition(i).toString();
+                spinnerValue = adapterView.getSelectedItemPosition();
             }
 
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -81,20 +87,22 @@ public class RegistrationActivity extends BaseActivity {
             public void onClick(View view) {
 
 
-                if(et.getText().toString().trim().length() != 0 && et1.getText().toString().trim().length() != 0
+                if(et.getText().toString().trim().length() != 0
+                        && et1.getText().toString().trim().length() != 0
                         && et3.getText().toString().trim().length() != 0
                         && et4.getText().toString().trim().length() != 0
-                        && spinnerValue.trim().length() != 0 ){
+                        && spinnerValue != 0 ){
 
                     _email = et1.getText().toString();
                     _full_Name = et.getText().toString();
                     _user_Name = et2.getText().toString();
                     _password = et3.getText().toString();
                     _reminder_question = et4.getText().toString();
-
+                    _reminder_question_num = spinnerValue;
                if(checkAlreadyExist(_email)){
+
                      ///////INSERT NEW USER///////
-                    addUser( _user_Name, _email, _password, _full_Name,  _reminder_question);
+                    addUser( _user_Name, _email, _password, _full_Name,  _reminder_question, _reminder_question_num);
 
                    Cursor cursor = getUsers();
 
@@ -140,15 +148,15 @@ public class RegistrationActivity extends BaseActivity {
     }
 
     private void addUser(String _user_Name, String _email, String _password,
-                         String _full_Name, String _reminder_question) {
+                         String _full_Name, String _reminder_question, int _reminder_question_num) {
         ContentValues cv = new ContentValues();
         cv.put(DataContract.UserEntry.COLUMN_USER_NAME,_user_Name);
         cv.put(DataContract.UserEntry.COLUMN_EMAIL, _email);
         cv.put(DataContract.UserEntry.COLUMN_PASSWORD,_password);
         cv.put(DataContract.UserEntry.COLUMN_FULL_NAME, _full_Name);
         cv.put(DataContract.UserEntry.COLUMN_REMINDER_QUESTION, _reminder_question);
+        cv.put(DataContract.UserEntry.COLUMN_REMINDER_QUESTION_NUM, _reminder_question_num);
 
-     //   mDb.insert(DataContract.UserEntry.TABLE_NAME,null, cv);
         Uri uri = getContentResolver().insert(DataContract.UserEntry.CONTENT_URI, cv);
 
         finish();

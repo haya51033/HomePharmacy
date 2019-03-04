@@ -5,33 +5,34 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
+            android:id="@+id/nav_drugs"
+            android:icon="@drawable/ic_assignment_black_24dp"
             android:title="@string/drugs" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:id="@+id/nav_members"
+            android:icon="@drawable/ic_supervisor_account_black_24dp"
             android:title="@string/members" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/course_information" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/welcome" />
+            android:id="@+id/nav_FAid"
+            android:icon="@drawable/ic_warning_black_24dp"
+            android:title="@string/first_aid" />
+
     </group>
 
-    <item android:title="@string/welcome">
+    <item android:title="@string/app_name">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/share" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/_search" />
+                android:id="@+id/nav_manage"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="@string/action_settings" />
+            <item
+                android:id="@+id/nav_logOut"
+                android:icon="@drawable/ic_call_missed_outgoing_black_24dp"
+                android:title="@string/log_out" />
         </menu>
     </item>
 

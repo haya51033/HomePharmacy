@@ -217,6 +217,10 @@ public class MemberActivity extends BaseActivity  implements
         getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, MemberActivity.this);
     }
 
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MembersActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public void onClickDrug(Cursor cursor) {
@@ -254,6 +258,7 @@ public class MemberActivity extends BaseActivity  implements
      */
     @Override
     public Loader<Cursor> onCreateLoader(int id, final Bundle loaderArgs) {
+        setupSharedPreferences();
 
         return new AsyncTaskLoader<Cursor>(this) {
 

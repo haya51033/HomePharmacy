@@ -19,7 +19,6 @@ public class StartActivity extends BaseActivity {
 
     LinearLayout layout1;
     LinearLayout layout2;
-    Button button;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,7 +29,6 @@ public class StartActivity extends BaseActivity {
 
         layout1 = (LinearLayout) findViewById(R.id.layout_login);
         layout2 = (LinearLayout) findViewById(R.id.layout_register);
-        button = (Button) findViewById(R.id.btnLan);
 
 
         //String local = Locale.getDefault().getLanguage();
@@ -50,16 +48,5 @@ public class StartActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent startSettingsActivity = new Intent(getApplicationContext(), SettingsActivity.class);
-                startActivity(startSettingsActivity);
-            }
-        });
-
     }
-
-
 }

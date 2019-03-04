@@ -2,14 +2,44 @@
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/activity_settings"
-        android:name="com.example.android.homepharmacy.Setting.SettingsFragment"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:foregroundGravity="center"
+            android:id="@+id/myImageView"
+            android:background="@drawable/side_nav_bar"/>
+        <TextView
+            android:id="@+id/myImageViewText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/myImageView"
+            android:layout_alignTop="@id/myImageView"
+            android:layout_alignRight="@id/myImageView"
+            android:layout_alignBottom="@id/myImageView"
+            android:layout_margin="1dp"
+            android:gravity="center"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:text="@string/action_settings"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/activity_settings"
+            android:name="com.example.android.homepharmacy.Setting.SettingsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 </LinearLayout>

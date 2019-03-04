@@ -23,6 +23,9 @@ public class DataContract {
         public static final String COLUMN_EMAIL = "email";
         public static final String COLUMN_PASSWORD = "password";
         public static final String COLUMN_REMINDER_QUESTION = "reminder_question";
+        public static final String COLUMN_REMINDER_QUESTION_NUM = "reminder_question_num";
+        public static final String COLUMN_IS_LOGGED = "is_logged";
+
 
     }
     public static final class MemberEntry implements BaseColumns {
@@ -31,6 +34,7 @@ public class DataContract {
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_MEMBERS).build();
 
         public static final String TABLE_NAME = "app_members_table";
+        public static final String COLUMN_USER_ID = "member_user_id";
         public static final String COLUMN_MEMBER_NAME  = "member_name";
         public static final String COLUMN_EMAIL = "email";
         public static final String COLUMN_AGE = "age";

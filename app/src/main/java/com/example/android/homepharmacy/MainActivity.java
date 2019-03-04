@@ -15,8 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.android.homepharmacy.Activity.BaseActivity;
+import com.example.android.homepharmacy.Activity.HomeActivity;
 import com.example.android.homepharmacy.Activity.LoginActivity;
 import com.example.android.homepharmacy.Activity.StartActivity;
 import com.example.android.homepharmacy.DataModel.DrugAlert;
@@ -38,6 +40,7 @@ public class MainActivity extends BaseActivity
     DB dbHelper;
 
     Cursor cursor;
+    int userId = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,10 +79,17 @@ public class MainActivity extends BaseActivity
             NotificationEventReceiver2.setupAlarm2(getApplicationContext());
         }
 
-        Intent intent = new Intent(this, StartActivity.class);
-        startActivity(intent);
+        boolean isLogged = checkLoginData();
 
-
+        if(isLogged){
+            Intent intent = new Intent(this, HomeActivity.class)
+                    .putExtra("userId", userId);
+            startActivity(intent);
+        }
+        else {
+            Intent intent = new Intent(this, StartActivity.class);
+            startActivity(intent);
+        }
 
     }
 
@@ -114,6 +124,23 @@ public class MainActivity extends BaseActivity
 
 
 
+    public boolean checkLoginData() {
+        String query = "SELECT *" + " FROM " + DataContract.UserEntry.TABLE_NAME
+                + " WHERE " + DataContract.UserEntry.COLUMN_IS_LOGGED + " =? ";
+
+        String isLogged = "1";
+        Cursor cursor = mDb.rawQuery(query, new String[]{isLogged});
+
+        if (cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
+
+                userId = cursor.getInt(cursor.getColumnIndex(DataContract.UserEntry._ID));
+
+               return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -168,7 +195,7 @@ public class MainActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+      /*  if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
@@ -180,7 +207,7 @@ public class MainActivity extends BaseActivity
 
         } else if (id == R.id.nav_send) {
 
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

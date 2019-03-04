@@ -126,7 +126,10 @@ public class MembersActivity extends BaseActivity  implements
         getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, MembersActivity.this);
     }
 
-
+    public void onBackPressed() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public void onClickMember(Cursor cursor) {

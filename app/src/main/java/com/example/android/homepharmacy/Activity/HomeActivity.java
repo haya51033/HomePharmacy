@@ -1,7 +1,10 @@
 package com.example.android.homepharmacy.Activity;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -17,28 +20,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.android.homepharmacy.Adapter.ImageAdapter;
+import com.example.android.homepharmacy.Database.DB;
+import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
+import com.example.android.homepharmacy.Setting.SettingsActivity;
 
 public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener{
-    GridView androidGridView;
 
-   /* String[] gridViewString = {
-            getResources().getString(R.string.drugs), getResources().getString(R.string.members),
-            getResources().getString(R.string.search), getResources().getString(R.string.first_aid),
-    } ;*/
-    String[] gridViewString = {
-            "Drugs", "Members",
-            "Search", "First Aid",
-    } ;
-    int[] gridViewImageId = {
-            R.drawable.drug_icon, R.drawable.member_icon, R.drawable.search_icon, R.drawable.aid_icon,
 
-    };
     Context context;
+    int userId;
+    SQLiteDatabase mDb;
+    DB dbHelper;
+    ImageView iv, iv1,iv2,iv3;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,8 +46,14 @@ public class HomeActivity extends BaseActivity
         setupSharedPreferences();
 
         setContentView(R.layout.activity_home);
+        //////CREATE DATABASE
+        dbHelper = new DB(this);
+        mDb = dbHelper.getWritableDatabase();
 
         context = getApplicationContext();
+        Intent intent = this.getIntent();
+        userId = intent.getIntExtra("userId",0);
+
         ////NAV DRAWER /////
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,28 +76,32 @@ public class HomeActivity extends BaseActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-//////
-        ImageAdapter adapterViewAndroid = new ImageAdapter(HomeActivity.this, gridViewString, gridViewImageId);
-        androidGridView=(GridView)findViewById(R.id.grid_view_image_text);
-        androidGridView.setAdapter(adapterViewAndroid);
-        androidGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+        iv = (ImageView) findViewById(R.id.ivDrug);
+        iv1 = (ImageView) findViewById(R.id.ivMember);
+        iv2 = (ImageView) findViewById(R.id.ivSearch);
+        iv3 = (ImageView) findViewById(R.id.ivFAid);
+
+        iv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int i, long id) {
-             //   Toast.makeText( HomeActivity.this, "GridView Item: " + gridViewString[+i], Toast.LENGTH_LONG).show();
-
-                if(i==0){
-                    Intent intent = new Intent(getApplicationContext(), SearchOptions.class);
-                    startActivity(intent);
-                }
-                if(i==1){
-                    Intent intent = new Intent(getApplicationContext(), MembersActivity.class);
-                    startActivity(intent);
-                }
-
-
-
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SearchOptions.class);
+                startActivity(intent);
+            }
+        });
+        iv1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MembersActivity.class)
+                        .putExtra("userId", userId);
+                startActivity(intent);
+            }
+        });
+        iv3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), FirstAidListActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -107,7 +117,12 @@ public class HomeActivity extends BaseActivity
         } else {
             super.onBackPressed();
         }
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -137,17 +152,28 @@ public class HomeActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
+        if (id == R.id.nav_drugs) {
+            Intent intent = new Intent(this, SearchOptions.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_members) {
+            Intent intent = new Intent(this, MembersActivity.class)
+                    .putExtra("userId", userId);
+            startActivity(intent);
+        } else if (id == R.id.nav_FAid) {
+            Intent intent = new Intent(this, FirstAidListActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_manage) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_logOut) {
+            if(checkLoginData()){
+                Toast.makeText(getApplicationContext(), "You are logged out..",Toast.LENGTH_LONG).show();
+                Intent intent =  new Intent(getApplicationContext(), StartActivity.class);
+                startActivity(intent);
+            }
 
         }
 
@@ -157,4 +183,30 @@ public class HomeActivity extends BaseActivity
     }
 
 
+    public boolean checkLoginData() {
+        String query = "SELECT *" + " FROM " + DataContract.UserEntry.TABLE_NAME
+                + " WHERE " + DataContract.UserEntry.COLUMN_IS_LOGGED + " =? AND " + DataContract.UserEntry._ID + " =?";
+
+        String isLogged = "1";
+        String id = String.valueOf(userId);
+        Cursor cursor = mDb.rawQuery(query, new String[]{isLogged, id});
+        if (cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
+                boolean userUpdated = UpdateUser(userId);
+                if (userUpdated) return true;
+            }
+            return false;
+        }
+        return false;
+    }
+    private boolean UpdateUser(int _id) {
+        ContentValues cv = new ContentValues();
+        cv.put(DataContract.UserEntry.COLUMN_IS_LOGGED, 0);
+        int x = getContentResolver().update(DataContract.UserEntry.CONTENT_URI,cv, "_id=" + _id, null);
+        finish();
+        if(x > 0){
+            return true;
+        }
+        return false;
+    }
 }

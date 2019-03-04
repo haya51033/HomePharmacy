@@ -74,6 +74,7 @@
     <string name="pref_language_key">اللغة</string>
     <string name="pref_lang_true">English</string>
     <string name="pref_lang_false">اللغة العربية</string>
+    <string name="log_out">تسجيل خروج</string>
 
 
     <string name="_type">النوع..</string>

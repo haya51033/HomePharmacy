@@ -2,7 +2,10 @@ package com.example.android.homepharmacy.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.database.Cursor;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +26,8 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersV
     private Cursor mCursor;
     private Context mContext;
     private MembersAdapter.MembersOnClickHandler mMembersOnClichkHandler;
+    boolean english = true;
+    String languageToLoad = "en";
 
 
     /**
@@ -46,6 +51,24 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersV
         // Inflate the task_layout to a view
         View view = LayoutInflater.from(mContext)
                 .inflate(R.layout.row_member, parent, false);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        english = sharedPreferences.getBoolean(mContext.getString(R.string.pref_language_key),
+                mContext.getResources().getBoolean(R.bool.pref_lang_default));
+
+        if(english){
+            languageToLoad="en";
+        }
+        else {
+            languageToLoad="ar";
+        }
+
+
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        mContext.getResources().updateConfiguration(config, mContext.getResources().getDisplayMetrics());
 
         return new MembersAdapter.MembersViewHolder(view);
     }
