@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 
-public class CourseActivity extends AppCompatActivity {
+public class CourseActivity extends BaseActivity {
 
     Intent intent;
     int courseId;
@@ -77,8 +77,10 @@ public class CourseActivity extends AppCompatActivity {
     Button button1;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupSharedPreferences();
+
         setContentView(R.layout.activity_course);
 
         intent = this.getIntent();

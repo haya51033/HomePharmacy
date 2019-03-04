@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 
-public class DrugActivity extends AppCompatActivity {
+public class DrugActivity extends BaseActivity {
     Intent intent;
     int drugId;
     Cursor cur;
@@ -67,8 +67,10 @@ public class DrugActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupSharedPreferences();
+
         setContentView(R.layout.activity_drug);
 
         intent = this.getIntent();

@@ -1,6 +1,7 @@
 package com.example.android.homepharmacy.Activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -14,7 +15,9 @@ import com.example.android.homepharmacy.Database.DB;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 
-public class LoginActivity extends AppCompatActivity {
+import java.util.Locale;
+
+public class LoginActivity extends BaseActivity {
 
     EditText et, et1;
     Button button;
@@ -26,8 +29,9 @@ public class LoginActivity extends AppCompatActivity {
     String _Password;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
 
         //////CREATE DATABASE

@@ -17,7 +17,7 @@ import com.example.android.homepharmacy.R;
 
 import java.util.ArrayList;
 
-public class DrugsActivity extends AppCompatActivity implements
+public class DrugsActivity extends BaseActivity implements
         LoaderManager.LoaderCallbacks<Cursor>,
         DrugsAdapter.DrugsnOnClickHandler {
     // Constants for logging and referring to a unique loader
@@ -36,8 +36,10 @@ public class DrugsActivity extends AppCompatActivity implements
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupSharedPreferences();
+
         setContentView(R.layout.activity_drugs);
 
         Intent intent1 = getIntent();

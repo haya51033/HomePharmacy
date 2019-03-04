@@ -34,7 +34,7 @@ import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 import com.squareup.picasso.Picasso;
 
-public class MemberActivity extends AppCompatActivity  implements
+public class MemberActivity extends BaseActivity  implements
         LoaderManager.LoaderCallbacks<Cursor>,
         MemberDrugsAdapter.DrugsnOnClickHandler {
 
@@ -71,8 +71,10 @@ public class MemberActivity extends AppCompatActivity  implements
     Button button;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupSharedPreferences();
+
         setContentView(R.layout.activity_member);
 
         intent = this.getIntent();

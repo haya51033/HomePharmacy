@@ -15,6 +15,8 @@ import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.Locale;
+
 public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersViewHolder> {
 
     // Class variables for the Cursor that holds task data and the Context
@@ -22,10 +24,6 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersV
     private Context mContext;
     private MembersAdapter.MembersOnClickHandler mMembersOnClichkHandler;
 
-
-   /*Intent intent=new Intent(getApplicationContext(), MyHotelReservationActivity.class)
-                .putExtra(Intent.EXTRA_TEXT,reservationId);
-        startActivity(intent);*/
 
     /**
      * Constructor for the CustomCursorAdapter that initializes the Context.
@@ -61,7 +59,7 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersV
      */
     @Override
     public void onBindViewHolder(MembersAdapter.MembersViewHolder holder, int position) {
-
+        boolean isEnglish = Locale.getDefault().getLanguage().equals("en");
         int member_name, member_gender;
 
         // Indices for the _id, drug_c_name, drug_s_name and drug_concentration columns
@@ -87,8 +85,6 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersV
         else {
             Picasso.with(mContext).load(R.drawable.man_icon).resize(300,300).into(iv);
         }
-
-
 
     }
 

@@ -13,6 +13,8 @@ import com.example.android.homepharmacy.Activity.DrugActivity;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 
+import java.util.Locale;
+
 
 public class FirstAidAdapter extends RecyclerView.Adapter<FirstAidAdapter.FirstAidViewHolder> {
 
@@ -20,9 +22,6 @@ public class FirstAidAdapter extends RecyclerView.Adapter<FirstAidAdapter.FirstA
     private Cursor mCursor;
     private Context mContext;
     private FirstAidOnClickHandler mFirstAidOnClickHandler;
-
-
-
 
     public FirstAidAdapter(FirstAidOnClickHandler firstAidOnClickHandler) {
         mFirstAidOnClickHandler = firstAidOnClickHandler;
@@ -54,16 +53,17 @@ public class FirstAidAdapter extends RecyclerView.Adapter<FirstAidAdapter.FirstA
      */
     @Override
     public void onBindViewHolder(FirstAidViewHolder holder, int position) {
-
+        boolean isEnglish = Locale.getDefault().getLanguage().equals("en");
         int firstAidTitle;
         // Indices for the _id, drug_c_name, drug_s_name and drug_concentration columns
         int idIndex = mCursor.getColumnIndex(DataContract.FirstAidEntry._ID);
-        firstAidTitle = mCursor.getColumnIndex(DataContract.FirstAidEntry.COLUMN_FIRST_AID_TITLE);
+        if(isEnglish){
+            firstAidTitle = mCursor.getColumnIndex(DataContract.FirstAidEntry.COLUMN_FIRST_AID_TITLE);
+        }
+        else {
+         firstAidTitle = mCursor.getColumnIndex(DataContract.FirstAidEntry.COLUMN_FIRST_AID_TITLE_ARABIC);
+        }
 
-        /** **** ARABIC *****
-         * firstAidTitle = mCursor.getColumnIndex(DataContract.FirstAidEntry.COLUMN_FIRST_AID_TITLE_ARABIC);
-         * drug_s_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME_ARABIC);
-         * */
 
         mCursor.moveToPosition(position); // get to the right location in the cursor
 

@@ -22,7 +22,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 
-public class SearchOptions  extends AppCompatActivity {
+public class SearchOptions  extends BaseActivity {
 
     EditText et;
     SQLiteDatabase mDb;
@@ -38,8 +38,10 @@ public class SearchOptions  extends AppCompatActivity {
     final Activity activity = this;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupSharedPreferences();
+
         setContentView(R.layout.activity_search_options);
 
         //////CREATE DATABASE

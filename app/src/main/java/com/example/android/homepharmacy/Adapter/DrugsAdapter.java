@@ -13,6 +13,8 @@ import com.example.android.homepharmacy.Activity.DrugActivity;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 
+import java.util.Locale;
+
 
 public class DrugsAdapter extends RecyclerView.Adapter<DrugsAdapter.DrugsViewHolder> {
 
@@ -55,17 +57,22 @@ public class DrugsAdapter extends RecyclerView.Adapter<DrugsAdapter.DrugsViewHol
     @Override
     public void onBindViewHolder(DrugsViewHolder holder, int position) {
 
+        boolean isEnglish = Locale.getDefault().getLanguage().equals("en");
+
         int drug_c_name, drug_s_name;
 
         // Indices for the _id, drug_c_name, drug_s_name and drug_concentration columns
       int idIndex = mCursor.getColumnIndex(DataContract.DrugsEntry._ID);
+      if(isEnglish){
           drug_c_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
           drug_s_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME);
+      }
+      else {
+          drug_c_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME_ARABIC);
+          drug_s_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME_ARABIC);
+      }
+
       int concentration = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_CONCENTRATION);
-      /** **** ARABIC *****
-       * drug_c_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME_ARABIC);
-       * drug_s_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME_ARABIC);
-       * */
 
         mCursor.moveToPosition(position); // get to the right location in the cursor
 
@@ -143,15 +150,7 @@ public class DrugsAdapter extends RecyclerView.Adapter<DrugsAdapter.DrugsViewHol
         public void onClick(View view) {
             int position = getAdapterPosition();
            mCursor.moveToPosition(position);
-
-         //  mCityOnClickHandler.onClickCity(selectedCity);
            mDrugsOnClichkHandler.onClickDrug(mCursor);
-           /* int drugId = mCursor.getInt(mCursor.getColumnIndex(
-                    DataContract.DrugsEntry._ID));
-
-            Intent intent=new Intent(mContext, DrugActivity.class)
-                    .putExtra(Intent.EXTRA_TEXT, drugId);
-            mContext.startActivity(intent);*/
 
         }
 

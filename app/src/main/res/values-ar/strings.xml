@@ -1,2 +1,131 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">Home Pharmacy</string>
+    <string name="account_login">تسجيل دخول</string>
+    <string name="login">دخول</string>
+    <string name="user_name">اسم المستخدم</string>
+    <string name="password">كلمة السر</string>
+    <string name="forgot_password">نسيت كلمة السر؟</string>
+    <string name="register_user"> تسجيل مستخدم جديد </string>
+    <string name="register">إنشاء حساب</string>
+    <string name="full_name">الإسم الكامل</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="by_programer"> © Ameera Hamam \n Noujod Al-Shaaer</string>
+    <string name="welcome">أهلا وسهلاً!</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">الإعدادات</string>
+    <string name="reminder_question">إختر سؤال تذكيري</string>
+    <string name="reminder_answer">أجابتك التذكيرية</string>
+    <string name="drug_c_name">اسم الدواء</string>
+    <string name="drug_s_name">الإسم العلمي</string>
+    <string name="concentration">التركيز</string>
+    <string name="home_drugs">الأدويـة</string>
+    <string name="drugs">الأدويـة</string>
+    <string name="members">الأعضاء</string>
+    <string name="first_aid">الإسعافات الأولية</string>
+    <string name="info">معلومات</string>
+    <string name="type">النوع: </string>
+    <string name="indication">دواعي الإستخدام: </string>
+    <string name="side_effects">الآثار الجانبية: </string>
+    <string name="pregnant_allowed">مسموح للحوامل؟ </string>
+    <string name="drug_description">وصف إضافي: </string>
+    <string name="expiry_date">تاريخ انتهاء الصلاحية: </string>
+    <string name="warnings">التحذيرات: </string>
+    <string name="members_home">الأعضاء</string>
+    <string name="age">العمر</string>
+    <string name="gender">الجنس</string>
+    <string name="pregnant_q">هل يوجد حمل؟</string>
+    <string name="add">إضافة</string>
+    <string name="drug_for">دواء لـ :</string>
+    <string name="start_date">تاريخ البدء: </string>
+    <string name="end_date">تاريخ الإنتهاء: </string>
+    <string name="dose">الجرعة: </string>
+    <string name="dose_quantity">كمية الجرعة: </string>
+    <string name="dose_repeat">ساعات تكرار الجرعة: </string>
+    <string name="description">وصف إضافي</string>
+    <string name="course_information">معلومات الكورس</string>
+    <string name="slash">/</string>
+    <string name="edit">تعديل</string>
+    <string name="delete">حذف</string>
+    <string name="delete_mem">حذف العضو</string>
+    <string name="_search">بحث</string>
+    <string name="by_name">البحث بإسم الدواء</string>
+    <string name="by_indication">البحث بدواعي الإستخدام</string>
+    <string name="add_to_my_list">اضف الى قائمتي</string>
+    <string name="delete_to_my_list">حذف من قائمتي</string>
+    <string name="first_time">اول موعد للدواء</string>
+    <string name="date_label_set">إضغط الزر من أجل ضبط التاريخ</string>
+    <string name="date_button_set">اضف التاريخ</string>
+    <string name="date_view_set">التاريخ هو: </string>
+    <string name="date_selected"></string>
+    <string name="new_course">كورس جديد</string>
+    <string name="title_activity_notification">NotificationActivity</string>
+    <string name="channel_name">"my_channel_01</string>
+    <string name="share">مشاركة</string>
+
+
+
+    <!--preferance-->
+    <string name="pref_lang_label" translatable="false">لغتك الحالية</string>
+    <string name="pref_language_key">اللغة</string>
+    <string name="pref_lang_true">English</string>
+    <string name="pref_lang_false">اللغة العربية</string>
+
+
+    <string name="_type">النوع..</string>
+    <string-array name="array_search_options">
+        <item>إختر نمط البحث</item>
+        <item>عن طريق إسم الدوا</item>
+        <item>عن طريق دواعي الإستخدام</item>
+        <item>عن طريق مسح الباركود</item>
+    </string-array>
+
+    <string-array name="array_question">
+        <item>ما اسم مدرستك الإبتدائية؟</item>
+        <item>في أي بلد أو مدينة كانت وظيفتك الأولى؟</item>
+        <item>اسم عائلة والدتك؟</item>
+        <item>ما هو اسم ابنك الأكبر؟</item>
+    </string-array>
+
+    <string-array name="array_gender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="array_yes_no">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="array_time">
+        <item>12 AM</item><!--00:00:00-->
+        <item>1 AM</item><!--01:00:00-->
+        <item>2 AM</item><!--02:00:00-->
+        <item>3 AM</item><!--03:00:00-->
+        <item>4 AM</item><!--04:00:00-->
+        <item>5 AM</item><!--05:00:00-->
+        <item>6 AM</item><!--06:00:00-->
+        <item>7 AM</item><!--07:00:00-->
+        <item>8 AM</item><!--08:00:00-->
+        <item>9 AM</item><!--09:00:00-->
+        <item>10 AM</item><!--10:00:00-->
+        <item>11 AM</item><!--11:00:00-->
+        <item>12 PM</item><!--12:00:00-->
+        <item>1 PM</item><!--13:00:00-->
+        <item>2 PM</item><!--14:00:00-->
+        <item>3 PM</item><!--15:00:00-->
+        <item>4 PM</item><!--16:00:00-->
+        <item>5 PM</item><!--17:00:00-->
+        <item>6 PM</item><!--18:00:00-->
+        <item>7 PM</item><!--19:00:00-->
+        <item>8 PM</item><!--20:00:00-->
+        <item>9 PM</item><!--21:00:00-->
+        <item>10 PM</item><!--22:00:00-->
+        <item>11 PM</item><!--23:00:00-->
+    </string-array>
+
+</resources>

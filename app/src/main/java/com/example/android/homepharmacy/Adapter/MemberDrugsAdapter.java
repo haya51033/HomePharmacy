@@ -17,6 +17,8 @@ import com.example.android.homepharmacy.Database.DB;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 
+import java.util.Locale;
+
 public class MemberDrugsAdapter extends RecyclerView.Adapter<MemberDrugsAdapter.DrugsViewHolder> {
 
     // Class variables for the Cursor that holds task data and the Context
@@ -63,9 +65,6 @@ public class MemberDrugsAdapter extends RecyclerView.Adapter<MemberDrugsAdapter.
             DataContract.MemberEntry.COLUMN_GENDER,
             DataContract.MemberEntry.COLUMN_PREGNANT
     };
-   /*Intent intent=new Intent(getApplicationContext(), MyHotelReservationActivity.class)
-                .putExtra(Intent.EXTRA_TEXT,reservationId);
-        startActivity(intent);*/
 
     /**
      * Constructor for the CustomCursorAdapter that initializes the Context.
@@ -109,7 +108,7 @@ public class MemberDrugsAdapter extends RecyclerView.Adapter<MemberDrugsAdapter.
 
     @Override
     public void onBindViewHolder(MemberDrugsAdapter.DrugsViewHolder holder, int position) {
-
+        boolean isEnglish = Locale.getDefault().getLanguage().equals("en");
         mCursor.moveToPosition(position); // get to the right location in the cursor
 
         drug_ID = mCursor.getInt(mCursor.getColumnIndex(DataContract.DrugListEntry.COLUMN_DRUG_L_ID));
@@ -124,15 +123,15 @@ public class MemberDrugsAdapter extends RecyclerView.Adapter<MemberDrugsAdapter.
 
         // Indices for the _id, drug_c_name, drug_s_name and drug_concentration columns
         int idIndex = cursor.getColumnIndex(DataContract.DrugsEntry._ID);
-        drug_c_name = cursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
-        drug_s_name = cursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME);
+        if(isEnglish) {
+            drug_c_name = cursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
+            drug_s_name = cursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME);
+        }
+        else {
+            drug_c_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME_ARABIC);
+            drug_s_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME_ARABIC);
+        }
         int concentration = cursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_CONCENTRATION);
-        /** **** ARABIC *****
-         * drug_c_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME_ARABIC);
-         * drug_s_name = mCursor.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME_ARABIC);
-         * */
-
-
 
         // Determine the values of the wanted data
         final int id = cursor.getInt(idIndex);
@@ -145,8 +144,6 @@ public class MemberDrugsAdapter extends RecyclerView.Adapter<MemberDrugsAdapter.
         holder.tv_drug_c_name.setText(_CName);
         holder.tv_drug_s_name.setText(_SName);
         holder.tv_concentration.setText(_DC);
-
-
     }
 
 

@@ -26,7 +26,7 @@ import com.example.android.homepharmacy.R;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
-public class NewCourseActivity extends AppCompatActivity {
+public class NewCourseActivity extends BaseActivity {
 
     Intent intent;
     int memberId;
@@ -49,10 +49,11 @@ public class NewCourseActivity extends AppCompatActivity {
     String FirstTime = "00:00:00";
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_course);
+        setupSharedPreferences();
 
+        setContentView(R.layout.activity_new_course);
 
 
         intent = this.getIntent();

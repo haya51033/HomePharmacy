@@ -20,7 +20,7 @@ import com.example.android.homepharmacy.Database.DB;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 
-public class NewMemberActivity extends AppCompatActivity {
+public class NewMemberActivity extends BaseActivity {
 
     EditText et, et1, et2;
     Spinner spinner, spinner1;
@@ -43,8 +43,10 @@ public class NewMemberActivity extends AppCompatActivity {
     };
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupSharedPreferences();
+
         setContentView(R.layout.activity_new_member);
 
         dbHelper = new DB(this);

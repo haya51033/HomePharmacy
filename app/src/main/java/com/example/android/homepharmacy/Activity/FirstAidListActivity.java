@@ -18,7 +18,7 @@ import com.example.android.homepharmacy.R;
 
 import java.util.ArrayList;
 
-public class FirstAidListActivity extends AppCompatActivity implements
+public class FirstAidListActivity extends BaseActivity implements
         LoaderManager.LoaderCallbacks<Cursor>,
         FirstAidAdapter.FirstAidOnClickHandler {
     // Constants for logging and referring to a unique loader
@@ -36,8 +36,10 @@ public class FirstAidListActivity extends AppCompatActivity implements
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupSharedPreferences();
+
         setContentView(R.layout.activity_first_aid);
 
         Intent intent1 = getIntent();

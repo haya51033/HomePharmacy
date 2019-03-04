@@ -28,7 +28,7 @@ import com.example.android.homepharmacy.Adapter.MembersAdapter;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 
-public class MembersActivity extends AppCompatActivity  implements
+public class MembersActivity extends BaseActivity  implements
         LoaderManager.LoaderCallbacks<Cursor>,
         MembersAdapter.MembersOnClickHandler {
 
@@ -45,8 +45,10 @@ public class MembersActivity extends AppCompatActivity  implements
     Intent intent;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupSharedPreferences();
+
         setContentView(R.layout.activity_members);
         intent = new Intent(getApplicationContext(), MembersActivity.class);
 

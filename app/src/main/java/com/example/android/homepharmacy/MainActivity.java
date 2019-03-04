@@ -16,6 +16,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.android.homepharmacy.Activity.BaseActivity;
+import com.example.android.homepharmacy.Activity.LoginActivity;
 import com.example.android.homepharmacy.Activity.StartActivity;
 import com.example.android.homepharmacy.DataModel.DrugAlert;
 import com.example.android.homepharmacy.Database.DB;
@@ -29,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     SQLiteDatabase mDb;
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity
     Cursor cursor;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

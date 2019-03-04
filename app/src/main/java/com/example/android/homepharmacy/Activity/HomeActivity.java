@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.example.android.homepharmacy.Adapter.ImageAdapter;
 import com.example.android.homepharmacy.R;
 
-public class HomeActivity extends AppCompatActivity
+public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener{
     GridView androidGridView;
 
@@ -41,8 +41,10 @@ public class HomeActivity extends AppCompatActivity
     Context context;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupSharedPreferences();
+
         setContentView(R.layout.activity_home);
 
         context = getApplicationContext();
