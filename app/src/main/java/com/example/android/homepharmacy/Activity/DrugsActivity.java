@@ -98,8 +98,9 @@ public class DrugsActivity extends BaseActivity implements
             }
         }).attachToRecyclerView(mRecyclerView);
 
-        /*Ensure a loader is initialized and active. If the loader doesn't already exist, one is
-         created, otherwise the last created loader is re-used.*/
+        /*Ensure a loader is initialized and active.
+          If the loader doesn't already exist, one is
+          created, otherwise the last created loader is re-used.*/
         getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, this);
     }
 
@@ -242,7 +243,5 @@ public class DrugsActivity extends BaseActivity implements
     public void onLoaderReset(Loader<Cursor> loader) {
         mAdapter.swapCursor(null);
     }
-
-
 
 }

@@ -51,7 +51,8 @@ public class LoginActivity extends BaseActivity {
                     _Password = et1.getText().toString();
 
                   if(checkLoginData(_Username,_Password)){
-                      Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                      Intent intent = new Intent(getApplicationContext(), HomeActivity.class)
+                              .putExtra("userId", userId);
                       startActivity(intent);
                   }
                 }
