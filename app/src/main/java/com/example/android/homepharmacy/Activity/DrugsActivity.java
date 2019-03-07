@@ -1,29 +1,43 @@
 package com.example.android.homepharmacy.Activity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+
 import com.example.android.homepharmacy.Adapter.DrugsAdapter;
+import com.example.android.homepharmacy.Database.DB;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
+import com.example.android.homepharmacy.Setting.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class DrugsActivity extends BaseActivity implements
         LoaderManager.LoaderCallbacks<Cursor>,
-        DrugsAdapter.DrugsnOnClickHandler{
+        DrugsAdapter.DrugsnOnClickHandler,
+        NavigationView.OnNavigationItemSelectedListener{
     // Constants for logging and referring to a unique loader
     private static final String TAG = "ANY";
     private static final int TASK_LOADER_ID = 0;
@@ -31,6 +45,9 @@ public class DrugsActivity extends BaseActivity implements
     // Member variables for the adapter and RecyclerView
     private DrugsAdapter mAdapter;
     RecyclerView mRecyclerView;
+    int userId;
+    SQLiteDatabase mDb;
+    DB dbHelper;
 
     ArrayList<String> drugsSearchResult;
     String[] selectionArgs1;
@@ -50,14 +67,43 @@ public class DrugsActivity extends BaseActivity implements
 
 
         Intent intent1 = getIntent();
-        Bundle args = intent1.getBundleExtra("BUNDLE");
-            drugsSearchResult =  (ArrayList) args.getSerializable("my_array");
+        Bundle args;
+        if((intent1.getBundleExtra("BUNDLE")) != null){
+            args = intent1.getBundleExtra("BUNDLE");
+            if(((ArrayList) args.getSerializable("my_array")) != null)
+                drugsSearchResult =  (ArrayList) args.getSerializable("my_array");
+
+        }
 
 
         Intent intent = this.getIntent();
         if((intent.getIntExtra(Intent.EXTRA_TEXT, 0)) != 0){
             memberId = intent.getIntExtra(Intent.EXTRA_TEXT, 0);
         }
+
+        //////CREATE DATABASE
+        dbHelper = new DB(this);
+        mDb = dbHelper.getWritableDatabase();
+
+        Intent intent2 = this.getIntent();
+        userId = intent2.getIntExtra("userId",0);
+
+        ////NAV DRAWER /////
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.app_name);
+
+        setSupportActionBar(toolbar);
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
 
         if(drugsSearchResult != null && !drugsSearchResult.isEmpty()){
             selectionArgs1 = drugsSearchResult.toArray(new String[drugsSearchResult.size()]);
@@ -105,7 +151,14 @@ public class DrugsActivity extends BaseActivity implements
     }
 
     public void onBackPressed() {
-        Intent intent = new Intent(this, HomeActivity.class);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+        Intent intent = new Intent(this, HomeActivity.class)
+                .putExtra("userId", userId);
         startActivity(intent);
     }
     @Override
@@ -113,7 +166,8 @@ public class DrugsActivity extends BaseActivity implements
         int drugId = cursor.getInt(0);
         Intent intent=new Intent(getApplicationContext(), DrugActivity.class)
                 .putExtra(Intent.EXTRA_TEXT,drugId)
-                .putExtra("memberId",memberId);
+                .putExtra("memberId",memberId)
+                .putExtra("userId", userId);
         startActivity(intent);
 
     }
@@ -244,4 +298,94 @@ public class DrugsActivity extends BaseActivity implements
         mAdapter.swapCursor(null);
     }
 
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main2, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_drugs) {
+            Intent intent = new Intent(this, SearchOptions.class)
+                    .putExtra("userId", userId);
+            startActivity(intent);
+        } else if (id == R.id.nav_members) {
+            Intent intent = new Intent(this, MembersActivity.class)
+                    .putExtra("userId", userId);
+            startActivity(intent);
+        } else if (id == R.id.nav_FAid) {
+            Intent intent = new Intent(this, FirstAidListActivity.class)
+                    .putExtra("userId", userId);
+            startActivity(intent);
+        } else if (id == R.id.nav_manage) {
+            Intent intent = new Intent(this, SettingsActivity.class)
+                    .putExtra("userId", userId);
+            startActivity(intent);
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_logOut) {
+            if(checkLoginData()){
+                Toast.makeText(getApplicationContext(), "You are logged out..",Toast.LENGTH_LONG).show();
+                Intent intent =  new Intent(getApplicationContext(), StartActivity.class);
+                startActivity(intent);
+            }
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
+    public boolean checkLoginData() {
+        String query = "SELECT *" + " FROM " + DataContract.UserEntry.TABLE_NAME
+                + " WHERE " + DataContract.UserEntry.COLUMN_IS_LOGGED + " =? AND " + DataContract.UserEntry._ID + " =?";
+
+        String isLogged = "1";
+        String id = String.valueOf(userId);
+        Cursor cursor = mDb.rawQuery(query, new String[]{isLogged, id});
+        if (cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
+                boolean userUpdated = UpdateUser(userId);
+                if (userUpdated) return true;
+            }
+            return false;
+        }
+        return false;
+    }
+    private boolean UpdateUser(int _id) {
+        ContentValues cv = new ContentValues();
+        cv.put(DataContract.UserEntry.COLUMN_IS_LOGGED, 0);
+        int x = getContentResolver().update(DataContract.UserEntry.CONTENT_URI,cv, "_id=" + _id, null);
+        finish();
+        if(x > 0){
+            return true;
+        }
+        return false;
+    }
 }

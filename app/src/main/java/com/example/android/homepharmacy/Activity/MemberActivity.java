@@ -2,41 +2,54 @@ package com.example.android.homepharmacy.Activity;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.homepharmacy.Adapter.DrugsAdapter;
 import com.example.android.homepharmacy.Adapter.MemberDrugsAdapter;
 import com.example.android.homepharmacy.Adapter.MembersAdapter;
+import com.example.android.homepharmacy.Database.DB;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
+import com.example.android.homepharmacy.Setting.SettingsActivity;
 import com.squareup.picasso.Picasso;
 
 public class MemberActivity extends BaseActivity  implements
         LoaderManager.LoaderCallbacks<Cursor>,
-        MemberDrugsAdapter.DrugsnOnClickHandler {
+        MemberDrugsAdapter.DrugsnOnClickHandler,
+        NavigationView.OnNavigationItemSelectedListener{
 
     // Constants for logging and referring to a unique loader
     private static final String TAG = "ANY";
@@ -69,17 +82,46 @@ public class MemberActivity extends BaseActivity  implements
     String[] selectionArgs;
 
     Button button;
+    int userId;
+    SQLiteDatabase mDb;
+    DB dbHelper;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupSharedPreferences();
-
         setContentView(R.layout.activity_member);
+
+
+        //////CREATE DATABASE
+        dbHelper = new DB(this);
+        mDb = dbHelper.getWritableDatabase();
+
+        //
+        ////NAV DRAWER /////
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.member_course);
+
+        setSupportActionBar(toolbar);
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+         ///
+
 
         intent = this.getIntent();
         memberId = intent.getIntExtra("memberId",0);
 
+        Intent intent1 = this.getIntent();
+        userId = intent1.getIntExtra("userId",0);
 
         cursor = getSingleMember();
     //    memId = String.valueOf(memberId);
@@ -180,13 +222,15 @@ public class MemberActivity extends BaseActivity  implements
                 // Retrieve the id of the drug to delete
 
                 // Build appropriate uri with String row id appended
+                // Build appropriate uri with String row id appended
                 String stringId = Integer.toString(memberId);
                 Uri uri = DataContract.MemberEntry.CONTENT_URI;
                 uri = uri.buildUpon().appendPath(stringId).build();
                 //Delete a single row of data using a ContentResolver
                 getContentResolver().delete(uri, null, null);
 
-                Intent intent = new Intent(getApplicationContext(), MembersActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MembersActivity.class)
+                        .putExtra("userId", userId);
                 startActivity(intent);
 
 
@@ -204,7 +248,8 @@ public class MemberActivity extends BaseActivity  implements
             public void onClick(View view) {
 
                 Intent intent = new Intent(getApplicationContext(), SearchOptions.class)
-                        .putExtra(Intent.EXTRA_TEXT,memberId);
+                        .putExtra(Intent.EXTRA_TEXT,memberId)
+                        .putExtra("userId", userId);
                 startActivity(intent);
 
             }
@@ -218,7 +263,14 @@ public class MemberActivity extends BaseActivity  implements
     }
 
     public void onBackPressed() {
-        Intent intent = new Intent(this, MembersActivity.class);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+        Intent intent = new Intent(this, MembersActivity.class)
+                .putExtra("userId", userId);
         startActivity(intent);
     }
 
@@ -226,7 +278,8 @@ public class MemberActivity extends BaseActivity  implements
     public void onClickDrug(Cursor cursor) {
         int drugListId = cursor.getInt(0);
         Intent intent=new Intent(getApplicationContext(), CourseActivity.class)
-                .putExtra(Intent.EXTRA_TEXT, drugListId);
+                .putExtra(Intent.EXTRA_TEXT, drugListId)
+                .putExtra("userId", userId);
         startActivity(intent);
     }
 
@@ -338,5 +391,92 @@ public class MemberActivity extends BaseActivity  implements
 
 
 
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main2, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_drugs) {
+            Intent intent = new Intent(this, SearchOptions.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_members) {
+            Intent intent = new Intent(this, MembersActivity.class)
+                    .putExtra("userId", userId);
+            startActivity(intent);
+        } else if (id == R.id.nav_FAid) {
+            Intent intent = new Intent(this, FirstAidListActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_manage) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_logOut) {
+            if(checkLoginData()){
+                Toast.makeText(getApplicationContext(), "You are logged out..",Toast.LENGTH_LONG).show();
+                Intent intent =  new Intent(getApplicationContext(), StartActivity.class);
+                startActivity(intent);
+            }
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
+    public boolean checkLoginData() {
+        String query = "SELECT *" + " FROM " + DataContract.UserEntry.TABLE_NAME
+                + " WHERE " + DataContract.UserEntry.COLUMN_IS_LOGGED + " =? AND " + DataContract.UserEntry._ID + " =?";
+
+        String isLogged = "1";
+        String id = String.valueOf(userId);
+        Cursor cursor = mDb.rawQuery(query, new String[]{isLogged, id});
+        if (cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
+                boolean userUpdated = UpdateUser(userId);
+                if (userUpdated) return true;
+            }
+            return false;
+        }
+        return false;
+    }
+    private boolean UpdateUser(int _id) {
+        ContentValues cv = new ContentValues();
+        cv.put(DataContract.UserEntry.COLUMN_IS_LOGGED, 0);
+        int x = getContentResolver().update(DataContract.UserEntry.CONTENT_URI,cv, "_id=" + _id, null);
+        finish();
+        if(x > 0){
+            return true;
+        }
+        return false;
+    }
 
 }

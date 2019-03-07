@@ -71,15 +71,10 @@ public class MemberDrugsAdapter extends RecyclerView.Adapter<MemberDrugsAdapter.
             DataContract.MemberEntry.COLUMN_PREGNANT
     };
 
-    /**
-     * Constructor for the CustomCursorAdapter that initializes the Context.
-     *
-     * @param mContext the current Context
-     */
-    public MemberDrugsAdapter(Context mContext) {
-        this.mContext = mContext;
-    }
 
+    public MemberDrugsAdapter(MemberDrugsAdapter.DrugsnOnClickHandler membersOnClickHandler) {
+        mDrugsOnClichkHandler = membersOnClickHandler;
+    }
 
     /**
      * Called when ViewHolders are created to fill a RecyclerView.
@@ -88,6 +83,7 @@ public class MemberDrugsAdapter extends RecyclerView.Adapter<MemberDrugsAdapter.
      */
     @Override
     public DrugsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        mContext = parent.getContext();
 
         // Inflate the task_layout to a view
         View view = LayoutInflater.from(mContext)
@@ -229,13 +225,7 @@ public class MemberDrugsAdapter extends RecyclerView.Adapter<MemberDrugsAdapter.
         public void onClick(View view) {
             int position = getAdapterPosition();
             mCursor.moveToPosition(position);
-
-            int courseId = mCursor.getInt(mCursor.getColumnIndex(
-                    DataContract.DrugListEntry._ID));
-
-            Intent intent = new Intent(mContext, CourseActivity.class)
-                    .putExtra(Intent.EXTRA_TEXT, courseId);
-            mContext.startActivity(intent);
+            mDrugsOnClichkHandler.onClickDrug(mCursor);
 
         }
     }

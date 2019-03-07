@@ -1,5 +1,6 @@
 package com.example.android.homepharmacy.Activity;
 
+import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 
 import java.util.Locale;
@@ -70,6 +72,7 @@ public class BaseActivity extends AppCompatActivity implements SharedPreferences
 
         }
     }
+
 
 
 }

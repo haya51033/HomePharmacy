@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Home Pharmacy</string>
+    <string name="app_name">صيـدلية المنزل</string>
     <string name="account_login">تسجيل دخول</string>
     <string name="login">دخول</string>
     <string name="user_name">اسم المستخدم</string>
@@ -75,12 +75,19 @@
     <string name="pref_lang_true">English</string>
     <string name="pref_lang_false">اللغة العربية</string>
     <string name="log_out">تسجيل خروج</string>
+    <string name="member_course">كورسات الأدوية</string>
+    <string name="search_options">خيارات البحث</string>
+    <string name="drug_information">معلومات الدواء</string>
+    <string name="new_member">إضافة فرد جديد</string>
+
+
+
 
 
     <string name="_type">النوع..</string>
     <string-array name="array_search_options">
         <item>إختر نمط البحث</item>
-        <item>عن طريق إسم الدوا</item>
+        <item>عن طريق إسم الدواء</item>
         <item>عن طريق دواعي الإستخدام</item>
         <item>عن طريق مسح الباركود</item>
     </string-array>

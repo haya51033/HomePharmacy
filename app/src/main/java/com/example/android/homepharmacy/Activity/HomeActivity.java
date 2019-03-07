@@ -80,7 +80,8 @@ public class HomeActivity extends BaseActivity
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SearchOptions.class);
+                Intent intent = new Intent(getApplicationContext(), SearchOptions.class)
+                        .putExtra("userId", userId);
                 startActivity(intent);
             }
         });
@@ -95,7 +96,8 @@ public class HomeActivity extends BaseActivity
         iv3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), FirstAidListActivity.class);
+                Intent intent = new Intent(getApplicationContext(), FirstAidListActivity.class)
+                        .putExtra("userId", userId);
                 startActivity(intent);
             }
         });

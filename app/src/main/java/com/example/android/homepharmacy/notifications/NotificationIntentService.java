@@ -43,12 +43,13 @@ public class NotificationIntentService extends JobIntentService {
     String memName;
     int dose;
 
+
     Cursor cursor;
     ArrayList<DrugAlert> arrayList1 = new ArrayList<>();
     DrugAlert drugAlert;
 
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 
     int __id;
     String memName1;
@@ -64,6 +65,12 @@ public class NotificationIntentService extends JobIntentService {
     String toda;
     Date today;
     Context context = this;
+    int userId;
+    Cursor cur1;
+    Cursor cur2;
+    String selectionArgs11[];
+    String selection_;
+    String selectionArgs_[];
 
     public static void startService(Context context) {
         enqueueWork(context, NotificationIntentService.class, 1001, new Intent());
@@ -104,8 +111,6 @@ public class NotificationIntentService extends JobIntentService {
                     String repDose = sdf.format(repDose1);
 
                     if ((d2.after(today) || d2.equals(today)) && (d1.equals(today) || today.after(d1))) {
-                        boolean nn = t.equals(now);
-                        boolean mm = repDose.equals(now);
                         if (t.equals(now) || repDose.equals(now)) {
                             memName = d.getMember_name();
                             drugName = d.getDrug_name();
@@ -181,7 +186,7 @@ public class NotificationIntentService extends JobIntentService {
             NotificationChannel channel = new NotificationChannel("my_channel_01",
                     "Channel human readable title",
                     NotificationManager.IMPORTANCE_DEFAULT);
-           // mNotificationManager.createNotificationChannel(channel);
+            // mNotificationManager.createNotificationChannel(channel);
             mNotificationManager.createNotificationChannel(mChannel);
             mNotificationManager.notify(NOTIFICATION_ID, builder.build());
 
@@ -217,13 +222,81 @@ public class NotificationIntentService extends JobIntentService {
     }
 
 
+    public int checkLoggedUser() {
+        String [] selectionArgs_ = {"1"};
+        String selection_ = DataContract.UserEntry.COLUMN_IS_LOGGED + " =?";
+        cur1 = getContentResolver().query(DataContract.UserEntry.CONTENT_URI,
+                null,
+                selection_,
+                selectionArgs_,
+                null);
+        if (cur1.getCount() > 0) {
+            if (cur1.moveToNext()) {
+                userId = cur1.getInt(cur1.getColumnIndex(DataContract.UserEntry._ID));
+                return userId;
+            }
+        }
+        return 0;
+    }
+
+    public ArrayList<String> UserMember(){
+       // userId = 1;
+        int memId;
+        ArrayList<String> membersId = new ArrayList();
+        final String selection = DataContract.MemberEntry.COLUMN_USER_ID + " =?";
+        final String[] selectionArgs = {String.valueOf(userId)};
+
+        cur2 = getContentResolver().query(DataContract.MemberEntry.CONTENT_URI,
+                null,
+                selection,
+                selectionArgs,
+                null);
+        if(cur2 != null){
+            int g =  cur2.getCount();
+            if(cur2.moveToFirst()){
+                while (!cur2.isAfterLast()) {
+                    int f;
+                    memId = cur2.getInt(cur2.getColumnIndex(DataContract.MemberEntry._ID));
+                    if (memId != 0){
+                        membersId.add(String.valueOf(memId));
+                    }
+                    cur2.moveToNext();
+                }
+            }
+        }
+
+        // if(membersId!= null && membersId.size()>0)
+        return membersId;
+    }
+
+    public String makePlaceholders(int len) {
+        StringBuilder sb = new StringBuilder(len * 2 - 1);
+        sb.append("?");
+        for (int i = 1; i < len; i++)
+            sb.append(",?");
+        return sb.toString();
+    }
+
     public ArrayList<DrugAlert> setTimeAlarm() {
+        userId = checkLoggedUser();
+        ArrayList<String> arrayList = UserMember();
+
+        if(arrayList != null && !arrayList.isEmpty()){
+            selectionArgs11 = arrayList.toArray(new String[arrayList.size()]);
+            selection_ = DataContract.DrugListEntry.COLUMN_MEMBER_L_ID + " IN (" + makePlaceholders(selectionArgs11.length) + ")";
+            selectionArgs_ = new String[selectionArgs11.length];
+            for (int i = 0; i < selectionArgs11.length; i++) {
+                selectionArgs_[i] = selectionArgs11[i];
+            }
+        }
+
         cursor = getContentResolver().query(DataContract.DrugListEntry.CONTENT_URI,
                 null,
-                null,
-                null,
+                selection_,
+                selectionArgs_,
                 DataContract.DrugListEntry._ID);
         if (cursor != null) {
+            int v = cursor.getCount();
             if (cursor.moveToFirst()) {// data?
                 while (!cursor.isAfterLast()) {
                     __id = cursor.getInt(cursor.getColumnIndex("_id"));

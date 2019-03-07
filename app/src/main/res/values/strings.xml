@@ -67,6 +67,10 @@
     <string name="channel_name">"my_channel_01</string>
     <string name="share">Share</string>
     <string name="log_out">LogOut</string>
+    <string name="member_course">Member Drug Courses</string>
+    <string name="search_options">Search Option</string>
+    <string name="drug_information">Drug Information</string>
+    <string name="new_member">New Member</string>
 
     <!--preferance-->
     <string name="pref_lang_label">Current Language </string>

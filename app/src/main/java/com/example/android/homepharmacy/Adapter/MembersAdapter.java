@@ -30,14 +30,11 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersV
     String languageToLoad = "en";
 
 
-    /**
-     * Constructor for the CustomCursorAdapter that initializes the Context.
-     *
-     * @param mContext the current Context
-     */
-    public MembersAdapter(Context mContext) {
-        this.mContext = mContext;
+
+    public MembersAdapter(MembersOnClickHandler membersOnClickHandler) {
+        mMembersOnClichkHandler = membersOnClickHandler;
     }
+
 
 
     /**
@@ -47,6 +44,7 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersV
      */
     @Override
     public MembersAdapter.MembersViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        mContext = parent.getContext();
 
         // Inflate the task_layout to a view
         View view = LayoutInflater.from(mContext)
@@ -169,12 +167,8 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersV
             int position = getAdapterPosition();
             mCursor.moveToPosition(position);
 
-            int memberId = mCursor.getInt(mCursor.getColumnIndex(
-                    DataContract.MemberEntry._ID));
-
-            Intent intent=new Intent(mContext, MemberActivity.class)
-                    .putExtra("memberId", memberId);
-            mContext.startActivity(intent);
+            mCursor.moveToPosition(position);
+            mMembersOnClichkHandler.onClickMember(mCursor);
 
         }
     }
