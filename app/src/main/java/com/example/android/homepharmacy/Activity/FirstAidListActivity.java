@@ -1,6 +1,7 @@
 package com.example.android.homepharmacy.Activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
@@ -17,6 +18,7 @@ import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class FirstAidListActivity extends BaseActivity implements
         LoaderManager.LoaderCallbacks<Cursor>,
@@ -34,11 +36,33 @@ public class FirstAidListActivity extends BaseActivity implements
     String[] selectionArgs;
     String selection;
 
+    boolean english;
+    String languageToLoad;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupSharedPreferences();
+        Intent intent4 = this.getIntent();
+        if( intent4.getStringExtra("lan") != null){
+            languageToLoad = intent4.getStringExtra("lan");
+
+        }
+        else {
+            english = super.english;
+            if(english){
+                languageToLoad="en";
+            }
+            else {
+                languageToLoad="ar";
+            }
+        }
+
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config,getResources().getDisplayMetrics());
 
         setContentView(R.layout.activity_first_aid);
 
@@ -93,7 +117,8 @@ public class FirstAidListActivity extends BaseActivity implements
     public void onClickFirstAid(Cursor cursor) {
         int _FAidId = cursor.getInt(0);
         Intent intent=new Intent(getApplicationContext(), FirstAidActivity.class)
-                .putExtra(Intent.EXTRA_TEXT,_FAidId);
+                .putExtra(Intent.EXTRA_TEXT,_FAidId)
+                .putExtra("lan", languageToLoad);
         startActivity(intent);
     }
 

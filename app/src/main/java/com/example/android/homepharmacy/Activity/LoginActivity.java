@@ -2,6 +2,7 @@ package com.example.android.homepharmacy.Activity;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -15,6 +16,8 @@ import com.example.android.homepharmacy.Database.DB;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 
+import java.util.Locale;
+
 
 public class LoginActivity extends BaseActivity {
 
@@ -27,10 +30,33 @@ public class LoginActivity extends BaseActivity {
     String _Username;
     String _Password;
     int userId;
+    boolean english;
+    String languageToLoad;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupSharedPreferences();
+        Intent intent4 = this.getIntent();
+        if( intent4.getStringExtra("lan") != null){
+            languageToLoad = intent4.getStringExtra("lan");
+
+        }
+        else {
+            english = super.english;
+            if(english){
+                languageToLoad="en";
+            }
+            else {
+                languageToLoad="ar";
+            }
+        }
+
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config,getResources().getDisplayMetrics());
 
         setContentView(R.layout.activity_login);
 
@@ -52,7 +78,8 @@ public class LoginActivity extends BaseActivity {
 
                   if(checkLoginData(_Username,_Password)){
                       Intent intent = new Intent(getApplicationContext(), HomeActivity.class)
-                              .putExtra("userId", userId);
+                              .putExtra("userId", userId)
+                              .putExtra("lan", languageToLoad);
                       startActivity(intent);
                   }
                 }

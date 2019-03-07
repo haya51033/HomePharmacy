@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -40,6 +41,8 @@ import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 import com.example.android.homepharmacy.Setting.SettingsActivity;
 
+import java.util.Locale;
+
 public class MembersActivity extends BaseActivity  implements
         LoaderManager.LoaderCallbacks<Cursor>,
         MembersAdapter.MembersOnClickHandler,
@@ -59,11 +62,34 @@ public class MembersActivity extends BaseActivity  implements
     int userId;
     SQLiteDatabase mDb;
     DB dbHelper;
-
+   boolean english;
+   String languageToLoad;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupSharedPreferences();
+
+        Intent intent4 = this.getIntent();
+        if( intent4.getStringExtra("lan") != null){
+            languageToLoad = intent4.getStringExtra("lan");
+
+        }
+        else {
+            english = super.english;
+            if(english){
+                languageToLoad="en";
+            }
+            else {
+                languageToLoad="ar";
+            }
+        }
+
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config,getResources().getDisplayMetrics());
+
 
         setContentView(R.layout.activity_members);
       //  intent = new Intent(getApplicationContext(), MembersActivity.class);
@@ -152,7 +178,8 @@ public class MembersActivity extends BaseActivity  implements
 
 
                 Intent intent = new Intent(getApplicationContext(), NewMemberActivity.class)
-                        .putExtra("userId", userId);
+                        .putExtra("userId", userId)
+                        .putExtra("lan", languageToLoad);
                 startActivity(intent);
 
             }
@@ -173,7 +200,8 @@ public class MembersActivity extends BaseActivity  implements
             super.onBackPressed();
         }
         Intent intent = new Intent(this, HomeActivity.class)
-                .putExtra("userId", userId);
+                .putExtra("userId", userId)
+                .putExtra("lan", languageToLoad);
         startActivity(intent);
     }
 
@@ -182,7 +210,8 @@ public class MembersActivity extends BaseActivity  implements
         int memberId = cursor.getInt(0);
         Intent intent=new Intent(getApplicationContext(), MemberActivity.class)
                 .putExtra("memberId", memberId)
-                .putExtra("userId", userId);
+                .putExtra("userId", userId)
+                .putExtra("lan", languageToLoad);
         startActivity(intent);
     }
 
@@ -321,17 +350,25 @@ public class MembersActivity extends BaseActivity  implements
         int id = item.getItemId();
 
         if (id == R.id.nav_drugs) {
-            Intent intent = new Intent(this, SearchOptions.class);
+            Intent intent = new Intent(this, SearchOptions.class)
+                    .putExtra("userId",userId)
+                    .putExtra("lan", languageToLoad);
             startActivity(intent);
         } else if (id == R.id.nav_members) {
             Intent intent = new Intent(this, MembersActivity.class)
-                    .putExtra("userId", userId);
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
+
             startActivity(intent);
         } else if (id == R.id.nav_FAid) {
-            Intent intent = new Intent(this, FirstAidListActivity.class);
+            Intent intent = new Intent(this, FirstAidListActivity.class)
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
             startActivity(intent);
         } else if (id == R.id.nav_manage) {
-            Intent intent = new Intent(this, SettingsActivity.class);
+            Intent intent = new Intent(this, SettingsActivity.class)
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
             startActivity(intent);
 
         } else if (id == R.id.nav_share) {
@@ -339,7 +376,8 @@ public class MembersActivity extends BaseActivity  implements
         } else if (id == R.id.nav_logOut) {
             if(checkLoginData()){
                 Toast.makeText(getApplicationContext(), "You are logged out..",Toast.LENGTH_LONG).show();
-                Intent intent =  new Intent(getApplicationContext(), StartActivity.class);
+                Intent intent =  new Intent(getApplicationContext(), StartActivity.class)
+                        .putExtra("lan", languageToLoad);
                 startActivity(intent);
             }
 

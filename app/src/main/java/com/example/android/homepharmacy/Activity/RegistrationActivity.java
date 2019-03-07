@@ -1,6 +1,7 @@
 package com.example.android.homepharmacy.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 import com.example.android.homepharmacy.Database.DB;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
+
+import java.util.Locale;
 
 public class RegistrationActivity extends BaseActivity {
 
@@ -45,16 +48,39 @@ public class RegistrationActivity extends BaseActivity {
     String _password;
     String _reminder_question;
     int _reminder_question_num;
+    boolean english;
+    String languageToLoad;
 
 
     public void onBackPressed() {
-        Intent intent = new Intent(this, StartActivity.class);
+        Intent intent = new Intent(this, StartActivity.class)
+                .putExtra("lan", languageToLoad);
         startActivity(intent);
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupSharedPreferences();
+        Intent intent4 = this.getIntent();
+        if( intent4.getStringExtra("lan") != null){
+            languageToLoad = intent4.getStringExtra("lan");
+
+        }
+        else {
+            english = super.english;
+            if(english){
+                languageToLoad="en";
+            }
+            else {
+                languageToLoad="ar";
+            }
+        }
+
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config,getResources().getDisplayMetrics());
 
         setContentView(R.layout.activity_register);
         //////CREATE DATABASE
@@ -121,7 +147,8 @@ public class RegistrationActivity extends BaseActivity {
 
                          Toast.makeText(getApplicationContext(),"Please login to continue "  ,Toast.LENGTH_LONG).show();
 
-                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class)
+                                 .putExtra("lan", languageToLoad);
                          startActivity(intent);
                      }
                 }

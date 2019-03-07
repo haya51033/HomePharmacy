@@ -2,6 +2,7 @@ package com.example.android.homepharmacy.Activity;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -92,11 +93,33 @@ public class CourseActivity extends BaseActivity implements NavigationView.OnNav
     TextView tv, tv1, tv2, tv3, tv4, tv5, tv6, tv7;
 
     Button button1;
+    boolean english;
+    String languageToLoad;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupSharedPreferences();
+        Intent intent4 = this.getIntent();
+        if( intent4.getStringExtra("lan") != null){
+            languageToLoad = intent4.getStringExtra("lan");
+
+        }
+        else {
+            english = super.english;
+            if(english){
+                languageToLoad="en";
+            }
+            else {
+                languageToLoad="ar";
+            }
+        }
+
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config,getResources().getDisplayMetrics());
 
         setContentView(R.layout.activity_course);
 
@@ -168,8 +191,8 @@ public class CourseActivity extends BaseActivity implements NavigationView.OnNav
                     drug_s_name = cursor2.getString(cursor2.getColumnIndex("scientific_name"));
                 }
                 else {     /** Arabic**/
-                    drug_c_name = cursor.getString(cursor.getColumnIndex("commercial_name_arabic"));
-                    drug_s_name = cursor.getString(cursor.getColumnIndex("scientific_name_arabic"));
+                    drug_c_name = cursor2.getString(cursor2.getColumnIndex("commercial_name_arabic"));
+                    drug_s_name = cursor2.getString(cursor2.getColumnIndex("scientific_name_arabic"));
                 }
 
                 drug_c = cursor2.getString(cursor2.getColumnIndex("concentration"));
@@ -199,7 +222,8 @@ public class CourseActivity extends BaseActivity implements NavigationView.OnNav
 
                 Intent intent = new Intent(getApplicationContext(), MemberActivity.class)
                         .putExtra("memberId" ,memberId)
-                        .putExtra("userId", userId);
+                        .putExtra("userId", userId)
+                        .putExtra("lan", languageToLoad);
                 startActivity(intent);
 
             }
@@ -217,7 +241,8 @@ public class CourseActivity extends BaseActivity implements NavigationView.OnNav
         }
         Intent intent = new Intent(this, MemberActivity.class)
                 .putExtra("memberId", memberId)
-                .putExtra("userId", userId);
+                .putExtra("userId", userId)
+                .putExtra("lan", languageToLoad);
         startActivity(intent);
     }
 
@@ -251,19 +276,23 @@ public class CourseActivity extends BaseActivity implements NavigationView.OnNav
 
         if (id == R.id.nav_drugs) {
             Intent intent = new Intent(this, SearchOptions.class)
-                    .putExtra("userId", userId);
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
             startActivity(intent);
         } else if (id == R.id.nav_members) {
             Intent intent = new Intent(this, MembersActivity.class)
-                    .putExtra("userId", userId);
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
             startActivity(intent);
         } else if (id == R.id.nav_FAid) {
             Intent intent = new Intent(this, FirstAidListActivity.class)
-                    .putExtra("userId", userId);
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
             startActivity(intent);
         } else if (id == R.id.nav_manage) {
             Intent intent = new Intent(this, SettingsActivity.class)
-                    .putExtra("userId", userId);
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
             startActivity(intent);
 
         } else if (id == R.id.nav_share) {
@@ -271,7 +300,8 @@ public class CourseActivity extends BaseActivity implements NavigationView.OnNav
         } else if (id == R.id.nav_logOut) {
             if(checkLoginData()){
                 Toast.makeText(getApplicationContext(), "You are logged out..",Toast.LENGTH_LONG).show();
-                Intent intent =  new Intent(getApplicationContext(), StartActivity.class);
+                Intent intent =  new Intent(getApplicationContext(), StartActivity.class)
+                        .putExtra("lan", languageToLoad);
                 startActivity(intent);
             }
 

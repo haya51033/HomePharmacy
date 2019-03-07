@@ -3,6 +3,7 @@ package com.example.android.homepharmacy.Activity;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -48,11 +49,33 @@ public class SearchOptions  extends BaseActivity
     Intent intent;
     final Activity activity = this;
     int userId;
+    boolean english;
+    String languageToLoad;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupSharedPreferences();
+        Intent intent4 = this.getIntent();
+        if( intent4.getStringExtra("lan") != null){
+            languageToLoad = intent4.getStringExtra("lan");
+
+        }
+        else {
+            english = super.english;
+            if(english){
+                languageToLoad="en";
+            }
+            else {
+                languageToLoad="ar";
+            }
+        }
+
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config,getResources().getDisplayMetrics());
 
         setContentView(R.layout.activity_search_options);
 
@@ -130,7 +153,8 @@ public class SearchOptions  extends BaseActivity
 
                         default:
                             Intent intent = new Intent(getApplicationContext(), DrugsActivity.class)
-                                    .putExtra("userId", userId);
+                                    .putExtra("userId", userId)
+                                    .putExtra("lan", languageToLoad);
                             startActivity(intent);
                             break;
                     }
@@ -148,6 +172,7 @@ public class SearchOptions  extends BaseActivity
                             Bundle args = new Bundle();
                             intent.putExtra(Intent.EXTRA_TEXT, memberId);
                             intent.putExtra("userId", userId);
+                            intent.putExtra("lan", languageToLoad);
                             args.putSerializable("my_array", drugsResult);
                             intent.putExtra("BUNDLE", args);
                             startActivity(intent);
@@ -169,7 +194,8 @@ public class SearchOptions  extends BaseActivity
             super.onBackPressed();
         }
         Intent intent = new Intent(this, HomeActivity.class)
-                .putExtra("userId",userId);
+                .putExtra("userId",userId)
+                .putExtra("lan", languageToLoad);
         startActivity(intent);
     }
 
@@ -246,6 +272,7 @@ public class SearchOptions  extends BaseActivity
                         Bundle args = new Bundle();
                         intent.putExtra(Intent.EXTRA_TEXT, memberId);
                         intent.putExtra("userId", userId);
+                        intent.putExtra("lan", languageToLoad);
                         args.putSerializable("my_array", drugsResult);
                         intent.putExtra("BUNDLE", args);
                         startActivity(intent);
@@ -303,19 +330,23 @@ public class SearchOptions  extends BaseActivity
 
         if (id == R.id.nav_drugs) {
             Intent intent = new Intent(this, SearchOptions.class)
-                    .putExtra("userId", userId);
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
             startActivity(intent);
         } else if (id == R.id.nav_members) {
             Intent intent = new Intent(this, MembersActivity.class)
-                    .putExtra("userId", userId);
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
             startActivity(intent);
         } else if (id == R.id.nav_FAid) {
             Intent intent = new Intent(this, FirstAidListActivity.class)
-                    .putExtra("userId", userId);
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
             startActivity(intent);
         } else if (id == R.id.nav_manage) {
             Intent intent = new Intent(this, SettingsActivity.class)
-                    .putExtra("userId", userId);
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
             startActivity(intent);
 
         } else if (id == R.id.nav_share) {
@@ -323,7 +354,8 @@ public class SearchOptions  extends BaseActivity
         } else if (id == R.id.nav_logOut) {
             if(checkLoginData()){
                 Toast.makeText(getApplicationContext(), "You are logged out..",Toast.LENGTH_LONG).show();
-                Intent intent =  new Intent(getApplicationContext(), StartActivity.class);
+                Intent intent =  new Intent(getApplicationContext(), StartActivity.class)
+                        .putExtra("lan", languageToLoad);
                 startActivity(intent);
             }
 

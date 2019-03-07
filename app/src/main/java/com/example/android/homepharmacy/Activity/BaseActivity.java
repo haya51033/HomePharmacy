@@ -1,6 +1,7 @@
 package com.example.android.homepharmacy.Activity;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -48,6 +49,7 @@ public class BaseActivity extends AppCompatActivity implements SharedPreferences
         Configuration config = new Configuration();
         config.locale = locale;
         getResources().updateConfiguration(config,getResources().getDisplayMetrics());
+
 
         // Register the listener
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);

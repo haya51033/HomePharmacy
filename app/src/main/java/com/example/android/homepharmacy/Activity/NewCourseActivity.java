@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -33,6 +34,7 @@ import com.example.android.homepharmacy.Setting.SettingsActivity;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class NewCourseActivity extends BaseActivity implements
         NavigationView.OnNavigationItemSelectedListener{
@@ -48,7 +50,6 @@ public class NewCourseActivity extends BaseActivity implements
     SQLiteDatabase mDb;
     DB dbHelper;
 
-
     int drugId;
     Intent intent1;
 
@@ -58,10 +59,33 @@ public class NewCourseActivity extends BaseActivity implements
     String FirstTime = "00:00:00";
     int userId;
 
+    boolean english;
+    String languageToLoad;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupSharedPreferences();
+        Intent intent4 = this.getIntent();
+        if( intent4.getStringExtra("lan") != null){
+            languageToLoad = intent4.getStringExtra("lan");
+
+        }
+        else {
+            english = super.english;
+            if(english){
+                languageToLoad="en";
+            }
+            else {
+                languageToLoad="ar";
+            }
+        }
+
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config,getResources().getDisplayMetrics());
 
         setContentView(R.layout.activity_new_course);
 
@@ -144,7 +168,8 @@ public class NewCourseActivity extends BaseActivity implements
                     Toast.makeText(getApplicationContext(),"Course Added Successfully! "  ,Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getApplicationContext(), MemberActivity.class)
                             .putExtra("memberId",memberId)
-                            .putExtra("userId", userId);
+                            .putExtra("userId", userId)
+                            .putExtra("lan", languageToLoad);
                     startActivity(intent);
                 }
                 else {
@@ -163,7 +188,8 @@ public class NewCourseActivity extends BaseActivity implements
         }
         Intent intent = new Intent(this, MemberActivity.class)
                 .putExtra("memberId", memberId)
-                .putExtra("userId", userId);
+                .putExtra("userId", userId)
+                .putExtra("lan", languageToLoad);
         startActivity(intent);
     }
 
@@ -350,19 +376,23 @@ public class NewCourseActivity extends BaseActivity implements
 
         if (id == R.id.nav_drugs) {
             Intent intent = new Intent(this, SearchOptions.class)
-                    .putExtra("userId", userId);
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
             startActivity(intent);
         } else if (id == R.id.nav_members) {
             Intent intent = new Intent(this, MembersActivity.class)
-                    .putExtra("userId", userId);
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
             startActivity(intent);
         } else if (id == R.id.nav_FAid) {
             Intent intent = new Intent(this, FirstAidListActivity.class)
-                    .putExtra("userId", userId);
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
             startActivity(intent);
         } else if (id == R.id.nav_manage) {
             Intent intent = new Intent(this, SettingsActivity.class)
-                    .putExtra("userId", userId);
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
             startActivity(intent);
 
         } else if (id == R.id.nav_share) {
@@ -370,7 +400,8 @@ public class NewCourseActivity extends BaseActivity implements
         } else if (id == R.id.nav_logOut) {
             if(checkLoginData()){
                 Toast.makeText(getApplicationContext(), "You are logged out..",Toast.LENGTH_LONG).show();
-                Intent intent =  new Intent(getApplicationContext(), StartActivity.class);
+                Intent intent =  new Intent(getApplicationContext(), StartActivity.class)
+                        .putExtra("lan", languageToLoad);
                 startActivity(intent);
             }
 
