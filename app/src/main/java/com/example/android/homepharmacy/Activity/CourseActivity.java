@@ -200,10 +200,8 @@ public class CourseActivity extends BaseActivity implements NavigationView.OnNav
                 cursor2.close();
                 tv = (TextView) findViewById(R.id.tvDrugCName);
                 tv1 = (TextView) findViewById(R.id.tvDrugSName);
-               // tv2 = (TextView) findViewById(R.id.tvDrugC);
                 tv.setText(drug_c_name);
                 tv1.setText(drug_s_name + " "+ drug_c);
-              //  tv2.setText(drug_c);
 
             }
         }
@@ -260,9 +258,15 @@ public class CourseActivity extends BaseActivity implements NavigationView.OnNav
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(this, SettingsActivity.class)
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
+            startActivity(intent);
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -296,6 +300,17 @@ public class CourseActivity extends BaseActivity implements NavigationView.OnNav
             startActivity(intent);
 
         } else if (id == R.id.nav_share) {
+            try {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_SUBJECT, getResources().getText(R.string.app_name));
+                String sAux = "\n "+getResources().getText(R.string.msgReco) + "\n\n";
+                sAux = sAux + getResources().getText(R.string.webSite)+" \n\n";
+                i.putExtra(Intent.EXTRA_TEXT, sAux);
+                startActivity(Intent.createChooser(i, getResources().getText(R.string.choose_one)));
+            } catch(Exception e) {
+                //
+            }
 
         } else if (id == R.id.nav_logOut) {
             if(checkLoginData()){

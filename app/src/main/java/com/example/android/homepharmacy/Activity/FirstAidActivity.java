@@ -205,7 +205,11 @@ public class FirstAidActivity extends BaseActivity implements
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(this, SettingsActivity.class)
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
+            startActivity(intent);
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -239,6 +243,17 @@ public class FirstAidActivity extends BaseActivity implements
             startActivity(intent);
 
         } else if (id == R.id.nav_share) {
+            try {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_SUBJECT, getResources().getText(R.string.app_name));
+                String sAux = "\n "+getResources().getText(R.string.msgReco) + "\n\n";
+                sAux = sAux + getResources().getText(R.string.webSite)+" \n\n";
+                i.putExtra(Intent.EXTRA_TEXT, sAux);
+                startActivity(Intent.createChooser(i, getResources().getText(R.string.choose_one)));
+            } catch(Exception e) {
+                //
+            }
 
         } else if (id == R.id.nav_logOut) {
             if(checkLoginData()){

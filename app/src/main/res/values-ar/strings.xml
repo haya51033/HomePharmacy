@@ -74,6 +74,9 @@
     <string name="new_password">كلمة سر جديدة: </string>
     <string name="update_password">تحديث كلمة المرور</string>
 
+    <string name="msgReco">دعني أرشح لك هذا التطبيق الجميل وهو تطبيق صيدلية المنزل </string>
+    <string name="webSite">http://youtube.com/</string>
+    <string name="choose_one">إختر خيار</string>
 
     <!--preferance-->
     <string name="pref_lang_label" translatable="false">لغتك الحالية</string>
