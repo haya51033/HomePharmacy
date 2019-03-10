@@ -71,6 +71,14 @@
     <string name="search_options">Search Option</string>
     <string name="drug_information">Drug Information</string>
     <string name="new_member">New Member</string>
+    <string name="seeOnYoutube">See on Youtube</string>
+    <string name="suggested_medication">Suggested medication</string>
+    <string name="enterEmail">Enter Your E-mail Please:</string>
+    <string name="next">Next</string>
+    <string name="new_password">New Password: </string>
+    <string name="update_password">Update Password</string>
+
+
 
     <!--preferance-->
     <string name="pref_lang_label">Current Language </string>

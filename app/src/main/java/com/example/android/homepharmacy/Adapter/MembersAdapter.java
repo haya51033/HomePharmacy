@@ -50,24 +50,6 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersV
         View view = LayoutInflater.from(mContext)
                 .inflate(R.layout.row_member, parent, false);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        english = sharedPreferences.getBoolean(mContext.getString(R.string.pref_language_key),
-                mContext.getResources().getBoolean(R.bool.pref_lang_default));
-
-        if(english){
-            languageToLoad="en";
-        }
-        else {
-            languageToLoad="ar";
-        }
-
-
-        Locale locale = new Locale(languageToLoad);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        mContext.getResources().updateConfiguration(config, mContext.getResources().getDisplayMetrics());
-
         return new MembersAdapter.MembersViewHolder(view);
     }
 

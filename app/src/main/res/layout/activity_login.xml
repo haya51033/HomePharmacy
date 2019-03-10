@@ -81,7 +81,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:paddingTop="5dp"
-                android:text="@string/forgot_password" />
+                android:text="@string/forgot_password"
+                android:textStyle="italic"
+                android:textColor="@color/colorPrimary"
+                android:clickable="true"
+                android:focusable="true"
+                android:id="@+id/tvForgetPassword"/>
 
 
             <Button

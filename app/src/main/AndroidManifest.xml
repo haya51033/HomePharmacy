@@ -31,6 +31,10 @@
             android:noHistory="true">
 
         </activity>
+        <activity android:name=".Activity.ForgetPassword1Activity"></activity>
+        <activity android:name=".Activity.ForgetPassword2Activity"></activity>
+        <activity android:name=".Activity.ForgetPassword3Activity"></activity>
+
         <activity android:name=".Activity.DrugsActivity"></activity>
         <activity android:name=".Activity.DrugActivity"></activity>
 
@@ -43,6 +47,8 @@
         <activity android:name=".Activity.CourseActivity"></activity>
         <activity android:name=".Activity.SearchOptions"></activity>
 
+        <activity android:name=".Activity.FirstAidListActivity"></activity>
+        <activity android:name=".Activity.FirstAidActivity"></activity>
         <activity
             android:name=".Setting.SettingsActivity"
             android:parentActivityName=".Activity.StartActivity"></activity>

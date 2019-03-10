@@ -1,43 +1,55 @@
 package com.example.android.homepharmacy.Activity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+
 import com.example.android.homepharmacy.Adapter.DrugsAdapter;
 import com.example.android.homepharmacy.Adapter.FirstAidAdapter;
+import com.example.android.homepharmacy.Database.DB;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
+import com.example.android.homepharmacy.Setting.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class FirstAidListActivity extends BaseActivity implements
         LoaderManager.LoaderCallbacks<Cursor>,
-        FirstAidAdapter.FirstAidOnClickHandler {
+        FirstAidAdapter.FirstAidOnClickHandler,
+        NavigationView.OnNavigationItemSelectedListener{
     // Constants for logging and referring to a unique loader
     private static final String TAG = "ANY";
     private static final int TASK_LOADER_ID = 0;
-
+    SQLiteDatabase mDb;
+    DB dbHelper;
     // Member variables for the adapter and RecyclerView
     private FirstAidAdapter mAdapter;
     RecyclerView mRecyclerView;
 
-    ArrayList<String> firstAidSearchResult;
-    String[] selectionArgs1;
-    String[] selectionArgs;
-    String selection;
 
     boolean english;
     String languageToLoad;
+    int userId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,21 +76,31 @@ public class FirstAidListActivity extends BaseActivity implements
         config.locale = locale;
         getResources().updateConfiguration(config,getResources().getDisplayMetrics());
 
-        setContentView(R.layout.activity_first_aid);
+        setContentView(R.layout.activity_first_aid_list);
 
-        Intent intent1 = getIntent();
-        Bundle args = intent1.getBundleExtra("BUNDLE");
-        firstAidSearchResult =  (ArrayList) args.getSerializable("my_array");
+        //////CREATE DATABASE
+        dbHelper = new DB(this);
+        mDb = dbHelper.getWritableDatabase();
 
-        if(firstAidSearchResult != null && !firstAidSearchResult.isEmpty()){
-            selectionArgs1 = firstAidSearchResult.toArray(new String[firstAidSearchResult.size()]);
-            selection = DataContract.DrugsEntry._ID + " IN (" + makePlaceholders(selectionArgs1.length) + ")";
-            selectionArgs = new String[selectionArgs1.length];
-            for (int i = 0; i < selectionArgs1.length; i++) {
-                selectionArgs[i] = selectionArgs1[i];
-            }
-        }
+        Intent intent0 = getIntent();
+        userId = intent0.getIntExtra("userId",0);
+        ////NAV DRAWER /////
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.first_aid);
 
+        setSupportActionBar(toolbar);
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        ///
         // Set the RecyclerView to its corresponding view
         mRecyclerView = (RecyclerView) findViewById(R.id.listFirstAid);
 
@@ -118,7 +140,8 @@ public class FirstAidListActivity extends BaseActivity implements
         int _FAidId = cursor.getInt(0);
         Intent intent=new Intent(getApplicationContext(), FirstAidActivity.class)
                 .putExtra(Intent.EXTRA_TEXT,_FAidId)
-                .putExtra("lan", languageToLoad);
+                .putExtra("lan", languageToLoad)
+                .putExtra("userId", userId);
         startActivity(intent);
     }
 
@@ -163,32 +186,20 @@ public class FirstAidListActivity extends BaseActivity implements
                 // Will implement to load data
                 // Query and load all drug data in the background; sort by priority
                 // use a try/catch block to catch any errors in loading data
-                if(firstAidSearchResult == null){
+
                     try {
                         return getContentResolver().query(DataContract.FirstAidEntry.CONTENT_URI,
                                 null,
                                 null,
                                 null,
-                                null);
+                                DataContract.FirstAidEntry._ID);
                     } catch (Exception e) {
                         Log.e(TAG, "Failed to asynchronously load data.");
                         e.printStackTrace();
                         return null;
                     }
-                }
-                else {
-                    try {
-                        return getContentResolver().query(DataContract.FirstAidEntry.CONTENT_URI,
-                                null,
-                                selection,
-                                selectionArgs,
-                                DataContract.FirstAidEntry.COLUMN_FIRST_AID_TITLE);
-                    } catch (Exception e) {
-                        Log.e(TAG, "Failed to asynchronously load data 1111111111.");
-                        e.printStackTrace();
-                        return null;
-                    }
-                }
+
+
             }
             // deliverResult sends the result of the load, a Cursor, to the registered listener
             public void deliverResult(Cursor data) {
@@ -199,13 +210,7 @@ public class FirstAidListActivity extends BaseActivity implements
 
 
     }
-    String makePlaceholders(int len) {
-        StringBuilder sb = new StringBuilder(len * 2 - 1);
-        sb.append("?");
-        for (int i = 1; i < len; i++)
-            sb.append(",?");
-        return sb.toString();
-    }
+
 
     /**
      * Called when a previously created loader has finished its load.
@@ -233,5 +238,115 @@ public class FirstAidListActivity extends BaseActivity implements
     }
 
 
+
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+        Intent intent = new Intent(this, HomeActivity.class)
+                .putExtra("userId", userId)
+                .putExtra("lan", languageToLoad);
+        startActivity(intent);
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main2, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_drugs) {
+            Intent intent = new Intent(this, SearchOptions.class)
+                    .putExtra("userId",userId)
+                    .putExtra("lan", languageToLoad);
+            startActivity(intent);
+        } else if (id == R.id.nav_members) {
+            Intent intent = new Intent(this, MembersActivity.class)
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
+
+            startActivity(intent);
+        } else if (id == R.id.nav_FAid) {
+            Intent intent = new Intent(this, FirstAidListActivity.class)
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
+            startActivity(intent);
+        } else if (id == R.id.nav_manage) {
+            Intent intent = new Intent(this, SettingsActivity.class)
+                    .putExtra("userId", userId)
+                    .putExtra("lan", languageToLoad);
+            startActivity(intent);
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_logOut) {
+            if(checkLoginData()){
+                Toast.makeText(getApplicationContext(), "You are logged out..",Toast.LENGTH_LONG).show();
+                Intent intent =  new Intent(getApplicationContext(), StartActivity.class)
+                        .putExtra("lan", languageToLoad);
+                startActivity(intent);
+            }
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
+    public boolean checkLoginData() {
+        String query = "SELECT *" + " FROM " + DataContract.UserEntry.TABLE_NAME
+                + " WHERE " + DataContract.UserEntry.COLUMN_IS_LOGGED + " =? AND " + DataContract.UserEntry._ID + " =?";
+
+        String isLogged = "1";
+        String id = String.valueOf(userId);
+        Cursor cursor = mDb.rawQuery(query, new String[]{isLogged, id});
+        if (cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
+                boolean userUpdated = UpdateUser(userId);
+                if (userUpdated) return true;
+            }
+            return false;
+        }
+        return false;
+    }
+    private boolean UpdateUser(int _id) {
+        ContentValues cv = new ContentValues();
+        cv.put(DataContract.UserEntry.COLUMN_IS_LOGGED, 0);
+        int x = getContentResolver().update(DataContract.UserEntry.CONTENT_URI,cv, "_id=" + _id, null);
+        finish();
+        if(x > 0){
+            return true;
+        }
+        return false;
+    }
 
 }

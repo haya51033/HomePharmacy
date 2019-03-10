@@ -1,4 +1,305 @@
 <?xml version="1.0" encoding="utf-8"?>
 <first_aid_data>
+    <record first_aid_title="Wounds" first_aid_title_arabic="الجروح" first_aid_description="A range of simple first aid can be done when one of the wound types is present:
 
-</first_aid_data>
+Wash your hands thoroughly and wear one-use gloves before the casualty&apos;s ambulance to avoid the bacteria moving to the wound.
+If the bleeding continues, the wound is gently pressed with a sterile bandage and the affected member&apos;s position is changed to help stop the bleeding.
+Clean the wound and clean the surrounding area. If soap is used to clean the surrounding area, be careful not to reach the wound so as not to cause irritation.
+If the wound contains small pieces or residues, they can be removed by forceps.
+Apply a little antibiotic over the wound area to keep it moist and protect it from contamination. If a skin rash is observed, the antibiotic should be stopped immediately.
+Cover the wound with a sterile dressing to protect it from contamination. This step can be dispensed if the wound is simple.
+Change the dressing once a day at least or when exposed to moisture and dirty." first_aid_description_arabic="يمكن القيام بمجموعة من الإسعافات الأولية البسيطة عند الإصابة بأحد أنواع الجروح ومنها:
+
+غسل اليدين جيداً وارتداء القفازات ذات الاستخدام الواحد قبل إسعاف المصاب وذلك لتجنب انتقال البكتيريا إلى الجرح.
+إن كان النزيف لا يزال مستمراً، يتم الضّغط على الجرح برفق باستخدام ضمادة معقمة ومن ثم يتم تغيير وضعية العضو المصاب للمساعدة في إيقاف النزيف.
+تنظيف الجرح وتنظيف المنطقة المحيطة به، وإن تم استخدام الصابون في تنظيف المنطقة المحيطة فينبغي الحرص على عدم وصولها للجرح حتى لا تتسبب في حدوث تهيج.
+إن كان الجرح يحتوي على قطع أو بقايا صغيرة فيمكن إزالتها بالملقط، وإن صعب الأمر يجب زيارة الطبيب.
+وضع القليل من المضاد الحيوي فوق منطقة الجرح وذلك للحفاظ على رطوبته وحمايته من التلوث، وفق حال لوحظ حدوث طفح جلدي ينبغي التوقف عن استخدام المضاد فوراً.
+تغطية الجرح بضماد معقم لحمايته من التلوث، ويمكن الإستغناء عن هذه الخطوة في حال كان الجرح بسيطاً.
+تغيير الضمادة مرة واحدة في اليوم على الأقل أو عند تعرضها الرطوبة واتساخها." first_aid_link="https://www.youtube.com/watch?v=bXq--9Wqccg" first_aid_drug="1" first_aid_image="wounds.jpg"></record>
+<record first_aid_title="The burns" first_aid_title_arabic="الحروق" first_aid_description="First class burns:
+This type of burns is assisted by:
+Place the burned skin under cold water until the pain subsides.
+Use compresses if running water is not available.
+Protect the burn by covering with a sterile bandage or clean cloth.
+You should seek medical help if the redness and pain continue for more than a few hours or if the burning affects a large area of ??skin no more than 7 cm.
+
+Second degree burns:
+This type of burns is assisted by:
+Immerse the affected area in cold water or place a clean towel dampened with cold water, as cold water relieves pain.
+Remove jewelry accessories or narrow clothing from the affected area gently.
+Try to make the patient drink large amounts of water but not to the extent of nausea.
+Do not use ice because it can reduce body temperature and cause more pain and damage.
+Place the injured person flat with his feet up.
+If there are blisters or closed bubbles do not open them, open them covered with a layer of ointment and cover the place with a towel or non-adhesive bandage.
+Ask for assistance from the specialist.
+
+Third degree burns:
+Never attempt to deal with third degree burns, contact the emergency department immediately for medical treatment, and make sure there are no clothes stuck at the place of burning.
+
+Where the medical staff of the emergency department will deal with cases of burns as follows:
+
+The burns are cleaned first and the dead parts removed from the burned part of the skin.
+Provide the patient with intravenous solutions and doses of antibiotic.
+Put antibacterial cream over the surface of the burn healing wounds.
+Give the patient pain medication.
+Treatment is completed within the specialist department because the third degree burns need a long time to heal and doctors may resort to surgical intervention." first_aid_description_arabic="حروق الدرجة الأولى:
+يتم إسعاف هذا النوع من الحروق من خلال الاتي:
+ضع الجلد المحروق تحت الماء البارد حتى يخف الألم.
+استخدم كمادات إذا كان الماء الجاري غير متاح.
+حماية الحرق من خلال التغطية بضمادة معقمة أو قطعة قماش نظيفة.
+عليك طلب المساعدة الطبية إذا استمر الاحمرار والالم اكثر من بضع ساعات او اذا كان الحرق يؤثر على مساحة كبيرة من الجلد أي  أكثر من 7 سم.
+
+حروق الدرجة الثانية:
+يتم إسعاف هذا النوع من الحروق من خلال:
+غمر المكان المصاب في الماء البارد او وضع منشفة نظيفة مبللة بالماء البارد، حيث يعمل الماء البارد على تخفيف الألم.
+نزع الاكسسوارات والمجوهرات أو الملابس الضيقة عن المكان المصاب بلطف.
+حاول أن تجعل المصاب يشرب كميات كبيرة من الماء ولكن دون ان يصل الى حد الغثيان.
+لا تستخدم الثلج لأنه يمكن أن يقلل درجة حرارة الجسم ويسبب المزيد من الألم والضرر.
+ضع الشخص المصاب مسطحاً مع رفع قدميه إلى الاعلى.
+في حال وجود بثور أو فقاعات مغلقة لا تقم بفتحها، أما المفتوح منها غطيه بطبقة من المرهم وغطي المكان بمنشفة أو ضمادة غير لاصقة.
+توجه لطلب المساعدة من المختص.
+
+حروق الدرجة الثالثة:
+لا تحاول أبدا التعامل مع حروق الدرجة الثالثة، يتم الاتصال والتوجه لقسم الطوارئ فورا لتلقي العلاج الطبي، وتأكد من عدم وجود أي ملابس عالقة بمكان الحرق.
+
+حيث سيقوم الطاقم الطبي الخاص بقسم الطوارئ بالتعامل مع حالات الحروق حسب الاتي:
+
+يتم تنظيف الحروق أولا و إزالة الأجزاء الميتة من الجزء المحروق من الجلد.
+تزويد المريض بالمحاليل الوريدية وجرعات من المضاد الحيوي.
+وضع كريم مضاد للبكتيريا فوق سطح الحرق تضميد الجروح.
+إعطاء المريض أدوية مسكنة للألم.
+يتم استكمال العلاج داخل قسم المختص وذلك لأن الحروق من الدرجة الثالثة تحتاج إلى وقت طويل لكي تشفى وقد يلجأ الأطباء إلى التدخل الجراحي."
+
+    first_aid_link="https://www.youtube.com/watch?v=e9CZahfQWcE" first_aid_drug="2" first_aid_image="burns.jpg"></record>
+<record first_aid_title="suffocation" first_aid_title_arabic="الإختناق" first_aid_description="First aid for suffocation:
+The loss of breathing capacity is very difficult. Therefore, the first aid must be immediately accelerated for suffocation. It should not be delayed for one moment, because this presents the patient with a life of danger, so until the arrival of the ambulance for the necessary artificial respiration, do the following: The injured person from the place where he fell, to a well ventilated place, if the injured woman veiled, remove the veil slightly from the side of the throat. If the victim is a child, it is necessary to look at his mouth to see if he swallowed something like a pen or coin, and try to take it out immediately. Tight clothing should be worn at the neck and chest, to be ventilated. If the choke has swallowed his tongue, there is first aid followed when swallowing the tongue, including pulling the tongue out and adjusted the position of the person to sleep on one side.
+
+First aid for suffocation in chemical laboratories:
+In chemical plants and chemical plants, students and workers suffer from toxic gases such as ammonia or ammonia and inhalation. Try to help your colleague who has been suffocated by toxic gases in the following ways: Remove tight clothing around the neck. Move the person to a well ventilated place and keep him away from the injury. Bring a towel wet with water, and hit it on the face. Make sure before ventilating that the casualty does not breathe. In the meantime, when you do first aid for suffocation, ask someone to call the ambulance center.
+
+First aid for suffocation due to drowning:
+In the summer we find many swim without knowing the rules of swimming or swimming in deep places not intended for beginners, and sometimes the paramedic does not exist, so learn first aid to suffocate the sunken person, namely: Move the head of the drowning head to the bottom, raise Feet up. Press the area above the abdomen to push the water vigorously out of the lungs. It is best that the patient inhales stimulants or strong odor. Provide a radiator heating device. First aid to protect yourself and your family from floods First aid for electric shock suffocation Electric shock causes rapid heart rate, paralysis of the brain signals of the lungs and loss of breathing ability, so dealing with it needs to speed up the following steps: Disconnect the power immediately. Disconnect the injured person from the electrical source with a piece of wood. Remove the infected person away from the place of injury. Massage the chest and breathe with the kiss of life. If any burns are treated. Transfer the casualty to the hospital immediately." first_aid_description_arabic="حروق الدرجة الأولى:
+يتم إسعاف هذا النوع من الحروق من خلال الاتي:
+ضع الجلد المحروق تحت الماء البارد حتى يخف الألم.
+استخدم كمادات إذا كان الماء الجاري غير متاح.
+حماية الحرق من خلال التغطية بضمادة معقمة أو قطعة قماش نظيفة.
+عليك طلب المساعدة الطبية إذا استمر الاحمرار والالم اكثر من بضع ساعات او اذا كان الحرق يؤثر على مساحة كبيرة من الجلد أي  أكثر من 7 سم.
+
+حروق الدرجة الثانية:
+يتم إسعاف هذا النوع من الحروق من خلال:
+غمر المكان المصاب في الماء البارد او وضع منشفة نظيفة مبللة بالماء البارد، حيث يعمل الماء البارد على تخفيف الألم.
+نزع الاكسسوارات والمجوهرات أو الملابس الضيقة عن المكان المصاب بلطف.
+حاول أن تجعل المصاب يشرب كميات كبيرة من الماء ولكن دون ان يصل الى حد الغثيان.
+لا تستخدم الثلج لأنه يمكن أن يقلل درجة حرارة الجسم ويسبب المزيد من الألم والضرر.
+ضع الشخص المصاب مسطحاً مع رفع قدميه إلى الاعلى.
+في حال وجود بثور أو فقاعات مغلقة لا تقم بفتحها، أما المفتوح منها غطيه بطبقة من المرهم وغطي المكان بمنشفة أو ضمادة غير لاصقة.
+توجه لطلب المساعدة من المختص.
+
+حروق الدرجة الثالثة:
+لا تحاول أبدا التعامل مع حروق الدرجة الثالثة، يتم الاتصال والتوجه لقسم الطوارئ فورا لتلقي العلاج الطبي، وتأكد من عدم وجود أي ملابس عالقة بمكان الحرق.
+
+حيث سيقوم الطاقم الطبي الخاص بقسم الطوارئ بالتعامل مع حالات الحروق حسب الاتي:
+
+يتم تنظيف الحروق أولا و إزالة الأجزاء الميتة من الجزء المحروق من الجلد.
+تزويد المريض بالمحاليل الوريدية وجرعات من المضاد الحيوي.
+وضع كريم مضاد للبكتيريا فوق سطح الحرق تضميد الجروح.
+إعطاء المريض أدوية مسكنة للألم.
+يتم استكمال العلاج داخل قسم المختص وذلك لأن الحروق من الدرجة الثالثة تحتاج إلى وقت طويل لكي تشفى وقد يلجأ الأطباء إلى التدخل الجراحي." first_aid_link="https://www.youtube.com/watch?v=81BXd2Gi6kg" first_aid_drug="3" first_aid_image="suffocation.jpg"></record>
+<record first_aid_title="Heart attack" first_aid_title_arabic="الأزمة القلبية" first_aid_description="There is some quick-aid that needs to be done very quickly not more than five minutes. Time here is the difference between continuing life or death so you should immediately call the ambulance to take the patient to the nearest hospital and waiting for them the next aid.
+
+1 - heart recovery
+Heart recovery is the fastest aid you should do when you do not find a heartbeat. First, examine the patient&apos;s pulse in the neck or hand area when he or she is unconscious or about to go into a coma. The heart is recovered by pressing firmly and with one stroke of the hand in the middle of the rib cage. If the patient does not respond to the stroke, perform a massage above the rib cage to respond to the heart again, placing the patient on a level surface on either side. This quick action so that the patient does not vomit. If you have an automated external defibrillator, connect it and install it immediately and then start making strong blows to the rib cage until the heartbeat returns to normal.
+
+2 - delivery of breathing
+If the patient is breathing with difficulty, an attempt should be made to deliver the patient&apos;s breathing. Because it is a symptom of a heart attack and a severe shortness of breath, perhaps up to choking and inability to breathe. Trying to deliver the breath is done by mouth and is called the kiss of life. The patient should relieve all obstructions in the breathing process. The neck, bra, or belt should be removed. If the patient is veiled, the veil is removed so as to give the patient or the patient a heart attack a chance to breathe normally. You can also resort to artificial respiration by squeezing the rib cage 15 times quickly, giving the patient breathing through the mouth. You can put two fingers inside your mouth to see if there is anything blocking your mouth or trachea while trying to remove it, whether it&apos;s food or otherwise. If the patient is wearing a dental kit, it should not be removed.
+
+3 - chewing aspirin
+This is one of the most important quick-aid that carries out the life of the patient is to take a type of aspirin center. If you find this type of aspirin, put it under the tongue. This aspirin greatly helps to dissolve the heart attack and treat it immediately. But if you do not find it, get up quickly by giving the patient aspirin. It is not taken with water but should be broken and chewed in the mouth for the speed of its effect on the body. This helps greatly reduce blood clots and contributes to the blood flow through the narrow artery that causes the heart attack.
+
+4. Develop a heart attack
+The general aid that helps the patient to breathe normally is to put the so-called heart attack situation is to support the back of the patient on a comfortable wall, and then the ambulance patient to bend his feet towards the heart and chest crotch for breathing easily. This situation should be done quickly to the patient where this situation improves blood flow to the arteries of the heart. Helps the oxygen reach the heart muscles as it reduces the blood circulation in the thighs and therefore immediately transported to the heart. In this case, the patient should not drink, but if he wishes, he can wet his lips with simple points of water." first_aid_description_arabic="يوجد بعض الإسعافات السريعة التي لا بد من القيام بها بشكل سريع جدًا لا يتعدى الخمس دقائق فقط. الوقت هنا هو الفاصل بين الاستمرار في الحياة أو الموت لذلك عليكِ فورًا الاتصال بالإسعاف ليأخذوا المريض إلى أقرب مستشفى وفي انتظارهم قومي بالإسعافات التالية.
+
+1- إنتعاش القلب
+إنتعاش القلب من أسرع الإسعافات التي عليكِ أن تقومي بها عندما لا تجدين نبضًا. فتشي أولاً على نبض المريض في منطقة الرقبة أو اليد عندما يكون فاقد الوعي أو على وشك الدخول في غيبوبة. يتم انتعاش القلب من خلال الضغط بقوة وبضربة واحد من اليد في منتصف القفص الصدري. إذا لم يستجب المريض إلى الضربة فقومي بعمل عملية تدليك فوق القفص الصدري لإستجابة القلب مرة أخرى، مع وضع المريض على سطح مستوى على إحدى جانبيه. هذا التصرف السريع لكي لا يتقيء المريض. أما إذا توفر لديكِ جهاز إزالة الرجفان الخارجي الآلي، قومي بتوصيله وتركيبه مباشرة ثم ابدأي بعمل ضربات قوية على القفص الصدري حتى يعود النبض للقلب من جديد في وضعه الطبيعي.
+
+2- توصيل التنفس
+إذا كان المريض يتنفس بضيق يجب عمل محاولة لتوصيل التنفس للمريض. لأنه من أعراض الإصابة بالأزمة القلبية وجود ضيق في التنفس بشكل كبير، ربما يصل إلى الاختناق وعدم القدرة على التنفس. محاولة توصيل التنفس تتم عن طريق الفم وتسمى بقبلة الحياة. على من تسعف المريض أن تزيل كل ما يعوق فى عملية التنفس. حيث يجب فك رابطة العنق، الصدرية أو الحزام وإذا كانت المريضة محجبة فيتم خلع الحجاب وذلك لإعطاء فرصة للمريض أو المريضة بالأزمة القلبية التنفس بشكل طبيعي. كما يمكنكِ اللجوء إلى التنفس الصناعي وذلك من خلال الضغط على القفص الصدري 15 مرة بشكل سريع، مع منح المريض التنفس عن طريق الفم. يمكنكِ القيام بوضع أصبعين داخل الفم لمعرفة ما إذا كان هناك أي شيء يسُد الفم أو القصبة الهوائية مع محاولة إزالته سواء كان طعامًا أو غيره. أما إذا كان المريض يضع طقم اسنان فلا يجب إزالته.
+
+3- مضغ الأسبرين
+تُعد هذه الطريقة من أهم الإسعافات السريعة التي تنفذ حياة المريض وهي تناول نوع من الأسبرين المركز. هذا النوع من الأسبرين إذا عثرتِ عليه قومي بوضعه تحت اللسان. هذا الأسبرين يساعد بشكل كبير على إذابة الأزمة القلبية ومعالجتها على الفور. لكن إذا لم تجدينه قومي سريعًا بإعطاء المريض الأسبرين العادي. حيثُ لا يتم تناوله بالماء ولكن يجب تكسيره ومضغة فى الفم لسرعة تأثيره على الجسم. فهذا يساعد كثيرًا على تقليل الجلطات الدموية كما يساهم في تدفق الدم خلال الشريان الضيق الذي تسبب في حدوث الأزمة القلبية.
+
+4- وضع الأزمة القلبية
+من الإسعافات العامة التي تساعد المريض على التنفس بشكل طبيعي هي القيام بوضع ما يسمى وضع الأزمة القلبية وهي إسناد ظهر المريض على حائط مريح، ثم يقوم من يتولى إسعاف المريض بثني قدميه باتجاه القلب والقفص الصدري من أجل التنفس بيسر. هذا الوضع يجب القيام به بسرعة للمريض حيث يعمل هذا الوضع على تحسين تدفق الدم إلى شرايين القلب. يساعد على وصول الأكسجين إلى عضلات القلب كما يعمل على تقليل الدورة الدموية الموجودة في الفخذين وبالتالي ينقلها على الفور إلى القلب. في هذه الحالة لا يجب أن يشرب المريض ولكنه اذا رغب فيمكنه أن يبلل شفتيه بنقاط بسيطة من الماء."
+    first_aid_link="https://www.youtube.com/watch?v=VpP0V0wtgsk" first_aid_drug="1" first_aid_image="hearattack.jpg"></record>
+
+<record first_aid_title="Sun Stroke" first_aid_title_arabic="ضربة الشمس" first_aid_description="First aid for the treatment of the sun stroke:
+
+�If you are in doubt, you have to be rushed to the hospital. But until the arrival of the ambulance, you should do the following to help treat the sun stroke:
+
+Move the patient to a well ventilated, cool or even shaded place.
+Remove any unnecessary clothes from him.
+Use cold water compresses to reduce body temperature.
+You can direct a fan on the patient&apos;s body while moistening his body to help reduce heat faster.
+The use of ice packs on the armpit, thigh, neck and back because these areas are rich in blood vessels close to the surface of the skin.
+If possible, you can put the casualty in a basin with cool water to reduce body temperature." first_aid_description_arabic="الإسعافات الأولية لـ علاج ضربة الشمس:
+
+ إذا كنت في شك بإصابة أحد بـ ضربة شمس عليك الإسراع في نقله للمستشفي و لكن حتى وصول عربة الإسعاف يجب عليك فعل التالي للمساعدة في علاج ضربة الشمس :
+
+انقل المصاب إلى مكان جيد التهوية أو بارد أو حتي مظلل.
+انزع عنه أي ثياب غير ضرورية.
+استخدام كمادات المياة الباردة لخفض حرارة الجسم.
+يمكنك توجيه مروحة علي جسم المصاب مع تبليل جسمه لتساعد في خفض الحرارة أسرع.
+استخدام كمادات الثلج علي منطقة الإبط و الفخذ و العنق و الظهر لأن تلك المناطق غنية بالأوعية الدموية القريبة لسطح الجلد.
+إذا أمكن يمكنك وضع المصاب في حوض به ماء بارد ( البانيو ) لتخفيف درجة حرارة الجسم."
+
+
+first_aid_link="https://www.youtube.com/watch?v=H1rr26jm3OY" first_aid_drug="2" first_aid_image="sunstroke.jpg"></record>
+<record first_aid_title="Fractures" first_aid_title_arabic="الكسور" first_aid_description="Fractions require immediate medical care, especially if it results in a major trauma or injury. Contact emergency immediately, but until the arrival of medical care, some first aid steps should be taken, which we will address in this article.
+
+* When is emergency medical care required?
+Ask for emergency assistance if:
+- The person did not respond or did not breathe or did not move, and start CPR in the absence of breathing or heartbeat.
+- There is severe bleeding.
+- If even pressure or movement gently causes pain.
+- If the limbs or joints appear to be distorted.
+- If the bones pierced the skin.
+- If there is numbness in the affected arm or leg, such as the toes or fingers, or colored the tip of the finger in blue.
+- If you suspect that there are fractures in the neck, head or back bone.
+
+Do not move the person unless necessary to avoid any other injury, and immediately take the following actions while waiting for medical assistance:
+- Stop any bleeding, by pressing the wound with a sterile bandage or clean cloth or with a clean cloth.
+
+If you are trained on how the plaster works and professional help is not readily available, place the splint on the area at the top and bottom of the fracture sites. Filling the splint may reduce pain.
+
+- Put ice packs to reduce swelling and to help relieve pain, avoid placing snow directly on the skin, and snowflakes with a towel or cloth or some other materials.
+
+- Treat the shock, if someone feels fainting or shortness of breath, or rapid breathing, make the person lying on the ground with his head at a slightly lower level of the trunk, and if possible, lift his legs." first_aid_description_arabic="تطلب الكسور رعاية طبية فورية، خصوصا إذا نتج عنها صدمة أو إصابة كبيرة، فاتصل بالطوارئ فورا، ولكن حتى وصول الرعاية الطبية يجب إجراء بعض خطوات الإسعافات الأولية، والتي سنتناولها في مقالنا هذا.
+
+* متى تطلب الرعاية الطبية الطارئة؟
+اطلب الحصول على مساعدة طارئة في حالة:
+- كان الشخص لا يستجيب أو لا يتنفس أو لا يتحرك، وابدأ بالإنعاش القلبي الرئوي في حالة عدم وجود تنفس أو ضربات القلب.
+- يوجد نزيف شديد.
+- إذا كان حتى الضغط أو الحركة برفق يسبب الألم.
+- إذا ظهرت الأطراف أو المفاصل على أنها مشوهة.
+- إذا اخترقت العظام الجلد.
+- إذا كان هناك تنميل في أطراف الذراع أو الساق المصابة، مثل أصابع القدمين أو أصابع اليدين، أو تلون طرف الإصبع باللون الأزرق.
+- إذا راودك الشك بأن هناك كسورا في عظم الرقبة أو الرأس أو الظهر.
+
+ولا تقم بتحريك الشخص إلا للضرورة لتجنب حدوث أي إصابة أخرى، واتخذ على الفور الإجراءات التالية أثناء الانتظار للمساعدة الطبية:
+- قم بإيقاف أي نزيف، عن طريق الضغط على الجرح بضمادة معقمة أو بقماش نظيف أو بقطعة قماش نظيفة.
+
+- ثبت المنطقة المصابة، ولا تحاول تقويم العظم أو دفع العظم الذي برز إلى مكانه، وإذا كنت مدربًا على كيفية عمل الجبيرة ولم تتوفر المساعدة المهنية بسهولة، فقم بوضع الجبيرة على المنطقة عند أعلى وأسفل مواقع الكسر، فقد يعمل حشو الجبيرة على تقليل الألم.
+
+- ضع كمادات الثلج للحد من التورم وللمساعدة في تخفيف الألم، وتجنب وضع الثلج مباشرة على الجلد، وقم بلف الثلج بمنشفة أو قطعة قماش أو بعض من المواد الأخرى.
+
+- عالج الصدمة، إذا شعر شخص ما بـ الإغماء أو ضيق التنفس، أو سرعة التنفس، فاجعل الشخص يستلقي على الأرض مع كون رأسه في مستوى منخفض قليلاً عن الجذع، وإن أمكن، ارفع ساقيه."
+
+
+    first_aid_link="https://www.youtube.com/watch?v=UMjAxJoS1N4" first_aid_drug="3" first_aid_image="fractures.jpg"></record>
+<record first_aid_title="Bleeding" first_aid_title_arabic="النزف" first_aid_description="When severe injuries occur with severe haemorrhage, this can have serious consequences and therefore the following actions are required immediately:
+Remove any visible dirt or residue from the wound
+Just remove the visible dirt, do not remove the large or deeply embedded objects inside the body, do not examine the wound or try to clean it. Your first job is to stop the bleeding and wear disposable gloves once.
+- Stop bleeding
+Place a sterile bandage or cloth on the wound, press the bandage firmly at your hand to control the bleeding, and maintain the pressure by &quot;flattening&quot; the wound with a bandage or with a clean cloth tightly, attach the wound to a tape and use your hands if there is no Something else .. through the following actions:
+1. Lift the injured part above the heart level.
+2. Special cases
+Do not press directly on the eye or on the affected body.
+Do not correct the situation or pressure the removed members from their position, just cover the wound with a clean bandage.
+- Help the affected person to lie down, preferably on a carpet or blanket to prevent loss of body temperature .. If possible, raise his legs.
+
+- Do not remove gauze or bandage
+In the event of bleeding from the gauze or other cloth on the wound, place another bandage on top of the current bandage and continue to press firmly on the area.
+
+- The stormy
+Asabah is effective in controlling the bleeding of life-threatening limbs. Put a storm if you are trained on how to do this. When emergency assistance arrives, explain how long the wound is placed on the wound.
+
+- Prove the injured part of the body once the bleeding stopped
+Leave the bandages in place and go to the emergency room as soon as possible.
+
+* When do you call the emergency?
+- Call your local emergency number if the bleeding is caused by a major trauma or injury, and call emergency assistance if you suspect internal bleeding. Internal bleeding signs include:
+- Bleeding across the body&apos;s natural openings, such as the ear, mouth, nose or anus.
+- vomiting or cough accompanied by blood.
+- Bruising.
+- Pain or swelling in the stomach.
+- The epidermis is cool and cold.
+- thirst.
+- Fractures.
+- Trauma, which is determined by rapid and weak pulse, facial palpitations, sweating, rapid breathing and low alertness." first_aid_description_arabic="عند حدوث إصابات شديدة مصحوبة بنزيف حاد، فقد يؤدي هذا لعواقب خطيرة، وبالتالي فإنه يستلزم اتخاذ الإجراءات التالية على الفور:
+- قم بإزالة أي أوساخ أو بقايا واضحة عن الجرح
+فقط قم بإزالة الأوساخ الظاهرة، ولا تقم بإزالة الأجسام الكبيرة أو المغروسة بعمق داخل الجسم، ولا تفحص الجرح أو تحاول تنظيفه، ووظيفتك الأولى هي إيقاف النزيف، وارتدِ القفازات الواقية المعدة للاستخدام مرة واحدة في حال توافرها.
+- قم بإيقاف النزيف
+ضع ضمادة معقمة أو قطعة قماش نظيفة على الجرح، واضغط على الضمادة بقوة براحة يدك للتحكم في النزيف، وحافظ على الضغط من خلال  الجرح بضمادة أو بقطعة قماش نظيفة بشكل محكم، وقم بربط الجرح بشريط لاصق، واستخدم يديك في حال عدم توفر أي شيء آخر.. من خلال الإجراءات التالية:
+1. ارفع الجزء المصاب أعلى من مستوى القلب.
+2. حالات خاصة
+لا تضغط بشكل مباشر على إصابة العين أو على الجسم المغروس.
+لا تصحح الوضع أو تضغط على الأعضاء التي تمت إزاحتها من موضعها، فقط غطِ الجرح بضمادة نظيفة.
+- ساعد الشخص المصاب على الاستلقاء، ويُفضل أن يكون على سجادة أو بطانية لمنع فقدان حرارة الجسم.. وإن أمكن، ارفع ساقيه.
+
+- لا تقم بإزالة الشاش أو الضمادة
+في حالة تسرب النزيف من الشاش أو قطع القماش الأخرى الموجودة على الجرح، فقم بوضع ضمادة أخرى أعلى الضمادة الحالية، واستمر في الضغط بقوة على المنطقة.
+
+- العاصبات
+تعد العاصبة فعالة في التحكم في نزيف الأطراف المهدد للحياة، وضع عاصبة إذا كنت مدربًا على كيفية القيام بذلك، وعندما تصل المساعدة الطارئة، أوضح كم المدة التي وُضِعت خلالها العاصبة على الجرح.
+
+- ثبت الجزء المصاب من الجسم بمجرد توقف النزيف
+اترك الضمادات في مكانها واذهب بالشخص المصاب إلى غرفة الطوارئ في أسرع وقت ممكن.
+
+* متى تتصل بالطوارئ؟
+- اتصل برقم الطوارئ المحلي إذا كان النزيف ناتجًا عن صدمة أو إصابة كبيرة، واتصل بمساعدة الطوارئ أيضًا إذا كنت تشك في وجود نزيف داخلي، وتتضمن علامات النزيف الداخلي ما يلي:
+- النزف عبر فتحات الجسم الطبيعية، مثل الأذن أو الفم أو الأنف أو فتحة الشرج.
+- القيء أو السعال المصحوب بالدم.
+- الكدمات.
+- إيلام أو تورم في المعدة.
+- بشرة متعرقة وباردة.
+- العطش.
+- الكسور.
+- الصدمة، التي يتم تحديدها من خلال النبض السريع والضعيف وشحوب الوجه والتعرق والتنفس السريع وانخفاض مستوى اليقظة" first_aid_link="https://www.youtube.com/watch?v=kRYg6r1-Dww" first_aid_drug="4" first_aid_image="bleeding.jpg"></record>
+<record first_aid_title="Epilepsy" first_aid_title_arabic="الصرع" first_aid_description="If you are accompanied by someone suffering from a traumatic stress disorder, you should:
+
+Move them away from anything that can cause injuries - like a busy road or a hot cooker.
+Put a pillow under their heads if they are still on the floor.
+Remove any tight clothing around their necks - such as a collar or tie, to help them breathe.
+When the convulsions stop, move them to lie down on their side.
+Stay with them and talk to them quietly until they recover.
+Notice when and when the seizure begins.
+Do not put anything in the person&apos;s mouth, including your fingers, because they may bite, but they will heal. Putting anything in their mouths causes more damage.
+When a person is about to recover from the matter, he may be confused and therefore try to make the dialogue comfortable for him.
+Do you need to call an ambulance?
+You do not have to call an ambulance because people with epilepsy do not have to go to the hospital every time they talk to them.
+&quot;I have patients who ended up in the whole city because they were suffering from seizures and were taken to hospital,&quot; says Dr. Cloff.
+Some people with epilepsy wear a special bracelet or carry a card to allow medical professionals or anyone in their condition to know they have epilepsy. &quot;If they know they have epilepsy, they prefer to happen to them during the day.&quot;
+When is emergency related?
+However, emergency calls should be made in the following cases:
+
+Be the first time someone has had an epileptic seizure.
+Continue the seizure for more than five minutes.
+The person does not regain full consciousness, or a series of seizures occur without his assistance.
+Remember what happens
+Make a note of what happens during the seizure, this may be helpful to the person or doctor.
+If you are aware of what a person is doing during a seizure, please provide a note describing what he was after (eg drowsiness, confusion, or aggression), and recording the time taken by the seizure." first_aid_description_arabic="إذا كنت بصحبة شخص يعاني من الإصابة بالنوبة التوترية الارتجاجية (نوبة مرضيه) فإنه يجب:
+
+نقلهم بعيدا عن أي شيء يمكن أن يسبب إصابات - مثل طريق مزدحم أو موقد طباخ ساخن.
+وضع وسادة تحت رؤوسهم إذا كانوا لا يزالون على الأرض.
+فك أي ملابس ضيقة حول رقابهم - مثل طوق أو ربطة عنق، لمساعدتهم على التنفس.
+عندما تتوقف التشنجات،قم بتحريكهم كي يستلقون على جانبهم.
+البقاء معهم والتحدث معهم بهدوء حتى يتعافوا.
+لاحظ وقت بدء النوبة وانتهائها.
+لا تضع أي شيء في فم الشخص، بما في ذلك أصابعك، لأنها قد تقضم، ولكنها سوف تلتئم. وضع أي شئ في أفواههم يسبب المزيد من الضرر.
+وحين يكون الشخص على وشك الإفاقة من الأمر، فإنه قد يرتبك ولذلك حاول أن تجعل الحوار مريحًا له.
+هل أنت بحاجة إلى استدعاء سيارة إسعاف؟
+لست  مضطرًا بالضرورة إلى استدعاء سيارة إسعاف، لأن الأشخاص المصابين بالصرع لا يحتاجون إلى الذهاب إلى المستشفى في كل مرة تحدث لهم فيها هذه النوبة.
+ويقول الدكتور كلوف: لدي مرضى  من الذين انتهى بهم المطاف في جميع أنحاء المدينة لأنهم قد كانوا يعانون من النوبات المرضية، ونقلوا إلى المستشفى
+    هناك بعض من  الأشخاص المصابين بالصرع يرتدون سوارً خاصًا أو يحملون بطاقة حتى يتيحوا لأصحاب المهن الطبية أو لأي شخص يشهد حالتهم أن يعرف بأنهم يعانون من صرع. إذا كانوا يعرفون أن لديهم الصرع، فهم يفضلوا أن يحدث لهم نهارا.
+    متتى تتصل بالطوارئ؟
+    مع ذلك، يجب الاتصال بالطوارىء في الحالات التالية:
+
+    أن تكون هي المرة الأولى التي يصاب فيها شخص ما بنوبة الصرع.
+    أن تستمر النوبة لأكثر من خمس دقائق.
+    ألا يستعيد الشخص وعيه الكامل، أو تحدث له سلسلة من النوبات دون إسعافه.
+    تذكر ماذا يحدث
+    تقديم مذكرة عما يحدث أثناء النوبة، وهذا قد يكون من المفيد للشخص أو للطبيب.
+    إذا كنت على علم بما يقوم به الشخص أثناء النوبة، يرجى التقدم بمذكرة تصف ماذا كان عليه بعد ذلك (على سبيل المثال النعاس، والخلط، أو العدوانية)، وتسجيل الوقت الذي استغرقته النوبة أثناء حدوثها."
+    first_aid_link="https://www.youtube.com/watch?v=LZ1N8MHoDi0" first_aid_drug="5" first_aid_image="epilepsy.jpg"></record>
+    </first_aid_data>

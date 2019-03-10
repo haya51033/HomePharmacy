@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.homepharmacy.Database.DB;
@@ -32,6 +33,7 @@ public class LoginActivity extends BaseActivity {
     int userId;
     boolean english;
     String languageToLoad;
+    TextView tv;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class LoginActivity extends BaseActivity {
         et = (EditText) findViewById(R.id.etLUsername);
         et1 = (EditText) findViewById(R.id.etLPassword);
         button = (Button) findViewById(R.id.etLButton);
+        tv = (TextView) findViewById(R.id.tvForgetPassword);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +89,16 @@ public class LoginActivity extends BaseActivity {
                 else {
                     Toast.makeText(getApplicationContext(),"Please fill in all fields ! ",Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ForgetPassword1Activity.class)
+                        .putExtra("lan", languageToLoad);
+                startActivity(intent);
             }
         });
     }

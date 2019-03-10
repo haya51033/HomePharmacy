@@ -55,10 +55,7 @@ public class MembersActivity extends BaseActivity  implements
     // Member variables for the adapter and RecyclerView
     private MembersAdapter mAdapter;
     RecyclerView mRecyclerView;
-    Uri uri;
-    Context context;
     public  Activity activity1;
-   // Intent intent;
     int userId;
     SQLiteDatabase mDb;
     DB dbHelper;
@@ -92,7 +89,6 @@ public class MembersActivity extends BaseActivity  implements
 
 
         setContentView(R.layout.activity_members);
-      //  intent = new Intent(getApplicationContext(), MembersActivity.class);
         //////CREATE DATABASE
         dbHelper = new DB(this);
         mDb = dbHelper.getWritableDatabase();

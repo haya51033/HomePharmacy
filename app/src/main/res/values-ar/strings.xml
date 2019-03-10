@@ -66,7 +66,13 @@
     <string name="title_activity_notification">NotificationActivity</string>
     <string name="channel_name">"my_channel_01</string>
     <string name="share">مشاركة</string>
+    <string name="seeOnYoutube">مشاهدة على يوتيوب</string>
+    <string name="suggested_medication">دواء مقترح</string>
 
+    <string name="enterEmail">الرجاء إدخال بريدك الإلكتروني</string>
+    <string name="next">التالي</string>
+    <string name="new_password">كلمة سر جديدة: </string>
+    <string name="update_password">تحديث كلمة المرور</string>
 
 
     <!--preferance-->
