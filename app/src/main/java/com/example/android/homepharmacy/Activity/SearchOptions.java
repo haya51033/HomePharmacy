@@ -282,6 +282,7 @@ public class SearchOptions  extends BaseActivity
                         intent.putExtra("BUNDLE", args);
                         startActivity(intent);
 
+
                     }
                     else {
                         Toast.makeText(getApplicationContext(),"No Result!",Toast.LENGTH_LONG).show();
