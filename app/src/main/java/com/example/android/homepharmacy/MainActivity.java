@@ -78,6 +78,7 @@ public class MainActivity extends BaseActivity {
                 null,
                 DataContract.DrugsEntry._ID);
         if(cursor != null){
+            int d = cursor.getCount();
             if (cursor.moveToFirst()){// data?
                 return true;
             }

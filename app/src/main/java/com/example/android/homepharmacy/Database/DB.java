@@ -138,40 +138,40 @@ public class DB extends SQLiteOpenHelper {
                 //Search for record tags
                 if ((eventType == XmlPullParser.START_TAG) &&(_xml.getName().equals("record"))){
                     //Record tag found, now get values and insert record
-                    String _DRUG_COMMERCIAL_NAME =
-                            _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
                     String _DRUG_COMMERCIAL_NAME_ARABIC =
                             _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME_ARABIC);
-                    String _DRUG_SCIENTIFIC_NAME =
-                            _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME);
+                    String _DRUG_COMMERCIAL_NAME =
+                            _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
                     String _DRUG_SCIENTIFIC_NAME_ARABIC =
                             _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME_ARABIC);
-                    String _DRUG_INDICATION =
-                            _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_DRUG_INDICATION);
+                    String _DRUG_SCIENTIFIC_NAME =
+                            _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME);
                     String _DRUG_INDICATION_ARABIC =
                             _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_DRUG_INDICATION_ARABIC);
-                    String _EXPIRY_DATE =
-                            _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_EXPIRY_DATE);
+                    String _DRUG_INDICATION =
+                            _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_DRUG_INDICATION);
                     String _DRUG_CONCENTRATION =
                             _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_DRUG_CONCENTRATION);
                     String _DRUG_TYPE =
                             _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_DRUG_TYPE);
                     String _DRUG_TYPE_ARABIC =
                             _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_DRUG_TYPE_ARABIC);
-                    String _DRUG_WARNINGS =
-                            _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_DRUG_WARNINGS);
                     String _DRUG_WARNINGS_ARABIC =
                             _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_DRUG_WARNINGS_ARABIC);
-                    String _SIDE_EFFECTS =
-                            _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_SIDE_EFFECTS);
+                    String _DRUG_WARNINGS =
+                            _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_DRUG_WARNINGS);
                     String _SIDE_EFFECTS_ARABIC =
                             _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_SIDE_EFFECTS_ARABIC);
+                    String _SIDE_EFFECTS =
+                            _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_SIDE_EFFECTS);
                     String _PREGNENT_ALLOWED =
                             _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_PREGNENT_ALLOWED);
-                    String _DRUG_DESCRIPTION =
-                            _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_DRUG_DESCRIPTION);
                     String _DRUG_DESCRIPTION_ARABIC =
                             _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_DRUG_DESCRIPTION_ARABIC);
+                    String _DRUG_DESCRIPTION =
+                            _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_DRUG_DESCRIPTION);
+                    String _EXPIRY_DATE =
+                            _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_EXPIRY_DATE);
                     String _DRUG_BARCODE =
                             _xml.getAttributeValue(null, DataContract.DrugsEntry.COLUMN_DRUG_BARCODE);
 
