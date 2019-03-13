@@ -255,7 +255,6 @@ public class NotificationIntentService extends JobIntentService {
     }
 
     public ArrayList<String> UserMember(){
-       // userId = 1;
         int memId;
         ArrayList<String> membersId = new ArrayList();
         final String selection = DataContract.MemberEntry.COLUMN_USER_ID + " =?";
@@ -267,10 +266,8 @@ public class NotificationIntentService extends JobIntentService {
                 selectionArgs,
                 null);
         if(cur2 != null){
-            int g =  cur2.getCount();
             if(cur2.moveToFirst()){
                 while (!cur2.isAfterLast()) {
-                    int f;
                     memId = cur2.getInt(cur2.getColumnIndex(DataContract.MemberEntry._ID));
                     if (memId != 0){
                         membersId.add(String.valueOf(memId));
@@ -279,8 +276,6 @@ public class NotificationIntentService extends JobIntentService {
                 }
             }
         }
-
-        // if(membersId!= null && membersId.size()>0)
         return membersId;
     }
 

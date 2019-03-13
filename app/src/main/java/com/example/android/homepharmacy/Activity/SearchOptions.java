@@ -148,6 +148,7 @@ public class SearchOptions  extends BaseActivity
                                 c = getDrugIndicationMatchesArabic(query, null);
                             break;
                         case 3:
+
                             startScan();
                             break;
 

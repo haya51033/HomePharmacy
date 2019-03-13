@@ -12,13 +12,16 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:hardwareAccelerated="true">
         <activity android:name=".MainActivity">
+
+        </activity>
+        <activity android:name=".Activity.SplashActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.SplashActivity"></activity>
         <activity
             android:name=".Activity.LoginActivity" />
         <activity

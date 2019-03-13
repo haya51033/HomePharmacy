@@ -70,19 +70,6 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    public boolean setTimeAlarm(){
-       cursor =  getContentResolver().query(DataContract.DrugListEntry.CONTENT_URI,
-                null,
-                null,
-                null,
-                DataContract.DrugListEntry._ID);
-        if(cursor != null){
-            if (cursor.moveToFirst()){// data?
-               return true;
-                }
-            }
-            return false;
-        }
 
     public boolean setTimeAlarm2(){
         cursor =  getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
