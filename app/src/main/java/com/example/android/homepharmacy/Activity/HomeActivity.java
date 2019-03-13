@@ -98,7 +98,7 @@ public class HomeActivity extends BaseActivity
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SearchOptions.class)
+                Intent intent = new Intent(getApplicationContext(), DrugsActivity.class)
                         .putExtra("userId", userId)
                         .putExtra("lan", languageToLoad);
                 startActivity(intent);
@@ -108,6 +108,15 @@ public class HomeActivity extends BaseActivity
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MembersActivity.class)
+                        .putExtra("userId", userId)
+                        .putExtra("lan", languageToLoad);
+                startActivity(intent);
+            }
+        });
+        iv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SearchOptions.class)
                         .putExtra("userId", userId)
                         .putExtra("lan", languageToLoad);
                 startActivity(intent);

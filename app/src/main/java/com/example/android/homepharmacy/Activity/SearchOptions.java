@@ -272,7 +272,6 @@ public class SearchOptions  extends BaseActivity
                             drugsResult.add(id);
                             c.moveToNext();
                         }
-
                         Intent intent = new Intent(getApplicationContext(), DrugsActivity.class);
                         Bundle args = new Bundle();
                         intent.putExtra(Intent.EXTRA_TEXT, memberId);
@@ -281,8 +280,6 @@ public class SearchOptions  extends BaseActivity
                         args.putSerializable("my_array", drugsResult);
                         intent.putExtra("BUNDLE", args);
                         startActivity(intent);
-
-
                     }
                     else {
                         Toast.makeText(getApplicationContext(),"No Result!",Toast.LENGTH_LONG).show();
