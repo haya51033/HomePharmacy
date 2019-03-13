@@ -11,6 +11,7 @@ import android.support.v4.app.JobIntentService;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.WakefulBroadcastReceiver;
+import android.text.format.DateUtils;
 import android.util.Log;
 
 import com.example.android.homepharmacy.Activity.CourseActivity;
@@ -22,9 +23,13 @@ import com.example.android.homepharmacy.broadcast_receivers.NotificationEventRec
 import java.text.DateFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import static java.util.Calendar.HOUR;
+import static java.util.Calendar.HOUR_OF_DAY;
 
 
 public class NotificationIntentService extends JobIntentService {
@@ -49,7 +54,7 @@ public class NotificationIntentService extends JobIntentService {
     DrugAlert drugAlert;
 
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
     int __id;
     String memName1;
@@ -103,31 +108,41 @@ public class NotificationIntentService extends JobIntentService {
                     String t = sdf.format(t1);
                     int repeat = d.getDose_r();
 
-                    Calendar cal = Calendar.getInstance(); // creates calendar
-                    cal.setTime(t1); // sets calendar time/date
-                    cal.add(Calendar.HOUR_OF_DAY, repeat); // adds one hour
-                    cal.getTime(); // returns new date object, one hour in the future
-                    Date repDose1 = cal.getTime();
-                    String repDose = sdf.format(repDose1);
-
                     if ((d2.after(today) || d2.equals(today)) && (d1.equals(today) || today.after(d1))) {
-                        if (t.equals(now) || repDose.equals(now)) {
-                            memName = d.getMember_name();
-                            drugName = d.getDrug_name();
-                            courseId = d.get__id();
-                            dose = d.getDose_q();
-                            Log.d(getClass().getSimpleName(), "onHandleIntent, started handling a notification event");
-                            try {
-                                processStartNotification();
-                                NOTIFICATION_ID = NOTIFICATION_ID +1;
-                                String action = intent.getAction();
-                                if (ACTION_START.equals(action)) {
-                                    processStartNotification();
+                          //  for (int i = repeat; i<=24; i = i +repeat){
+                        int f = repeat;
+                        while (f <= 24){
+                            Calendar cal = Calendar.getInstance(); // creates calendar
+                            cal.setTime(t1); // sets calendar time/date
+                            cal.add(Calendar.HOUR_OF_DAY, f);// adds one hour if repeat == 1
+                            cal.add(Calendar.MINUTE, 0);
+                            cal.add(Calendar.SECOND, 0);
+
+                                cal.getTime(); // returns new date object, one hour in the future
+                                Date repDose1 = cal.getTime();
+                                String repDose = sdf.format(repDose1);
+                                if (t.equals(now) || repDose.equals(now)) {
+
+                                    memName = d.getMember_name();
+                                    drugName = d.getDrug_name();
+                                    courseId = d.get__id();
+                                    dose = d.getDose_q();
+                                    Log.d(getClass().getSimpleName(), "onHandleIntent, started handling a notification event");
+                                    try {
+                                        processStartNotification();
+                                        NOTIFICATION_ID = NOTIFICATION_ID +1;
+                                        String action = intent.getAction();
+                                        if (ACTION_START.equals(action)) {
+                                            processStartNotification();
+                                        }
+                                    } finally {
+                                        WakefulBroadcastReceiver.completeWakefulIntent(intent);
+
+                                    }
                                 }
-                            } finally {
-                                WakefulBroadcastReceiver.completeWakefulIntent(intent);
+                                f = f + repeat;
+
                             }
-                        }
                     }
                 }
             }
