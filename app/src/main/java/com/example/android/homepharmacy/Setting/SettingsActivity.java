@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.android.homepharmacy.Activity.BaseActivity;
 import com.example.android.homepharmacy.Activity.HomeActivity;
+import com.example.android.homepharmacy.Activity.MemberActivity;
 import com.example.android.homepharmacy.Activity.StartActivity;
 import com.example.android.homepharmacy.R;
 
@@ -22,14 +23,18 @@ import java.util.Locale;
 
 public class SettingsActivity extends BaseActivity {
 
-   String languageToLoad;
+   int userId;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupSharedPreferences();
 
+
+
         setContentView(R.layout.activity_setting);
+        Intent intent = this.getIntent();
+        userId = intent.getIntExtra("userId",0);
 
         ActionBar actionBar = this.getSupportActionBar();
 
@@ -52,7 +57,9 @@ public class SettingsActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, HomeActivity.class));
+       startActivity(new Intent(this, HomeActivity.class)
+               .putExtra("userId", userId));
+
     }
     @Override
     public void onResume() {

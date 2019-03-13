@@ -109,7 +109,7 @@ public class NotificationIntentService extends JobIntentService {
                     int repeat = d.getDose_r();
 
                     if ((d2.after(today) || d2.equals(today)) && (d1.equals(today) || today.after(d1))) {
-                          //  for (int i = repeat; i<=24; i = i +repeat){
+                        //  for (int i = repeat; i<=24; i = i +repeat){
                         int f = repeat;
                         while (f <= 24){
                             Calendar cal = Calendar.getInstance(); // creates calendar
@@ -118,31 +118,31 @@ public class NotificationIntentService extends JobIntentService {
                             cal.add(Calendar.MINUTE, 0);
                             cal.add(Calendar.SECOND, 0);
 
-                                cal.getTime(); // returns new date object, one hour in the future
-                                Date repDose1 = cal.getTime();
-                                String repDose = sdf.format(repDose1);
-                                if (t.equals(now) || repDose.equals(now)) {
+                            cal.getTime(); // returns new date object, one hour in the future
+                            Date repDose1 = cal.getTime();
+                            String repDose = sdf.format(repDose1);
+                            if (t.equals(now) || repDose.equals(now)) {
 
-                                    memName = d.getMember_name();
-                                    drugName = d.getDrug_name();
-                                    courseId = d.get__id();
-                                    dose = d.getDose_q();
-                                    Log.d(getClass().getSimpleName(), "onHandleIntent, started handling a notification event");
-                                    try {
+                                memName = d.getMember_name();
+                                drugName = d.getDrug_name();
+                                courseId = d.get__id();
+                                dose = d.getDose_q();
+                                Log.d(getClass().getSimpleName(), "onHandleIntent, started handling a notification event");
+                                try {
+                                    processStartNotification();
+                                    NOTIFICATION_ID = NOTIFICATION_ID +1;
+                                    String action = intent.getAction();
+                                    if (ACTION_START.equals(action)) {
                                         processStartNotification();
-                                        NOTIFICATION_ID = NOTIFICATION_ID +1;
-                                        String action = intent.getAction();
-                                        if (ACTION_START.equals(action)) {
-                                            processStartNotification();
-                                        }
-                                    } finally {
-                                        WakefulBroadcastReceiver.completeWakefulIntent(intent);
-
                                     }
-                                }
-                                f = f + repeat;
+                                } finally {
+                                    WakefulBroadcastReceiver.completeWakefulIntent(intent);
 
+                                }
                             }
+                            f = f + repeat;
+
+                        }
                     }
                 }
             }

@@ -259,7 +259,11 @@ public class SearchOptions  extends BaseActivity
                 Toast.makeText(this, "You cancelled the scanning", Toast.LENGTH_LONG).show();
             }
             else {
-                c = getDrugScannedCodeMatches(String.valueOf(result.getContents()), null);
+                String _code = ""+ String.valueOf(result.getContents());
+                if(_code.contains(""+"\u001D"))
+                _code = _code.replace("\u001D", "");
+
+                c = getDrugScannedCodeMatches(_code, null);
 
                 if(c != null){
                     if(c.moveToFirst()){

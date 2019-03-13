@@ -174,7 +174,7 @@ public class DrugActivity extends BaseActivity implements
             tv1 = (TextView) findViewById(R.id.tvDrugSName);
 
             tv2 = (TextView) findViewById(R.id.tv_drug_type);
-            tv2.setText(_DRUG_TYPE);
+
 
             tv3 = (TextView) findViewById(R.id.tv_drug_indication);
 
@@ -200,6 +200,7 @@ public class DrugActivity extends BaseActivity implements
                 tv4.setText(_SIDE_EFFECTS);
                 tv6.setText(_DRUG_DESCRIPTION);
                 tv9.setText(_DRUG_WARNINGS);
+                tv2.setText(_DRUG_TYPE);
 
             }
             else {      /** ARABIC*/
@@ -209,6 +210,7 @@ public class DrugActivity extends BaseActivity implements
                 tv4.setText(_SIDE_EFFECTS_ARABIC);
                 tv6.setText(_DRUG_DESCRIPTION_ARABIC);
                 tv9.setText(_DRUG_WARNINGS_ARABIC);
+                tv2.setText(_DRUG_TYPE_ARABIC);
             }
             button = (Button) findViewById(R.id.btnAddToMyList);
             button1 = (Button) findViewById(R.id.btnDeleteToMyList);
