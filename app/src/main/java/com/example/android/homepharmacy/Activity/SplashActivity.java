@@ -26,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
 
         SharedPreferences settings=getSharedPreferences("prefs",0);
         boolean firstRun=settings.getBoolean("firstRun",false);
-        if(firstRun==false)//if running for first time
+        if(firstRun == false)//if running for first time
         //Splash will load for first time
         {
             setContentView(R.layout.activity_splash);

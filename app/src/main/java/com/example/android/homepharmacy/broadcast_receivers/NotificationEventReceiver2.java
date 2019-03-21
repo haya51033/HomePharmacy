@@ -50,7 +50,7 @@ public class NotificationEventReceiver2 extends WakefulBroadcastReceiver {
             //this will set the alarm for the next day
             firingCal.add(Calendar.DAY_OF_MONTH, 1);
             intendedTime = firingCal.getTimeInMillis();
-            alarmManager.setRepeating(AlarmManager.RTC, intendedTime ,
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, intendedTime ,
                     AlarmManager.INTERVAL_DAY, alarmIntent);
         }
     }

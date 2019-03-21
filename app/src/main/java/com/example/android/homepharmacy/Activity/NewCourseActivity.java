@@ -42,8 +42,8 @@ public class NewCourseActivity extends BaseActivity implements
     Intent intent;
     int memberId;
 
-    EditText  et4, et5, et6;
-    TextView et1, et2;
+    EditText  et4, et5, et6, et7;
+    TextView et1, et2, et3;
     Button button;
     Spinner spinner;
 
@@ -123,10 +123,12 @@ public class NewCourseActivity extends BaseActivity implements
 
         et1 = (TextView) findViewById(R.id.etStartDate);
         et2 = (TextView) findViewById(R.id.etEndDate);
+        et3 = (TextView) findViewById(R.id.etExpiryDate);
         spinner = (Spinner) findViewById(R.id.etFirstTime);
         et4 = (EditText) findViewById(R.id.etDoseQ);
         et5 = (EditText) findViewById(R.id.etDoseR);
         et6 = (EditText) findViewById(R.id.etDescription);
+        et7 = (EditText) findViewById(R.id.etAvailable);
 
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
@@ -135,6 +137,7 @@ public class NewCourseActivity extends BaseActivity implements
         day = calendar.get(Calendar.DAY_OF_MONTH);
         showDate(year, month+1, day);
         showDate2(year, month+1, day);
+        showDate3(year, month+1, day);
 
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -157,13 +160,16 @@ public class NewCourseActivity extends BaseActivity implements
             public void onClick(View view) {
                 if(drugId != 0 && et1.getText().toString().trim().length() != 0
                         && et2.getText().toString().trim().length() != 0
+                        && et3.getText().toString().trim().length() != 0
                         && et4.getText().toString().trim().length() != 0
                         && et5.getText().toString().trim().length() != 0
-                        && et6.getText().toString().trim().length() != 0  ) {
+                        && et6.getText().toString().trim().length() != 0
+                        && et7.getText().toString().trim().length() != 0) {
 
                     addCourse(drugId ,memberId, et1.getText().toString(),
                             et2.getText().toString(), FirstTime,  et4.getText().toString(),
-                            et5.getText().toString(), et6.getText().toString());
+                            et5.getText().toString(), et6.getText().toString(), et7.getText().toString(),
+                            et3.getText().toString());
 
                     Toast.makeText(getApplicationContext(),"Course Added Successfully! "  ,Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getApplicationContext(), MemberActivity.class)
@@ -203,6 +209,10 @@ public class NewCourseActivity extends BaseActivity implements
         showDialog(888);
     }
 
+    public void setDate3(View view) {
+        showDialog(777);
+    }
+
 
     @Override
     protected Dialog onCreateDialog(int id) {
@@ -213,6 +223,10 @@ public class NewCourseActivity extends BaseActivity implements
         if(id == 888){
             return new DatePickerDialog(this,
                     myDateListener2, year, month, day);
+        }
+        if(id == 777){
+            return new DatePickerDialog(this,
+                    myDateListener3, year, month, day);
         }
 
         return null;
@@ -237,6 +251,15 @@ public class NewCourseActivity extends BaseActivity implements
                 }
             };
 
+    private DatePickerDialog.OnDateSetListener myDateListener3 = new
+            DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker arg0,
+                                      int arg1, int arg2, int arg3) {
+                    showDate3(arg1, arg2+1, arg3);
+                }
+            };
+
     private void showDate(int year, int month, int day) {
         et1.setText(new StringBuilder().append(day).append("/")
                 .append(month).append("/").append(year));
@@ -246,10 +269,15 @@ public class NewCourseActivity extends BaseActivity implements
         et2.setText(new StringBuilder().append(day).append("/")
                 .append(month).append("/").append(year));
     }
+    private void showDate3(int year, int month, int day) {
+        et3.setText(new StringBuilder().append(day).append("/")
+                .append(month).append("/").append(year));
+    }
 
     private void addCourse(int _drugId, int _memberId, String _start,
                            String _end, String _firstTime,  String _doseQ,
-                           String _doseR, String _description) {
+                           String _doseR, String _description, String _location,
+                           String _expiry) {
         ContentValues cv = new ContentValues();
         cv.put(DataContract.DrugListEntry.COLUMN_DRUG_L_ID, _drugId);
         cv.put(DataContract.DrugListEntry.COLUMN_MEMBER_L_ID, _memberId);
@@ -259,6 +287,8 @@ public class NewCourseActivity extends BaseActivity implements
         cv.put(DataContract.DrugListEntry.COLUMN_DRUG_DOSE_QUANTITY, _doseQ);
         cv.put(DataContract.DrugListEntry.COLUMN_DRUG_DOSE_REPEAT, _doseR);
         cv.put(DataContract.DrugListEntry.COLUMN_DRUG_DOSE_DESCRIPTION, _description);
+        cv.put(DataContract.DrugListEntry.COLUMN_DRUG_LOCATION, _location);
+        cv.put(DataContract.DrugListEntry.COLUMN_EXPIRY_DATE, _expiry);
 
 
         Uri uri = getContentResolver().insert(DataContract.DrugListEntry.CONTENT_URI, cv);

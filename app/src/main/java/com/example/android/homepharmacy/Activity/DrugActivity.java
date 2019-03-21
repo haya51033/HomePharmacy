@@ -43,7 +43,9 @@ public class DrugActivity extends BaseActivity implements
             DataContract.DrugListEntry.COLUMN_DRUG_FIRST_TIME,
             DataContract.DrugListEntry.COLUMN_DRUG_L_ID,
             DataContract.DrugListEntry.COLUMN_DRUG_START_DATE,
-            DataContract.DrugListEntry.COLUMN_MEMBER_L_ID
+            DataContract.DrugListEntry.COLUMN_MEMBER_L_ID,
+            DataContract.DrugListEntry.COLUMN_EXPIRY_DATE,
+            DataContract.DrugListEntry.COLUMN_DRUG_LOCATION
     };
     private static final String[] DRUG_COLUMNS = {
             DataContract.DrugsEntry._ID,
@@ -53,7 +55,6 @@ public class DrugActivity extends BaseActivity implements
             DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME_ARABIC,
             DataContract.DrugsEntry.COLUMN_DRUG_INDICATION,
             DataContract.DrugsEntry.COLUMN_DRUG_INDICATION_ARABIC,
-            DataContract.DrugsEntry.COLUMN_EXPIRY_DATE,
             DataContract.DrugsEntry.COLUMN_DRUG_CONCENTRATION,
             DataContract.DrugsEntry.COLUMN_DRUG_TYPE,
             DataContract.DrugsEntry.COLUMN_DRUG_TYPE_ARABIC,
@@ -68,7 +69,7 @@ public class DrugActivity extends BaseActivity implements
     };
     String _DRUG_COMMERCIAL_NAME, _DRUG_COMMERCIAL_NAME_ARABIC, _DRUG_SCIENTIFIC_NAME,
    _DRUG_SCIENTIFIC_NAME_ARABIC, _DRUG_INDICATION, _DRUG_INDICATION_ARABIC,
-    _EXPIRY_DATE, _DRUG_CONCENTRATION, _DRUG_TYPE, _DRUG_TYPE_ARABIC,
+     _DRUG_CONCENTRATION, _DRUG_TYPE, _DRUG_TYPE_ARABIC,
     _DRUG_WARNINGS, _DRUG_WARNINGS_ARABIC, _SIDE_EFFECTS,
    _SIDE_EFFECTS_ARABIC, _PREGNENT_ALLOWED, _DRUG_DESCRIPTION,
     _DRUG_DESCRIPTION_ARABIC, _DRUG_BARCODE;
@@ -161,7 +162,6 @@ public class DrugActivity extends BaseActivity implements
             _SIDE_EFFECTS_ARABIC =  cursor.getString(cursor.getColumnIndex("side_effects_arabic"));
             _DRUG_DESCRIPTION_ARABIC =  cursor.getString(cursor.getColumnIndex("drug_description_arabic"));
 
-            _EXPIRY_DATE =  cursor.getString(cursor.getColumnIndex("expiry_date"));
             _DRUG_CONCENTRATION = cursor.getString(cursor.getColumnIndex("concentration"));
             _PREGNENT_ALLOWED =  cursor.getString(cursor.getColumnIndex("pregnant_allowed"));
             _DRUG_BARCODE =  cursor.getString(cursor.getColumnIndex("drug_barcode"));
@@ -184,9 +184,6 @@ public class DrugActivity extends BaseActivity implements
             tv5.setText(_PREGNENT_ALLOWED);
 
             tv6 = (TextView) findViewById(R.id.tv_drug_description);
-
-            tv7 = (TextView) findViewById(R.id.tv_expiry_date);
-            tv7.setText(_EXPIRY_DATE);
 
             tv8 = (TextView) findViewById(R.id.tvDrugC);
             tv8.setText(_DRUG_CONCENTRATION);

@@ -77,6 +77,8 @@
     <string name="msgReco">دعني أرشح لك هذا التطبيق الجميل وهو تطبيق صيدلية المنزل </string>
     <string name="webSite">http://youtube.com/</string>
     <string name="choose_one">إختر خيار</string>
+    <string name="available_in">متوفر في: </string>
+
 
     <!--preferance-->
     <string name="pref_lang_label" translatable="false">لغتك الحالية</string>

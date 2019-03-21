@@ -37,8 +37,8 @@ public class NotificationIntentService extends JobIntentService {
     private int NOTIFICATION_ID = 1;
     private static final String ACTION_START = "ACTION_START";
     private static final String ACTION_DELETE = "ACTION_DELETE";
-    String CHANNEL_ID = "my_channel_01";// The id of the channel.
-    CharSequence name = "my_channel_01";
+    String CHANNEL_ID = "home_pharmacy";// The id of the channel.
+    CharSequence name = "home_pharmacy";
     int importance = NotificationManager.IMPORTANCE_HIGH;
 
 
@@ -198,7 +198,7 @@ public class NotificationIntentService extends JobIntentService {
             NotificationManager mNotificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             /* Create or update. */
-            NotificationChannel channel = new NotificationChannel("my_channel_01",
+            NotificationChannel channel = new NotificationChannel("home_pharmacy",
                     "Channel human readable title",
                     NotificationManager.IMPORTANCE_DEFAULT);
             // mNotificationManager.createNotificationChannel(channel);

@@ -48,7 +48,6 @@ public class MemberDrugsAdapter extends RecyclerView.Adapter<MemberDrugsAdapter.
             DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME_ARABIC,
             DataContract.DrugsEntry.COLUMN_DRUG_INDICATION,
             DataContract.DrugsEntry.COLUMN_DRUG_INDICATION_ARABIC,
-            DataContract.DrugsEntry.COLUMN_EXPIRY_DATE,
             DataContract.DrugsEntry.COLUMN_DRUG_CONCENTRATION,
             DataContract.DrugsEntry.COLUMN_DRUG_TYPE,
             DataContract.DrugsEntry.COLUMN_DRUG_TYPE_ARABIC,

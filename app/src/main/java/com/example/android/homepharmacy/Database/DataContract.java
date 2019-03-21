@@ -53,7 +53,6 @@ public class DataContract {
         public static final String COLUMN_DRUG_COMMERCIAL_NAME  = "commercial_name";
         public static final String COLUMN_DRUG_SCIENTIFIC_NAME  = "scientific_name";
         public static final String COLUMN_DRUG_INDICATION = "indication";
-        public static final String COLUMN_EXPIRY_DATE = "expiry_date";
         public static final String COLUMN_DRUG_CONCENTRATION = "concentration";
         public static final String COLUMN_DRUG_TYPE = "type";
         public static final String COLUMN_DRUG_WARNINGS = "warnings";
@@ -87,6 +86,9 @@ public class DataContract {
         public static final String COLUMN_DRUG_DOSE_QUANTITY  = "drug_dose_quantity";
         public static final String COLUMN_DRUG_DOSE_DESCRIPTION = "drug_dose_description";
         public static final String COLUMN_DRUG_FIRST_TIME = "drug_first_time";
+        public static final String COLUMN_EXPIRY_DATE = "expiry_date";
+        public static final String COLUMN_DRUG_LOCATION = "drug_location";
+
 
     }
 

@@ -61,7 +61,7 @@ public class NotificationIntentService2 extends JobIntentService {
 
     @Override
     protected void onHandleWork(Intent intent) {
-        Date date = new Date();
+       /* Date date = new Date();
         toda = dateFormat.format(date);
         today = dateFormat.parse(toda, new ParsePosition(0));
 
@@ -85,7 +85,7 @@ public class NotificationIntentService2 extends JobIntentService {
 
                 }
             }
-        }
+        }*/
     }
 
 
@@ -213,7 +213,6 @@ public class NotificationIntentService2 extends JobIntentService {
             DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME_ARABIC,
             DataContract.DrugsEntry.COLUMN_DRUG_INDICATION,
             DataContract.DrugsEntry.COLUMN_DRUG_INDICATION_ARABIC,
-            DataContract.DrugsEntry.COLUMN_EXPIRY_DATE,
             DataContract.DrugsEntry.COLUMN_DRUG_CONCENTRATION,
             DataContract.DrugsEntry.COLUMN_DRUG_TYPE,
             DataContract.DrugsEntry.COLUMN_DRUG_TYPE_ARABIC,

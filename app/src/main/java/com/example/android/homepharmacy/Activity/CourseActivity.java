@@ -42,7 +42,8 @@ public class CourseActivity extends BaseActivity implements NavigationView.OnNav
     String _DRUG_DOSE_DESCRIPTION,
      _DRUG_END_DATE,DRUG_FIRST_TIME,
      _DRUG_START_DATE, drug_s_name,
-     drug_c_name, drug_c, memberName;
+     drug_c_name, drug_c, memberName,
+     _DRUG_EXPIRY_DATE, _DRUG_LOCATION;
     int userId;
     SQLiteDatabase mDb;
     DB dbHelper;
@@ -57,7 +58,9 @@ public class CourseActivity extends BaseActivity implements NavigationView.OnNav
             DataContract.DrugListEntry.COLUMN_DRUG_FIRST_TIME,
             DataContract.DrugListEntry.COLUMN_DRUG_L_ID,
             DataContract.DrugListEntry.COLUMN_DRUG_START_DATE,
-            DataContract.DrugListEntry.COLUMN_MEMBER_L_ID
+            DataContract.DrugListEntry.COLUMN_MEMBER_L_ID,
+            DataContract.DrugListEntry.COLUMN_EXPIRY_DATE,
+            DataContract.DrugListEntry.COLUMN_DRUG_LOCATION
     };
     private static final String[] DRUG_COLUMNS = {
             DataContract.DrugsEntry._ID,
@@ -67,7 +70,6 @@ public class CourseActivity extends BaseActivity implements NavigationView.OnNav
             DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME_ARABIC,
             DataContract.DrugsEntry.COLUMN_DRUG_INDICATION,
             DataContract.DrugsEntry.COLUMN_DRUG_INDICATION_ARABIC,
-            DataContract.DrugsEntry.COLUMN_EXPIRY_DATE,
             DataContract.DrugsEntry.COLUMN_DRUG_CONCENTRATION,
             DataContract.DrugsEntry.COLUMN_DRUG_TYPE,
             DataContract.DrugsEntry.COLUMN_DRUG_TYPE_ARABIC,
@@ -90,7 +92,7 @@ public class CourseActivity extends BaseActivity implements NavigationView.OnNav
             DataContract.MemberEntry.COLUMN_USER_ID
     };
 
-    TextView tv, tv1, tv2, tv3, tv4, tv5, tv6, tv7;
+    TextView tv, tv1, tv3, tv4, tv5, tv6, tv7, tv8, tv9;
 
     Button button1;
     boolean english;
@@ -161,6 +163,8 @@ public class CourseActivity extends BaseActivity implements NavigationView.OnNav
             _DRUG_END_DATE = cursor.getString(cursor.getColumnIndex("end_date"));
             _DRUG_START_DATE = cursor.getString(cursor.getColumnIndex("start_date"));
             DRUG_FIRST_TIME = cursor.getString(cursor.getColumnIndex("drug_first_time"));
+            _DRUG_EXPIRY_DATE = cursor.getString(cursor.getColumnIndex("expiry_date"));
+            _DRUG_LOCATION = cursor.getString(cursor.getColumnIndex("drug_location"));
 
             memberId = cursor.getInt(cursor.getColumnIndex("member_list_id"));
             drugId = cursor.getInt(cursor.getColumnIndex("drug_list_id"));
@@ -174,7 +178,10 @@ public class CourseActivity extends BaseActivity implements NavigationView.OnNav
             tv6.setText(_DRUG_DOSE_QUANTITY+ getResources().getString(R.string.slash) + _DRUG_DOSE_REPEAT);
             tv7 = (TextView) findViewById(R.id.tv_drug_description);
             tv7.setText(_DRUG_DOSE_DESCRIPTION);
-
+            tv8 = (TextView) findViewById(R.id.tv_expiry_date);
+            tv8.setText(_DRUG_END_DATE);
+            tv9 = (TextView) findViewById(R.id.tv_drug_location);
+            tv9.setText(_DRUG_LOCATION);
             Cursor cursor1 = getSingleMember();
             if(cursor1.moveToFirst()){
                 memberName = cursor1.getString(cursor1.getColumnIndex("member_name"));
