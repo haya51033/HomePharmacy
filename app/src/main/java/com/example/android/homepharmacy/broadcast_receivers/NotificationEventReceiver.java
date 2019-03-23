@@ -29,7 +29,7 @@ public class NotificationEventReceiver extends WakefulBroadcastReceiver {
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
                 getTriggerAt(new Date()),
-                60000 ,
+                AlarmManager.INTERVAL_HOUR,
                 alarmIntent);
     }
 
@@ -60,18 +60,18 @@ public class NotificationEventReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-                String action = intent.getAction();
-                Intent serviceIntent = null;
-                if (ACTION_START_NOTIFICATION_SERVICE.equals(action)) {
-                    Log.i(getClass().getSimpleName(), "onReceive from alarm, starting notification service");
-                    serviceIntent = NotificationIntentService.createIntentStartNotificationService(context);
-                } else if (ACTION_DELETE_NOTIFICATION.equals(action)) {
-                    Log.i(getClass().getSimpleName(), "onReceive delete notification action, starting notification service to handle delete");
-                    serviceIntent = NotificationIntentService.createIntentDeleteNotification(context);
-                }
+        String action = intent.getAction();
+        Intent serviceIntent = null;
+        if (ACTION_START_NOTIFICATION_SERVICE.equals(action)) {
+            Log.i(getClass().getSimpleName(), "onReceive from alarm, starting notification service");
+            serviceIntent = NotificationIntentService.createIntentStartNotificationService(context);
+        } else if (ACTION_DELETE_NOTIFICATION.equals(action)) {
+            Log.i(getClass().getSimpleName(), "onReceive delete notification action, starting notification service to handle delete");
+            serviceIntent = NotificationIntentService.createIntentDeleteNotification(context);
+        }
 
-                if (serviceIntent != null) {
-                    NotificationIntentService.startService(context);
-                }
+        if (serviceIntent != null) {
+            NotificationIntentService.startService(context);
+        }
     }
 }

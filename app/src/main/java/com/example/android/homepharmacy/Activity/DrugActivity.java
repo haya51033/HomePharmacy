@@ -181,6 +181,14 @@ public class DrugActivity extends BaseActivity implements
             tv4 = (TextView) findViewById(R.id.tv_drug_side_effects);
 
             tv5 = (TextView) findViewById(R.id.tv_pregnant_allowed);
+            if(_PREGNENT_ALLOWED!=null){
+                if(_PREGNENT_ALLOWED.equals("0")){
+                    _PREGNENT_ALLOWED = "NO";
+                }
+                else if(_PREGNENT_ALLOWED.equals("1")){
+                    _PREGNENT_ALLOWED = "YES";
+                }
+            }
             tv5.setText(_PREGNENT_ALLOWED);
 
             tv6 = (TextView) findViewById(R.id.tv_drug_description);

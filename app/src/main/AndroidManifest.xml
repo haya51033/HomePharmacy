@@ -57,6 +57,8 @@
             android:name=".Setting.SettingsActivity"
             android:parentActivityName=".Activity.StartActivity"></activity>
         <activity android:name=".Activity.BaseActivity"></activity>
+        <activity android:name=".Activity.NewDrugActivity"></activity>
+        <activity android:name=".Activity.DrugsHome"></activity>
 
         <provider
             android:authorities="com.example.android.homepharmacy"

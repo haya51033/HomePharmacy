@@ -78,6 +78,19 @@
     <string name="webSite">http://youtube.com/</string>
     <string name="choose_one">إختر خيار</string>
     <string name="available_in">متوفر في: </string>
+    <string name="english_information">أدخل معلومات الدواء باللغة الانكليزية: </string>
+    <string name="arabic_information">أدخل معلومات الدواء باللغة العربية: </string>
+    <string name="start_scan">إبدأ مسح الكود</string>
+    <string name="scan_meg">الآن الرجاء مسح باركود الدواء المرا] اضافته: </string>
+    <string name="submite">تأكيد</string>
+    <string name="scan_done">تم مسح الباركود بنجاح! </string>
+    <string name="save_and_skip_scan">احفظ بدون الباركود</string>
+    <string name="my_drugs">My Drugs</string>
+    <string name="search_for_drug">Search For Drug</string>
+    <string name="new_drug">Add New Drug</string>
+
+
+
 
 
     <!--preferance-->

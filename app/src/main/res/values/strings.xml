@@ -81,6 +81,16 @@
     <string name="webSite">http://youtube.com/</string>
     <string name="choose_one">choose one</string>
     <string name="available_in">Available in: </string>
+    <string name="english_information">Enter Drug Information in English: </string>
+    <string name="arabic_information">Enter Drug Information in Arabic: </string>
+    <string name="start_scan">Start Scan</string>
+    <string name="scan_meg">Now Please Scan your drug Barcode/QR Code: </string>
+    <string name="submite">Submit</string>
+    <string name="scan_done">Drug Code Scanned Successfully! </string>
+    <string name="save_and_skip_scan">Save and Skip scan</string>
+    <string name="my_drugs">My Drugs</string>
+    <string name="search_for_drug">Search For Drug</string>
+    <string name="new_drug">Add New Drug</string>
 
 
 

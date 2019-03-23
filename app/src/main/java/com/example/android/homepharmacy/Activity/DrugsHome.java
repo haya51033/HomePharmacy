@@ -16,6 +16,7 @@ import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -27,7 +28,7 @@ import com.example.android.homepharmacy.Setting.SettingsActivity;
 
 import java.util.Locale;
 
-public class HomeActivity extends BaseActivity
+public class DrugsHome extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
 
@@ -35,9 +36,9 @@ public class HomeActivity extends BaseActivity
     int userId;
     SQLiteDatabase mDb;
     DB dbHelper;
-   // ImageView iv, iv1,iv2,iv3;
+    // ImageView iv, iv1,iv2,iv3;
 
-    LinearLayout layout, layout2, layout3;
+    Button layout, layout2, layout3;
 
     boolean english;
     String languageToLoad;
@@ -68,7 +69,7 @@ public class HomeActivity extends BaseActivity
         getResources().updateConfiguration(config,getResources().getDisplayMetrics());
 
 
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_drugs_home);
         //////CREATE DATABASE
         dbHelper = new DB(this);
         mDb = dbHelper.getWritableDatabase();
@@ -94,14 +95,14 @@ public class HomeActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        layout = (LinearLayout) findViewById(R.id.layout_members);
-        layout2 = (LinearLayout) findViewById(R.id.layout_drugs);
-        layout3 = (LinearLayout) findViewById(R.id.layout_first_aid);
+        layout = (Button) findViewById(R.id.btnMyDrug);
+        layout2 = (Button) findViewById(R.id.btnaddDrug);
+        layout3 = (Button) findViewById(R.id.btnSearchDrug);
 
         layout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), DrugsHome.class)
+                Intent intent = new Intent(getApplicationContext(), NewDrugActivity.class)
                         .putExtra("userId", userId)
                         .putExtra("lan", languageToLoad);
                 startActivity(intent);
@@ -110,7 +111,7 @@ public class HomeActivity extends BaseActivity
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MembersActivity.class)
+                Intent intent = new Intent(getApplicationContext(), DrugsActivity.class)
                         .putExtra("userId", userId)
                         .putExtra("lan", languageToLoad);
                 startActivity(intent);
@@ -119,7 +120,7 @@ public class HomeActivity extends BaseActivity
         layout3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), FirstAidListActivity.class)
+                Intent intent = new Intent(getApplicationContext(), SearchOptions.class)
                         .putExtra("userId", userId)
                         .putExtra("lan", languageToLoad);
                 startActivity(intent);

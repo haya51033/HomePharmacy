@@ -34,11 +34,11 @@ import static java.util.Calendar.HOUR_OF_DAY;
 
 public class NotificationIntentService extends JobIntentService {
 
-    private int NOTIFICATION_ID = 1;
+    private int NOTIFICATION_ID = 100;
     private static final String ACTION_START = "ACTION_START";
     private static final String ACTION_DELETE = "ACTION_DELETE";
-    String CHANNEL_ID = "home_pharmacy";// The id of the channel.
-    CharSequence name = "home_pharmacy";
+    String CHANNEL_ID = "my_channel_01";// The id of the channel.
+    CharSequence name = "my_channel_01";
     int importance = NotificationManager.IMPORTANCE_HIGH;
 
 
@@ -47,6 +47,7 @@ public class NotificationIntentService extends JobIntentService {
     String drugName;
     String memName;
     int dose;
+    int fff;
 
 
     Cursor cursor;
@@ -104,44 +105,49 @@ public class NotificationIntentService extends JobIntentService {
                     String end = d.get_end_date();
                     Date d2 = dateFormat.parse(end, new ParsePosition(0));
                     String firstTime = d.getAlert_time();
-                    Date t1 = sdf.parse(firstTime, new ParsePosition(0));
-                    String t = sdf.format(t1);
-                    int repeat = d.getDose_r();
+
 
                     if ((d2.after(today) || d2.equals(today)) && (d1.equals(today) || today.after(d1))) {
-                        //  for (int i = repeat; i<=24; i = i +repeat){
+                        Date t1 = sdf.parse(firstTime, new ParsePosition(0));
+                        String t = sdf.format(t1);
+                        int repeat = d.getDose_r();
                         int f = repeat;
-                        while (f <= 24){
-                            Calendar cal = Calendar.getInstance(); // creates calendar
-                            cal.setTime(t1); // sets calendar time/date
-                            cal.add(Calendar.HOUR_OF_DAY, f);// adds one hour if repeat == 1
-                            cal.add(Calendar.MINUTE, 0);
-                            cal.add(Calendar.SECOND, 0);
+                        while (f <= 23){
+                         //for(int i = 0; i<=23; i++){
+                                Calendar cal = Calendar.getInstance(); // creates calendar
+                                cal.setTime(t1); // sets calendar time/date
+                                cal.add(Calendar.HOUR_OF_DAY, f);// adds one hour if repeat == 1
+                                cal.add(Calendar.MINUTE, 0);
+                                cal.add(Calendar.SECOND, 0);
 
-                            cal.getTime(); // returns new date object, one hour in the future
-                            Date repDose1 = cal.getTime();
-                            String repDose = sdf.format(repDose1);
-                            if (t.equals(now) || repDose.equals(now)) {
-
-                                memName = d.getMember_name();
-                                drugName = d.getDrug_name();
+                                cal.getTime(); // returns new date object, one hour in the future
+                                Date repDose1 = cal.getTime();
+                                String repDose = sdf.format(repDose1);
                                 courseId = d.get__id();
                                 dose = d.getDose_q();
-                                Log.d(getClass().getSimpleName(), "onHandleIntent, started handling a notification event");
-                                try {
-                                    processStartNotification();
-                                    NOTIFICATION_ID = NOTIFICATION_ID +1;
-                                    String action = intent.getAction();
-                                    if (ACTION_START.equals(action)) {
+                                memName = d.getMember_name();
+                                drugName = d.getDrug_name();
+                                if (t.equals(now) || repDose.equals(now)) {
+
+                                    Log.d(getClass().getSimpleName(), "onHandleIntent, started handling a notification event");
+                                    try {
                                         processStartNotification();
+                                        NOTIFICATION_ID = NOTIFICATION_ID +1;
+                                        String action = intent.getAction();
+                                        //Break While loop after push notification:
+                                        f=23;
+                                        if (ACTION_START.equals(action)) {
+                                            processStartNotification();
+                                        }
+                                        if(ACTION_DELETE.equals(action)){
+                                            processDeleteNotification(intent);
+                                        }
+                                    } finally {
+                                        WakefulBroadcastReceiver.completeWakefulIntent(intent);
+
                                     }
-                                } finally {
-                                    WakefulBroadcastReceiver.completeWakefulIntent(intent);
-
                                 }
-                            }
                             f = f + repeat;
-
                         }
                     }
                 }
@@ -162,10 +168,16 @@ public class NotificationIntentService extends JobIntentService {
         Intent intent = new Intent(context, NotificationIntentService.class);
         intent.setAction(ACTION_DELETE);
         return intent;
+
     }
 
 
     private void processDeleteNotification(Intent intent) {
+        if(ACTION_DELETE.equals(intent.getAction())){
+            NotificationManager mNotificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            mNotificationManager.cancel(NOTIFICATION_ID);
+        }
         // Log something?
     }
 
@@ -198,9 +210,7 @@ public class NotificationIntentService extends JobIntentService {
             NotificationManager mNotificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             /* Create or update. */
-            NotificationChannel channel = new NotificationChannel("home_pharmacy",
-                    "Channel human readable title",
-                    NotificationManager.IMPORTANCE_DEFAULT);
+
             // mNotificationManager.createNotificationChannel(channel);
             mNotificationManager.createNotificationChannel(mChannel);
             mNotificationManager.notify(NOTIFICATION_ID, builder.build());
@@ -293,7 +303,8 @@ public class NotificationIntentService extends JobIntentService {
 
         if(arrayList != null && !arrayList.isEmpty()){
             selectionArgs11 = arrayList.toArray(new String[arrayList.size()]);
-            selection_ = DataContract.DrugListEntry.COLUMN_MEMBER_L_ID + " IN (" + makePlaceholders(selectionArgs11.length) + ")";
+            selection_ = DataContract.DrugListEntry.COLUMN_MEMBER_L_ID +
+                    " IN (" + makePlaceholders(selectionArgs11.length) + ")";
             selectionArgs_ = new String[selectionArgs11.length];
             for (int i = 0; i < selectionArgs11.length; i++) {
                 selectionArgs_[i] = selectionArgs11[i];
@@ -306,7 +317,6 @@ public class NotificationIntentService extends JobIntentService {
                 selectionArgs_,
                 DataContract.DrugListEntry._ID);
         if (cursor != null) {
-            int v = cursor.getCount();
             if (cursor.moveToFirst()) {// data?
                 while (!cursor.isAfterLast()) {
                     __id = cursor.getInt(cursor.getColumnIndex("_id"));
@@ -327,7 +337,9 @@ public class NotificationIntentService extends JobIntentService {
                     cursor.moveToNext();
                 }
             }
+            cursor.close();
         }
+
         return arrayList1;
     }
 

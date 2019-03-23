@@ -37,8 +37,6 @@ public class MainActivity extends BaseActivity {
 
     SQLiteDatabase mDb;
     DB dbHelper;
-
-    Cursor cursor;
     int userId = 0;
 
     @Override
@@ -49,12 +47,10 @@ public class MainActivity extends BaseActivity {
         dbHelper = new DB(this);
         mDb = dbHelper.getWritableDatabase();
 
-
         // Set Up Notifications:
         NotificationEventReceiver.setupAlarm(getApplicationContext());
-        if(setTimeAlarm2()){
-            NotificationEventReceiver2.setupAlarm2(getApplicationContext());
-        }
+        NotificationEventReceiver2.setupAlarm2(getApplicationContext());
+
 
         boolean isLogged = checkLoginData();
 
@@ -68,22 +64,6 @@ public class MainActivity extends BaseActivity {
             startActivity(intent);
         }
 
-    }
-
-
-    public boolean setTimeAlarm2(){
-        cursor =  getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
-                null,
-                null,
-                null,
-                DataContract.DrugsEntry._ID);
-        if(cursor != null){
-            int d = cursor.getCount();
-            if (cursor.moveToFirst()){// data?
-                return true;
-            }
-        }
-        return false;
     }
 
 

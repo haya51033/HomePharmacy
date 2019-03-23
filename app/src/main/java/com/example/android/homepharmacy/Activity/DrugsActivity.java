@@ -48,11 +48,25 @@ public class DrugsActivity extends BaseActivity implements
     int userId;
     SQLiteDatabase mDb;
     DB dbHelper;
+    Cursor cur2;
+    Cursor res1;
 
     ArrayList<String> drugsSearchResult;
     String[] selectionArgs1;
     String[] selectionArgs;
     String selection;
+
+    String selectionArgs11[];
+    String selection_;
+    String selectionArgs_[];
+
+    String selectionArgs22[];
+    String selection_22;
+    String selectionArgs_22[];
+
+    ArrayList<String> arrayListDD = new ArrayList<>();
+
+
     int memberId;
     boolean isEnglish;
 
@@ -242,29 +256,24 @@ public class DrugsActivity extends BaseActivity implements
                 // use a try/catch block to catch any errors in loading data
 
                 if(drugsSearchResult == null){
-                    try {
-                        if(isEnglish)
-                        return getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
-                                null,
-                                null,
-                                null,
-                                DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME);
-                        else
-                            return getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
-                                    null,
-                                    null,
-                                    null,
-                                    DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME_ARABIC);
-                    } catch (Exception e) {
-                        Log.e(TAG, "Failed to asynchronously load data.");
-                        e.printStackTrace();
-                        return null;
+                    Log.e(TAG, "ssssssssssssssssssssssss111111111111");
+                    getUserDrugs();
+                    if(arrayListDD.size()>0){
+                        Log.e(TAG, "ssssssssssssssssssssssss22222222");
+                        return getUserDrugs();
                     }
+                    else {
+                        Log.e(TAG, "ssssssssssssssssssssssss333333");
+
+                        return null;}
                 }
-                else {
+                else if (drugsSearchResult != null) {
+                    Log.e(TAG, "ssssssssssssssssssssssss");
+
                     try {
                         if(isEnglish)
-                           return getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
+
+                        return getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
                                    null,
                                    selection,
                                    selectionArgs,
@@ -281,6 +290,7 @@ public class DrugsActivity extends BaseActivity implements
                         return null;
                     }
                 }
+                else return null;
             }
             // deliverResult sends the result of the load, a Cursor, to the registered listener
             public void deliverResult(Cursor data) {
@@ -433,4 +443,86 @@ public class DrugsActivity extends BaseActivity implements
         }
         return false;
     }
+
+
+    public  Cursor getUserDrugs(){
+        ArrayList<String> arrayList = UserMember();
+    //   arrayListDD = new ArrayList<>();
+
+        if(arrayList != null && !arrayList.isEmpty()){
+            selectionArgs11 = arrayList.toArray(new String[arrayList.size()]);
+            selection_ = DataContract.DrugListEntry.COLUMN_MEMBER_L_ID + " IN (" + makePlaceholders(selectionArgs11.length) + ")";
+            selectionArgs_ = new String[selectionArgs11.length];
+            for (int i = 0; i < selectionArgs11.length; i++) {
+                selectionArgs_[i] = selectionArgs11[i];
+            }
+        }
+
+        Cursor c = getContentResolver().query(DataContract.DrugListEntry.CONTENT_URI,
+                null,
+                selection_,
+                selectionArgs_,
+                DataContract.DrugListEntry._ID);
+
+        if(c!= null){
+            if (c.moveToFirst()){
+                while (!c.isAfterLast()) {
+                    int d_id = c.getInt(c.getColumnIndex(DataContract.DrugListEntry.COLUMN_DRUG_L_ID));
+                    arrayListDD.add(String.valueOf(d_id));
+                    c.moveToNext();
+                }
+            }
+        }
+        if(arrayListDD.size()>0){
+
+                selectionArgs22 = arrayListDD.toArray(new String[arrayListDD.size()]);
+                selection_22 = DataContract.DrugsEntry._ID + " IN (" + makePlaceholders(selectionArgs22.length) + ")";
+                selectionArgs_22 = new String[selectionArgs22.length];
+                for (int i = 0; i < selectionArgs22.length; i++) {
+                    selectionArgs_22[i] = selectionArgs22[i];
+
+            }
+        }
+
+        res1 = getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
+                null,
+                selection_22,
+                selectionArgs_22,
+                DataContract.DrugsEntry._ID);
+        if(res1!= null){
+            int s = res1.getCount();
+            if (res1.moveToFirst()){
+                return res1;
+            }
+        }
+        return null;
+
+    }
+    public ArrayList<String> UserMember(){
+        int memId;
+        ArrayList<String> membersId = new ArrayList();
+        final String selection = DataContract.MemberEntry.COLUMN_USER_ID + " =?";
+        final String[] selectionArgs = {String.valueOf(userId)};
+
+        cur2 = getContentResolver().query(DataContract.MemberEntry.CONTENT_URI,
+                null,
+                selection,
+                selectionArgs,
+                null);
+        if(cur2 != null){
+            if(cur2.moveToFirst()){
+                while (!cur2.isAfterLast()) {
+                    memId = cur2.getInt(cur2.getColumnIndex(DataContract.MemberEntry._ID));
+                    if (memId != 0){
+                        membersId.add(String.valueOf(memId));
+                    }
+                    cur2.moveToNext();
+                }
+            }
+        }
+        return membersId;
+    }
+
+
+
 }

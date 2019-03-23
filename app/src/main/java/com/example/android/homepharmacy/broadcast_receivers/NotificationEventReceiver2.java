@@ -39,12 +39,7 @@ public class NotificationEventReceiver2 extends WakefulBroadcastReceiver {
         long currentTime = currentCal.getTimeInMillis();
         if( intendedTime >= currentTime)
         {
-           // alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-            //                              getTriggerAt(new Date()),
-            //                               60000 ,
-            //                                alarmIntent);
-          //  //this will set the alarm for current day if time is below 12 am
-           alarmManager.setRepeating(AlarmManager.RTC, intendedTime , AlarmManager.INTERVAL_DAY, alarmIntent);
+           alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, intendedTime , AlarmManager.INTERVAL_DAY, alarmIntent);
         }
         else {
             //this will set the alarm for the next day

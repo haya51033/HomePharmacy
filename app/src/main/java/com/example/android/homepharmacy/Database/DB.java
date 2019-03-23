@@ -82,7 +82,7 @@ public class DB extends SQLiteOpenHelper {
                 DataContract.DrugsEntry.COLUMN_PREGNENT_ALLOWED+ " BOOLEAN NOT NULL, " +
                 DataContract.DrugsEntry.COLUMN_DRUG_DESCRIPTION+ " TEXT NOT NULL, " +
                 DataContract.DrugsEntry.COLUMN_DRUG_DESCRIPTION_ARABIC+ " TEXT NOT NULL, " +
-                DataContract.DrugsEntry.COLUMN_DRUG_BARCODE+ " TEXT NOT NULL " +
+                DataContract.DrugsEntry.COLUMN_DRUG_BARCODE+ " TEXT " +
 
                 " );";
 
@@ -91,14 +91,14 @@ public class DB extends SQLiteOpenHelper {
                 DataContract.DrugListEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 DataContract.DrugListEntry.COLUMN_DRUG_L_ID+ " INTEGER NOT NULL, " +
                 DataContract.DrugListEntry.COLUMN_MEMBER_L_ID+ " INTEGER NOT NULL, " +
-                DataContract.DrugListEntry.COLUMN_DRUG_START_DATE+ " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
+                DataContract.DrugListEntry.COLUMN_DRUG_START_DATE+ " DATETIME, " +
                 DataContract.DrugListEntry.COLUMN_DRUG_END_DATE+ " DATETIME, " +
-                DataContract.DrugListEntry.COLUMN_DRUG_DOSE_QUANTITY+ " TEXT NOT NULL, " +
-                DataContract.DrugListEntry.COLUMN_DRUG_DOSE_REPEAT+ " TEXT NOT NULL, " +
-                DataContract.DrugListEntry.COLUMN_DRUG_DOSE_DESCRIPTION+ " TEXT NOT NULL, " +
-                DataContract.DrugListEntry.COLUMN_EXPIRY_DATE+ " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
-                DataContract.DrugListEntry.COLUMN_DRUG_LOCATION+ " TEXT NOT NULL, "+
-                DataContract.DrugListEntry.COLUMN_DRUG_FIRST_TIME + " DATETIME DEFAULT CURRENT_TIMESTAMP" +
+                DataContract.DrugListEntry.COLUMN_DRUG_DOSE_QUANTITY+ " TEXT, " +
+                DataContract.DrugListEntry.COLUMN_DRUG_DOSE_REPEAT+ " TEXT, " +
+                DataContract.DrugListEntry.COLUMN_DRUG_DOSE_DESCRIPTION+ " TEXT, " +
+                DataContract.DrugListEntry.COLUMN_EXPIRY_DATE+ " DATETIME, " +
+                DataContract.DrugListEntry.COLUMN_DRUG_LOCATION+ " TEXT, "+
+                DataContract.DrugListEntry.COLUMN_DRUG_FIRST_TIME + " DATETIME " +
 
 
                 " );";

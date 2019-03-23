@@ -33,8 +33,8 @@ public class NotificationIntentService2 extends JobIntentService {
     private  int NOTIFICATION_ID = 2;
     private static final String ACTION_START = "ACTION_START2";
     private static final String ACTION_DELETE = "ACTION_DELETE2";
-    String CHANNEL_ID = "my_channel_02";// The id of the channel.
-    CharSequence name = "my_channel_02";
+    String CHANNEL_ID = "home_pharmacy_02";// The id of the channel.
+    CharSequence name = "home_pharmacy_02";
     int importance = NotificationManager.IMPORTANCE_HIGH;
     private static String TAG = NotificationIntentService2.class.getName();
 
@@ -43,7 +43,7 @@ public class NotificationIntentService2 extends JobIntentService {
 
     ArrayList<DrugAlert2> drugsExList = new ArrayList<>();
 
-    String drugEpiryName;
+    String drugEpiryName = "Drug";
     String drugExpiryDate;
     int drugEpityId;
     String toda;
@@ -54,6 +54,14 @@ public class NotificationIntentService2 extends JobIntentService {
     int exNotDrugId;
     Context context = this;
 
+    int userId, _drugId;
+    Cursor cur1;
+    Cursor cur2;
+    String drugName;
+
+    String selectionArgs11[];
+    String selection_;
+    String selectionArgs_[];
 
     public static void startService2(Context context) {
         enqueueWork(context, NotificationIntentService2.class, 1002, new Intent());
@@ -61,31 +69,57 @@ public class NotificationIntentService2 extends JobIntentService {
 
     @Override
     protected void onHandleWork(Intent intent) {
-       /* Date date = new Date();
+        Date date = new Date();
         toda = dateFormat.format(date);
         today = dateFormat.parse(toda, new ParsePosition(0));
 
-            arrayList2 = setTimeAlarm2();
-            if(arrayList2 != null){
-                if(arrayList2.size() > 0){
-                    for(DrugAlert2 d2 : arrayList2){
-                        exNotDrugName = d2.getDrug_name();
-                        exNotDrugDate = d2.getDrug_ex_date();
-                        exNotDrugId = d2.getIdEx();
-                        try {
-                            processStartNotification2();
-                            NOTIFICATION_ID = NOTIFICATION_ID +1;
-                            String action = intent.getAction();
-                            if (ACTION_START.equals(action)) {
-                                processStartNotification2();
-                            }
-                        } finally {
-                            WakefulBroadcastReceiver.completeWakefulIntent(intent);
-                        }
+        arrayList2 = setTimeAlarm2();
+        if(arrayList2 != null){
+            if(arrayList2.size() > 0){
+                for(DrugAlert2 d2 : arrayList2){
+                    exNotDrugName = d2.getDrug_name();
+                    exNotDrugDate = d2.getDrug_ex_date();
+                    exNotDrugId = d2.getIdEx();
+                    Date expiryDate = dateFormat.parse(exNotDrugDate, new ParsePosition(0));
 
+                    Calendar cal = Calendar.getInstance(); // creates calendar
+                    cal.setTime(today); // sets calendar time/date
+                    cal.add(Calendar.DATE, + 30);
+                    Date dateBefore30Days = cal.getTime();
+
+                    Calendar ca2 = Calendar.getInstance(); // creates calendar
+                    ca2.setTime(today); // sets calendar time/date
+                    ca2.add(Calendar.DATE, +2 );
+                    Date dateBefore2Days = ca2.getTime();
+
+                    if(expiryDate.equals(dateBefore2Days) || expiryDate.equals(dateBefore30Days)){
+                        String [] selectionArgs_ = {String.valueOf(exNotDrugName)};
+                        String selection_ = DataContract.DrugsEntry._ID + " =?";
+                        Cursor cd = getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI,
+                                null,
+                                selection_,
+                                selectionArgs_,
+                                null);
+
+                        if(cd!= null){
+                            if(cd.moveToFirst()){
+                                drugName = cd.getString(cd.getColumnIndex(DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME));
+                                try {
+                                    processStartNotification2();
+                                    NOTIFICATION_ID = NOTIFICATION_ID +1;
+                                    String action = intent.getAction();
+                                    if (ACTION_START.equals(action)) {
+                                        processStartNotification2();
+                                    }
+                                } finally {
+                                    WakefulBroadcastReceiver.completeWakefulIntent(intent);
+                                }
+                            }
+                        }
+                    }
                 }
             }
-        }*/
+        }
     }
 
 
@@ -118,13 +152,14 @@ public class NotificationIntentService2 extends JobIntentService {
             builder.setContentTitle("Drug Expiry soon!! ")
                     .setAutoCancel(true)
                     .setColor(getResources().getColor(R.color.colorAccent))
-                    .setContentText("The " + exNotDrugName + " Will Expiry in: " + exNotDrugDate )
+                    .setContentText(drugName + " drug will Expire in  " + exNotDrugDate )
                     .setSmallIcon(R.drawable.logo)
                     .setChannelId(CHANNEL_ID);
 
 
-            Intent mainIntent = new Intent(this, DrugActivity.class);
+            Intent mainIntent = new Intent(this, CourseActivity.class);
             mainIntent.putExtra(Intent.EXTRA_TEXT, exNotDrugId);
+            mainIntent.putExtra("userId", userId);
             PendingIntent pendingIntent = PendingIntent.getActivity(this,
                     NOTIFICATION_ID,
                     mainIntent,
@@ -136,10 +171,6 @@ public class NotificationIntentService2 extends JobIntentService {
             NotificationManager mNotificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             /* Create or update. */
-            NotificationChannel channel = new NotificationChannel("my_channel_01",
-                    "Channel human readable title",
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            // mNotificationManager.createNotificationChannel(channel);
             mNotificationManager.createNotificationChannel(mChannel);
             mNotificationManager.notify(NOTIFICATION_ID, builder.build());
 
@@ -151,10 +182,10 @@ public class NotificationIntentService2 extends JobIntentService {
             builder.setContentTitle("Drug Expiry soon!! ")
                     .setAutoCancel(true)
                     .setColor(getResources().getColor(R.color.colorAccent))
-                    .setContentText("The " + exNotDrugName + " Will Expiry in: " + exNotDrugDate )
+                    .setContentText(drugName + " drug will Expire in  " + exNotDrugDate )
                     .setSmallIcon(R.drawable.logo);
 
-            Intent mainIntent = new Intent(this, DrugActivity.class);
+            Intent mainIntent = new Intent(this, CourseActivity.class);
             mainIntent.putExtra(Intent.EXTRA_TEXT, exNotDrugId);
             PendingIntent pendingIntent = PendingIntent.getActivity(this,
                     NOTIFICATION_ID,
@@ -171,58 +202,89 @@ public class NotificationIntentService2 extends JobIntentService {
 
     }
     public ArrayList<DrugAlert2> setTimeAlarm2(){
+        userId = checkLoggedUser();
+        ArrayList<String> arrayList = UserMember();
 
-        Calendar cal = Calendar.getInstance(); // creates calendar
-        cal.setTime(today); // sets calendar time/date
-        cal.add(Calendar.DATE, + 30);
-        Date dateBefore30Days = cal.getTime();
-        String beforeMonthe = dateFormat.format(dateBefore30Days);
-        /////
-        Calendar ca2 = Calendar.getInstance(); // creates calendar
-        ca2.setTime(today); // sets calendar time/date
-        ca2.add(Calendar.DATE, +2 );
-        Date dateBefore2Days = ca2.getTime();
-        String before2Days = dateFormat.format(dateBefore2Days);
+        if(arrayList != null && !arrayList.isEmpty()){
+            selectionArgs11 = arrayList.toArray(new String[arrayList.size()]);
+            selection_ = DataContract.DrugListEntry.COLUMN_MEMBER_L_ID + " IN (" + makePlaceholders(selectionArgs11.length) + ")";
+            selectionArgs_ = new String[selectionArgs11.length];
+            for (int i = 0; i < selectionArgs11.length; i++) {
+                selectionArgs_[i] = selectionArgs11[i];
+            }
+        }
 
-
-        Cursor c = getContentResolver().query(DataContract.DrugsEntry.CONTENT_URI, DRUG_COLUMNS,
-                "expiry_date IN(?,?)",
-                new String[]{before2Days , beforeMonthe}, null);
+       Cursor c = getContentResolver().query(DataContract.DrugListEntry.CONTENT_URI,
+                null,
+                selection_,
+                selectionArgs_,
+                DataContract.DrugListEntry._ID);
 
         if(c != null){
-            int d = c.getCount();
             if(c.moveToFirst()) {
                 while (!c.isAfterLast()) {
-                    drugEpiryName = c.getString(c.getColumnIndex("commercial_name"));
                     drugEpityId = c.getInt(c.getColumnIndex("_id"));
                     drugExpiryDate = c.getString(c.getColumnIndex("expiry_date"));
-                    DrugAlert2 drugAlert2 = new DrugAlert2(drugEpityId, drugEpiryName, drugExpiryDate);
+                    int x = c.getInt(c.getColumnIndex(DataContract.DrugListEntry.COLUMN_DRUG_L_ID));
+                    DrugAlert2 drugAlert2 = new DrugAlert2(drugEpityId, String.valueOf(x), drugExpiryDate);
                     drugsExList.add(drugAlert2);
                     c.moveToNext();
                 }
             }
+            c.close();
         }
         return drugsExList;
     }
 
-    private static final String[] DRUG_COLUMNS = {
-            DataContract.DrugsEntry._ID,
-            DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME,
-            DataContract.DrugsEntry.COLUMN_DRUG_COMMERCIAL_NAME_ARABIC,
-            DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME,
-            DataContract.DrugsEntry.COLUMN_DRUG_SCIENTIFIC_NAME_ARABIC,
-            DataContract.DrugsEntry.COLUMN_DRUG_INDICATION,
-            DataContract.DrugsEntry.COLUMN_DRUG_INDICATION_ARABIC,
-            DataContract.DrugsEntry.COLUMN_DRUG_CONCENTRATION,
-            DataContract.DrugsEntry.COLUMN_DRUG_TYPE,
-            DataContract.DrugsEntry.COLUMN_DRUG_TYPE_ARABIC,
-            DataContract.DrugsEntry.COLUMN_DRUG_WARNINGS,
-            DataContract.DrugsEntry.COLUMN_DRUG_WARNINGS_ARABIC,
-            DataContract.DrugsEntry.COLUMN_SIDE_EFFECTS,
-            DataContract.DrugsEntry.COLUMN_SIDE_EFFECTS_ARABIC,
-            DataContract.DrugsEntry.COLUMN_PREGNENT_ALLOWED,
-            DataContract.DrugsEntry.COLUMN_DRUG_DESCRIPTION,
-            DataContract.DrugsEntry.COLUMN_DRUG_DESCRIPTION_ARABIC,
-            DataContract.DrugsEntry.COLUMN_DRUG_BARCODE
-    };
+    public int checkLoggedUser() {
+        String [] selectionArgs_ = {"1"};
+        String selection_ = DataContract.UserEntry.COLUMN_IS_LOGGED + " =?";
+        cur1 = getContentResolver().query(DataContract.UserEntry.CONTENT_URI,
+                null,
+                selection_,
+                selectionArgs_,
+                null);
+        if (cur1.getCount() > 0) {
+            if (cur1.moveToNext()) {
+                userId = cur1.getInt(cur1.getColumnIndex(DataContract.UserEntry._ID));
+                return userId;
+            }
+        }
+        return 0;
+    }
+
+    public ArrayList<String> UserMember(){
+        int memId;
+        ArrayList<String> membersId = new ArrayList();
+        final String selection = DataContract.MemberEntry.COLUMN_USER_ID + " =?";
+        final String[] selectionArgs = {String.valueOf(userId)};
+
+        cur2 = getContentResolver().query(DataContract.MemberEntry.CONTENT_URI,
+                null,
+                selection,
+                selectionArgs,
+                null);
+        if(cur2 != null){
+            if(cur2.moveToFirst()){
+                while (!cur2.isAfterLast()) {
+                    memId = cur2.getInt(cur2.getColumnIndex(DataContract.MemberEntry._ID));
+                    if (memId != 0){
+                        membersId.add(String.valueOf(memId));
+                    }
+                    cur2.moveToNext();
+                }
+            }
+        }
+        return membersId;
+    }
+
+    public String makePlaceholders(int len) {
+        StringBuilder sb = new StringBuilder(len * 2 - 1);
+        sb.append("?");
+        for (int i = 1; i < len; i++)
+            sb.append(",?");
+        return sb.toString();
+    }
+
+
 }

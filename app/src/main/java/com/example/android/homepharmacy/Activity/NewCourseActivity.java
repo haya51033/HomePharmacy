@@ -31,6 +31,8 @@ import com.example.android.homepharmacy.Database.DB;
 import com.example.android.homepharmacy.Database.DataContract;
 import com.example.android.homepharmacy.R;
 import com.example.android.homepharmacy.Setting.SettingsActivity;
+import com.example.android.homepharmacy.broadcast_receivers.NotificationEventReceiver;
+import com.example.android.homepharmacy.broadcast_receivers.NotificationEventReceiver2;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -172,6 +174,10 @@ public class NewCourseActivity extends BaseActivity implements
                             et3.getText().toString());
 
                     Toast.makeText(getApplicationContext(),"Course Added Successfully! "  ,Toast.LENGTH_LONG).show();
+                    // Update Notifications:
+                    NotificationEventReceiver.setupAlarm(getApplicationContext());
+                    NotificationEventReceiver2.setupAlarm2(getApplicationContext());
+
                     Intent intent = new Intent(getApplicationContext(), MemberActivity.class)
                             .putExtra("memberId",memberId)
                             .putExtra("userId", userId)

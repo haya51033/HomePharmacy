@@ -279,16 +279,13 @@
                 android:text="@string/add"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                />
+                android:textSize="18sp" />
 
-        </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+       </RelativeLayout>
 
-    </LinearLayout>
-</ScrollView>
-
-
-    </RelativeLayout>
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"

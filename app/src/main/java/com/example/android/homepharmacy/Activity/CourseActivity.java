@@ -179,7 +179,7 @@ public class CourseActivity extends BaseActivity implements NavigationView.OnNav
             tv7 = (TextView) findViewById(R.id.tv_drug_description);
             tv7.setText(_DRUG_DOSE_DESCRIPTION);
             tv8 = (TextView) findViewById(R.id.tv_expiry_date);
-            tv8.setText(_DRUG_END_DATE);
+            tv8.setText(_DRUG_EXPIRY_DATE);
             tv9 = (TextView) findViewById(R.id.tv_drug_location);
             tv9.setText(_DRUG_LOCATION);
             Cursor cursor1 = getSingleMember();
